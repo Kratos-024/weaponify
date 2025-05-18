@@ -1,11 +1,16 @@
 import "./App.css";
+import { Features } from "./components/Features";
 import { Header } from "./components/Header";
+import SketchfabModelViewer from "./components/ModelViewer";
+import { WeaponGallery } from "./components/WeaponGallery";
 
 function App() {
   return (
     <div>
       <Header />
-      <h2 className=" bg-red-300">hello</h2>
+      <Features />
+      <SketchfabModelViewer />
+      <WeaponGallery />
     </div>
   );
 }

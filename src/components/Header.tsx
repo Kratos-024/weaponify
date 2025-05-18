@@ -1,5 +1,5 @@
+import HeroSection from "./HeroSection";
 import { NavBar } from "./NavBar";
-import { HeroSection } from "./HeroSection";
 
 export const Header = () => {
   return (
