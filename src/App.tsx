@@ -1,17 +1,18 @@
 import "./App.css";
-import { Features } from "./components/Features";
-import { Footer } from "./components/Footer";
-import { Header } from "./components/Header";
-import WeaponGallery from "./components/WeaponGallery";
 
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HomePage } from "./pages/HomePage";
+import { ShopPage } from "./pages/ShopPage";
 function App() {
   return (
-    <div>
-      <Header />
-      <Features />
-      <WeaponGallery />
-      <Footer />
-    </div>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />}></Route>
+          <Route path="/shop" element={<ShopPage />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
