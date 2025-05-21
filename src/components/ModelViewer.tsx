@@ -46,7 +46,6 @@ const SketchfabModelViewer = () => {
 
     hideSketchfabUI();
 
-    // Clean up
     return () => {
       if (iframeRef.current) {
         //@ts-ignore

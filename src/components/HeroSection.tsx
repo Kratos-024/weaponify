@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { NavBar2 } from "./NavBar2";
 import { motion } from "framer-motion";
 
-const heroImages = ["/public/cod-bg-gun.jpg", "/cod-bg-gun2.jpg"];
+const heroImages = ["/cod-bg-gun.jpg", "/cod-bg-gun2.jpg"];
 
 export default function HeroSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
