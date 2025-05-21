@@ -1,8 +1,9 @@
 import "./App.css";
 import { Features } from "./components/Features";
+import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import SketchfabModelViewer from "./components/ModelViewer";
-import { WeaponGallery } from "./components/WeaponGallery";
+import WeaponGallery from "./components/WeaponGallery";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Features />
       <SketchfabModelViewer />
       <WeaponGallery />
+      <Footer />
     </div>
   );
 }
