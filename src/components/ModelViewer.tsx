@@ -1,10 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const SketchfabModelViewer = () => {
   const iframeRef = useRef(null);
 
   useEffect(() => {
-    // Function to hide Sketchfab UI elements via CSS injection
     const hideSketchfabUI = () => {
       if (iframeRef.current) {
         const iframe = iframeRef.current;
