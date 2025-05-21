@@ -10,7 +10,6 @@ function App() {
     <div>
       <Header />
       <Features />
-      <SketchfabModelViewer />
       <WeaponGallery />
       <Footer />
     </div>
