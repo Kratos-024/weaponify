@@ -12,7 +12,3 @@ export const WeaponCircle = () => {
     </div>
   );
 };
-
-export const WeaponCard = () => {
-  return <div></div>;
-};

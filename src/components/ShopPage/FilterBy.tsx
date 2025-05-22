@@ -1,3 +1,5 @@
+import { IoIosOptions } from "react-icons/io";
+
 const weaponCategories = [
   { gunName: "Assault Rifles", quantity: 8 },
   { gunName: "Handguns", quantity: 7 },
@@ -80,14 +82,18 @@ const Category = ({ name, quantity }: { name?: string; quantity?: number }) => {
 export const FilterBy = () => {
   return (
     <div>
-      <h2 className="text-xl font-bold mb-4">Filter by</h2>
+      <div className="flex items-center gap-2 mb-3 ">
+        {" "}
+        <IoIosOptions className="w-[21px] h-[21px]" />
+        <p className="text-xl font-bold ">Filter by</p>
+      </div>
       <hr className="mb-4" />
       <div className="space-y-[64px]">
         {" "}
         <div>
           {" "}
           <h2 className="text-lg font-semibold">Categories</h2>
-          <ul className="space-y-2 mt-2">
+          <ul className="space-y-2 mt-2 whitespace-nowrap">
             {weaponCategories.map((cat) => (
               <Category
                 key={cat.gunName}
