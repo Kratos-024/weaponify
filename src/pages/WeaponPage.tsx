@@ -1,5 +1,5 @@
 import { NavBar } from "../components/ShopPage/NavBar";
-import { WeaponInfoHeader } from "../components/WeaponInfo/WeaponInfoHeader";
+import WeaponInfoHeader from "../components/WeaponInfo/WeaponInfoHeader";
 
 export const WeaponPage = () => {
   return (
