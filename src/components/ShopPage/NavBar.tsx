@@ -4,7 +4,7 @@ import { CiSearch } from "react-icons/ci";
 import { CiShoppingCart } from "react-icons/ci";
 import { IoIosOptions } from "react-icons/io";
 
-export const NavBar2 = () => {
+export const NavBar = () => {
   return (
     <nav className="relative z-10 px-3 bg-[#1C1C1C]">
       <div className="max-lg:hidden gradient-bg-blur"></div>
