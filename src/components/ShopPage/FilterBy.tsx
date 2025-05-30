@@ -69,17 +69,47 @@ const weaponFamilies = [
   },
 ];
 
-const Category = ({ name, quantity }: { name?: string; quantity?: number }) => {
+type CategoryProps = {
+  setFilterName: React.Dispatch<React.SetStateAction<string[]>>;
+  filterName: string[];
+  name?: string;
+  quantity?: number;
+};
+
+const Category = ({ setFilterName, name, quantity }: CategoryProps) => {
+  if (!name) return null;
+
   return (
     <li className="flex items-center gap-2">
-      <input type="checkbox" className="w-4 h-4 accent-[#FFADA9] rounded-sm" />
+      <input
+        onClick={() => {
+          setFilterName((prev) => {
+            const formattedName = name.toLowerCase().replace(/\s/g, "");
+            if (prev.includes(formattedName)) {
+              return prev.filter((n) => n !== formattedName);
+            } else {
+              return [...prev, formattedName];
+            }
+          });
+        }}
+        type="checkbox"
+        readOnly
+        className="w-4 h-4 accent-[#FFADA9] rounded-sm"
+      />
+
       <p>{name}</p>
       <span className="text-gray-500">({quantity})</span>
     </li>
   );
 };
 
-export const FilterBy = () => {
+export const FilterBy = ({
+  filterName,
+  setFilterName,
+}: {
+  filterName: string[];
+  setFilterName: React.Dispatch<React.SetStateAction<string[]>>;
+}) => {
   return (
     <div>
       <div className="flex items-center gap-2 mb-3 ">
@@ -96,9 +126,11 @@ export const FilterBy = () => {
           <ul className="space-y-2 mt-2 whitespace-nowrap">
             {weaponCategories.map((cat) => (
               <Category
+                setFilterName={setFilterName}
                 key={cat.gunName}
                 name={cat.gunName}
                 quantity={cat.quantity}
+                filterName={filterName}
               />
             ))}
           </ul>
@@ -108,9 +140,11 @@ export const FilterBy = () => {
           <ul className="space-y-2 mt-2">
             {weaponFamilies.map((cat) => (
               <Category
+                setFilterName={setFilterName}
                 key={cat.family}
                 name={cat.family}
                 quantity={cat.models.length}
+                filterName={filterName}
               />
             ))}
           </ul>

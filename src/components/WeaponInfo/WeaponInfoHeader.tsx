@@ -1,5 +1,5 @@
 import { useState } from "react";
-import SketchfabModelViewer from "../ModelViewer";
+import SketchfabModelViewer from "../HomePage/ModelViewer";
 import { WeaponDescLeft } from "./WeaponDesc";
 
 export default function WeaponInfoHeader() {

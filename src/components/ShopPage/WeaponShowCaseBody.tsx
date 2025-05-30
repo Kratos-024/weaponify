@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { CiStar } from "react-icons/ci";
+import type { Tank } from "../../pages/ShopPage";
+import { Link } from "react-router-dom";
 
 interface SketchfabModel {
   id: number;
@@ -38,11 +40,7 @@ function parseSketchfabEmbed(
     review,
   };
 }
-
-//@ts-ignore
-export const WeaponCard = ({ weapon }) => {
-  console.log(weapon);
-
+export const WeaponCard = ({ weapon }: { weapon: string }) => {
   const parsedWeapon = parseSketchfabEmbed(weapon, 1) || {
     id: "",
     title: "",
@@ -54,7 +52,6 @@ export const WeaponCard = ({ weapon }) => {
   const [thumbnail, setThumbnail] = useState("");
 
   useEffect(() => {
-    console.log(parsedWeapon);
     const modelUrl = parsedWeapon.embedUrl;
 
     fetch(`https://sketchfab.com/oembed?url=${modelUrl}`)
@@ -65,60 +62,66 @@ export const WeaponCard = ({ weapon }) => {
       .catch((err) => {
         console.error("Failed to fetch thumbnail", err);
       });
-  }, [weapon.embedUrl]);
+  }, [weapon]);
 
   return (
-    <div
-      className="rounded-t-md flex flex-col gap-9 items-center 
-       justify-center w-full 
-    pb-9 hover:shadow-[0_10px_30px_10px_rgba(255,77,169,0.3)]"
-    >
-      <a href={`moreInfo/${parsedWeapon.title}`}>
-        <div className="w-full ">
-          <a target="_blank" rel="noopener noreferrer">
-            {thumbnail ? (
-              <img
-                src={thumbnail}
-                alt={weapon.title}
-                className="rounded-xl max-md:h-[210px] rounded-b-none
-              "
-              />
-            ) : (
-              <div className="text-white p-4">Loading thumbnail...</div>
-            )}
-          </a>
+    <div className="rounded-t-md flex flex-col w-full h-full pb-9 hover:shadow-[0_10px_30px_10px_rgba(255,77,169,0.3)]">
+      <Link
+        to={`moreInfo/${parsedWeapon.title}`}
+        className="flex flex-col h-full"
+      >
+        <div className="w-full aspect-[4/3] overflow-hidden rounded-xl rounded-b-none bg-gray-100">
+          {thumbnail ? (
+            <img
+              src={thumbnail}
+              alt={parsedWeapon.title}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-white bg-gray-600">
+              Loading thumbnail...
+            </div>
+          )}
         </div>
-        <div className="flex flex-col items-center gap-3">
-          <p className="font-semibold whitespace-nowrap max-lg:text-[18px] text-[24px]">
-            {parsedWeapon.title}
-          </p>
-          <div></div>
-          <div className="flex ">
-            {Array.from({ length: parsedWeapon["review"] }).map((_, i) => (
-              <CiStar key={i} className="text-[]" />
-            ))}
+
+        {/* Content container with flex-grow to fill remaining space */}
+        <div className="flex flex-col items-center gap-3 flex-grow justify-between pt-4">
+          <div className="flex flex-col items-center gap-3">
+            <p className="font-semibold text-center max-lg:text-[18px] text-[24px] line-clamp-2">
+              {parsedWeapon.title}
+            </p>
+
+            <div className="flex">
+              {Array.from({ length: parsedWeapon["review"] }).map((_, i) => (
+                <CiStar key={i} className="text-yellow-400" />
+              ))}
+            </div>
           </div>
-          <span className="font-bold text-[24px] ">$90.00</span>
+
+          <span className="font-bold text-[24px] mt-auto">$90.00</span>
         </div>
-      </a>
+      </Link>
     </div>
   );
 };
+
 export const WeaponShowCaseBody = ({
-  weaponUrl,
+  weaponData,
 }: {
-  weaponUrl: { category: string; sketchFabUrl: string }[];
+  weaponData: Tank[][];
 }) => {
   return (
     <section className="py-[24px] ">
       <div>
         <div
-          className="w-full grid-cols-3 
+          className="w-full grid-cols-3  
         max-md:grid-cols-2  gap-5 max-xl:gap-2 grid "
         >
-          {weaponUrl.map((weapon) => (
-            <WeaponCard weapon={weapon["sketchFabUrl"]} />
-          ))}
+          {weaponData.map((subWeaponData) =>
+            subWeaponData.map((item) => (
+              <WeaponCard key={item.uniqueCode} weapon={item["sketchFabUrl"]} />
+            ))
+          )}
         </div>
       </div>
     </section>

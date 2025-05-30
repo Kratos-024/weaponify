@@ -6,7 +6,7 @@ import { IoOptionsSharp } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
 import { useState } from "react";
 
-export const NavBar = () => {
+export const TopBar = () => {
   const [options, setOptions] = useState<boolean>(false);
   const showOptions = () => {
     setOptions(!options);

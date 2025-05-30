@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { NavBar2 } from "./NavBar2";
 import { motion } from "framer-motion";
+import { NavBar } from "./NavBar";
 
 const heroImages = ["/cod-bg-gun.jpg", "/cod-bg-gun2.jpg"];
 
@@ -28,7 +28,7 @@ export default function HeroSection() {
         }}
       >
         <div className="hidden md:block max-w-[1960px] mx-auto min-w-[480px] pt-[14px]">
-          <NavBar2 />
+          <NavBar />
         </div>
 
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full px-4">

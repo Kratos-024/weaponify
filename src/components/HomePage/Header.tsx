@@ -1,12 +1,11 @@
 import HeroSection from "./HeroSection";
-import { NavBar } from "./NavBar";
+import { TopBar } from "./TopBar";
 
 export const Header = () => {
   return (
     <section className="w-full bg-[#17171A]">
       <div className="max-w-[1960px]  mx-auto min-w-[480px]">
-        {" "}
-        <NavBar />
+        <TopBar />
       </div>
       <div className="">
         <HeroSection />

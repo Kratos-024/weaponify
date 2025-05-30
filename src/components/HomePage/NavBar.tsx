@@ -3,7 +3,7 @@ import { LiaGlassWhiskeySolid } from "react-icons/lia";
 import { CiSearch } from "react-icons/ci";
 import { CiShoppingCart } from "react-icons/ci";
 
-export const NavBar2 = () => {
+export const NavBar = () => {
   return (
     <nav>
       <div className="flex items-center justify-between px-[12px] py-[16px]">

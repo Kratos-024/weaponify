@@ -1,22 +1,40 @@
 import { getDatabase, set, ref } from "firebase/database";
 import app from "../firebase/fireSdk";
-const addWeapon = (weaponUrl: string, weaponModel: string, _id: number) => {
+import {
+  assualtRefile,
+  tanks,
+  semiAutoMatic,
+  sniper,
+} from "../../public/weapons";
+const addWeapon = (
+  weaponUrl: string,
+  weaponModel: string,
+  _id: string,
+  sNo: number
+) => {
   try {
     const db = getDatabase(app);
 
     set(ref(db, `weaponUrl/${weaponModel}/${_id}`), {
       urlString: weaponUrl,
+      serialNumber: sNo,
+      category: weaponModel,
+      uniqueId: _id,
     });
   } catch (error) {
     console.log(error);
   }
 };
-//  assualtRefile.map((weaponUrl: string) => {
-//     try {
-//       addWeapon(weaponUrl, "Assualt Refile", _id);
-//       _id++;
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   });
-export default addWeapon;
+const arrayWeapon = [assualtRefile, tanks, semiAutoMatic, sniper];
+function addToDB() {
+  arrayWeapon.map((weaponObject) => {
+    weaponObject.map((item) => {
+      try {
+        addWeapon(item.sketchFabUrl, item.category, item.uniqueCode, item.sNo);
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  });
+}
+export default addToDB;
