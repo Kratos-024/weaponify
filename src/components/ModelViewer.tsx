@@ -56,8 +56,6 @@ const SketchfabModelViewer = () => {
   return (
     <div className="w-full lg:w-[800px] h-full bg-white p-1 text-white">
       <div className="w-full h-full relative overflow-hidden rounded-lg">
-        {/* <div className="absolute bottom-0 left-0 right-0  bg-gray-900 z-10"></div> */}
-
         <div className="sketchfab-embed-wrapper w-full h-full">
           <div className="sketchfab-embed-wrapper">
             {" "}

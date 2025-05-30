@@ -1,10 +1,14 @@
+import { useState } from "react";
 import { FilterBy } from "../components/ShopPage/FilterBy";
 import { NavBar } from "../components/ShopPage/NavBar";
 import { ShowingHeader } from "../components/ShopPage/ShowingHeader";
 import { WeaponHeader } from "../components/ShopPage/WeaponHeader";
 import { WeaponShowCaseBody } from "../components/ShopPage/WeaponShowCaseBody";
-
+import assualtRefile from "../../public/weapons";
 export const ShopPage = () => {
+  const [filterWeapon, setFilterWeapon] =
+    useState<{ category: string; sketchFabUrl: string }[]>(assualtRefile);
+
   return (
     <section>
       {" "}
@@ -21,7 +25,7 @@ export const ShopPage = () => {
           </div>
           <div>
             <ShowingHeader />
-            <WeaponShowCaseBody />
+            <WeaponShowCaseBody weaponUrl={filterWeapon} />
           </div>
         </div>
       </div>

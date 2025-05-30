@@ -5,7 +5,6 @@
     --shadow-glow-red: 0 0 36px rgba(255, 77, 169, 0.4);
   }
 }
-/* Add this CSS to your global styles or component-specific styles */
 .sketchfab-embed-wrapper {
   position: relative;
   width: 100%;
