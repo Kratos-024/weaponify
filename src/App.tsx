@@ -11,11 +11,13 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
           <Route path="/shop" element={<ShopPage />}></Route>
-          <Route path="/shop/weapon/info" element={<WeaponPage />}></Route>
+          <Route
+            path={`shop/weapon/:id/:name`}
+            element={<WeaponPage />}
+          ></Route>
         </Routes>
       </BrowserRouter>
     </>
   );
 }
-
 export default App;

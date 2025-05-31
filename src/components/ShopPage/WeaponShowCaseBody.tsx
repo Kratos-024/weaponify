@@ -4,21 +4,27 @@ import type { Tank } from "../../pages/ShopPage";
 import { Link } from "react-router-dom";
 
 interface SketchfabModel {
-  id: number;
+  id: string;
   title: string;
   author: string;
   description: string;
   embedUrl: string;
   review: number;
 }
+interface weaponObjectType {
+  sNo: number;
+  category: string;
+  uniqueCode: string;
+  sketchFabUrl: string;
+}
 
 function parseSketchfabEmbed(
-  htmlString: string,
-  id: number,
+  weaponObject: weaponObjectType,
   description = "Auto-generated description"
 ): SketchfabModel | null {
+  const sketchfabUri = weaponObject["sketchFabUrl"];
   const parser = new DOMParser();
-  const doc = parser.parseFromString(htmlString, "text/html");
+  const doc = parser.parseFromString(sketchfabUri, "text/html");
 
   const iframe = doc.querySelector("iframe");
   const title = iframe?.getAttribute("title") || "Untitled";
@@ -32,7 +38,7 @@ function parseSketchfabEmbed(
   const review = Math.floor(Math.random() * 5) + 1;
 
   return {
-    id,
+    id: weaponObject["uniqueCode"],
     title,
     author,
     description,
@@ -40,8 +46,8 @@ function parseSketchfabEmbed(
     review,
   };
 }
-export const WeaponCard = ({ weapon }: { weapon: string }) => {
-  const parsedWeapon = parseSketchfabEmbed(weapon, 1) || {
+export const WeaponCard = ({ weapon }: { weapon: any }) => {
+  const parsedWeapon = parseSketchfabEmbed(weapon) || {
     id: "",
     title: "",
     author: "",
@@ -67,7 +73,7 @@ export const WeaponCard = ({ weapon }: { weapon: string }) => {
   return (
     <div className="rounded-t-md flex flex-col w-full h-full pb-9 hover:shadow-[0_10px_30px_10px_rgba(255,77,169,0.3)]">
       <Link
-        to={`moreInfo/${parsedWeapon.title}`}
+        to={`/shop/weapon/${parsedWeapon.id}/${parsedWeapon.title}`}
         className="flex flex-col h-full"
       >
         <div className="w-full aspect-[4/3] overflow-hidden rounded-xl rounded-b-none bg-gray-100">
@@ -84,7 +90,6 @@ export const WeaponCard = ({ weapon }: { weapon: string }) => {
           )}
         </div>
 
-        {/* Content container with flex-grow to fill remaining space */}
         <div className="flex flex-col items-center gap-3 flex-grow justify-between pt-4">
           <div className="flex flex-col items-center gap-3">
             <p className="font-semibold text-center max-lg:text-[18px] text-[24px] line-clamp-2">
@@ -119,7 +124,7 @@ export const WeaponShowCaseBody = ({
         >
           {weaponData.map((subWeaponData) =>
             subWeaponData.map((item) => (
-              <WeaponCard key={item.uniqueCode} weapon={item["sketchFabUrl"]} />
+              <WeaponCard key={item.uniqueCode} weapon={item} />
             ))
           )}
         </div>
