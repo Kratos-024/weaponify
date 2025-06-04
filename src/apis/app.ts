@@ -10,7 +10,10 @@ import {
   meleWeapons,
   historicalWeapon,
 } from "../../public/weapons";
-import { type Weapon } from "../../public/types/weapon";
+import {
+  type ResponseWeaponData,
+  type Weapon,
+} from "../../public/types/weapon";
 
 const addWeapons = (
   weaponUrl: string,
@@ -53,18 +56,18 @@ function addArrayOfWeaponsToDB() {
   });
 }
 
-const addDataWeapon = async (weaponData: Weapon) => {
+const addDataWeapon = async (weaponData: ResponseWeaponData) => {
   try {
     const db = getDatabase(app);
-    const name = weaponData[0].name;
-    const id = weaponData[4].uniqueCode;
+    const name = weaponData["name"];
+    const id = weaponData["id"];
     const response = await set(ref(db, `weaponData/${name}/${id}`), {
-      sketchFabUrl: weaponData[4]["sketchFabUrl"],
+      sketchFabUrl: weaponData["sketchFabUrl"],
       id: id,
-      name: weaponData[0].name,
-      specsTech: weaponData[1].specsTech,
-      appearance: weaponData[2].appearance,
-      history: weaponData[3].history,
+      name: weaponData.name,
+      specsTech: weaponData.specsTech,
+      appearance: weaponData.appearance,
+      history: weaponData.history,
     });
     return response;
   } catch (error) {
@@ -87,7 +90,7 @@ const getEachWeapon = async (id: string, name: string) => {
   }
 };
 
-const addWeaponToDB = async (weapon: Weapon) => {
+const addWeaponToDB = async (weapon: ResponseWeaponData) => {
   try {
     const response = await addDataWeapon(weapon);
     console.log(response);
