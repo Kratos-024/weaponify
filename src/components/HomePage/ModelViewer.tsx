@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-const SketchfabModelViewer = () => {
+const SketchfabModelViewer = ({ sketchFabUrl }: { sketchFabUrl: string }) => {
   const iframeRef = useRef(null);
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const SketchfabModelViewer = () => {
                 frameBorder="0"
                 allowFullScreen
                 allow="autoplay; fullscreen; xr-spatial-tracking"
-                src="https://sketchfab.com/models/9bb8af8876a6478aa92089eff058d4db/embed"
+                src={`${sketchFabUrl}`}
                 style={{ width: "100%", height: "480px" }}
               ></iframe>
             </div>{" "}

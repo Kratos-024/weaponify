@@ -6,6 +6,7 @@ function createWeaponObjects(weapons: any[], category: any) {
 
   return weapons.map((weapon) => {
     // Parse HTML using jsdom
+    //@ts-ignore
     const dom = new JSDOM(weapon);
     const doc = dom.window.document;
     const anchor = doc.querySelector('a[href*="sketchfab.com/3d-models"]');

@@ -8,16 +8,16 @@ type SpecTech = {
     height: string;
   };
   armament?: {
-    mainGun: string;
-    secondary: string;
-    coaxial: string;
-    ammunitionCapacity: string;
+    mainGun?: string;
+    secondary?: string;
+    coaxial?: string;
+    ammunitionCapacity?: string;
   };
   performance?: {
-    engine: string;
-    maxSpeed: string;
-    range: string;
-    crew: string;
+    engine?: string;
+    maxSpeed?: string;
+    range?: string;
+    crew?: string;
   };
 };
 
@@ -43,3 +43,11 @@ export type Weapon = [
   { history: History[] },
   ThreeDModel
 ];
+export type ResponseWeaponData = {
+  name: string;
+  id: string;
+  specsTech: SpecTech[];
+  appearance: Appearance[];
+  history: History[];
+  sketchFabUrl: string;
+};

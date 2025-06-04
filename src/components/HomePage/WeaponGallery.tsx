@@ -53,8 +53,7 @@ const weapons = [
     author: "Admin",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae obcaecati illo optio",
-    embedUrl:
-      "https://sketchfab.com/models/9bb8af8876a6478aa92089eff058d4db/embed",
+    embedUrl: `<div class="sketchfab-embed-wrapper"> <iframe title="AK-47" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/ZMhWW9znpiBAhxDSomqX2kSSfg/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/ak-47-ZMhWW9znpiBAhxDSomqX2kSSfg?utm_medium=embed&utm_campaign=share-popup&utm_content=ZMhWW9znpiBAhxDSomqX2kSSfg" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> AK-47 </a> by <a href="https://sketchfab.com/millenia3d?utm_medium=embed&utm_campaign=share-popup&utm_content=ZMhWW9znpiBAhxDSomqX2kSSfg" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Azure Midsummer (millenia3d) </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=ZMhWW9znpiBAhxDSomqX2kSSfg" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`,
   },
   {
     id: 2,

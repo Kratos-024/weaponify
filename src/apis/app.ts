@@ -1,4 +1,4 @@
-import { getDatabase, set, ref } from "firebase/database";
+import { getDatabase, set, ref, get } from "firebase/database";
 import app from "../firebase/fireSdk";
 import {
   assualtRifles,
@@ -59,6 +59,7 @@ const addDataWeapon = async (weaponData: Weapon) => {
     const name = weaponData[0].name;
     const id = weaponData[4].uniqueCode;
     const response = await set(ref(db, `weaponData/${name}/${id}`), {
+      sketchFabUrl: weaponData[4]["sketchFabUrl"],
       id: id,
       name: weaponData[0].name,
       specsTech: weaponData[1].specsTech,
@@ -70,19 +71,17 @@ const addDataWeapon = async (weaponData: Weapon) => {
     console.log(error);
   }
 };
-const getEachWeapon = async (weaponData: Weapon) => {
+const getEachWeapon = async (id: string, name: string) => {
   try {
     const db = getDatabase(app);
-    const name = weaponData[0].name;
-    const id = weaponData[4].uniqueCode;
-    const response = await set(ref(db, `weaponData/${name}/${id}`), {
-      id: id,
-      name: weaponData[0].name,
-      specsTech: weaponData[1].specsTech,
-      appearance: weaponData[2].appearance,
-      history: weaponData[3].history,
-    });
-    return response;
+    const snapshot = await get(ref(db, `weaponData/${name}/${id}`));
+
+    if (snapshot.exists()) {
+      return snapshot.val();
+    } else {
+      console.log("No data available");
+      return null;
+    }
   } catch (error) {
     console.log(error);
   }
@@ -92,7 +91,9 @@ const addWeaponToDB = async (weapon: Weapon) => {
   try {
     const response = await addDataWeapon(weapon);
     console.log(response);
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-export { addArrayOfWeaponsToDB, addWeaponToDB };
+export { addArrayOfWeaponsToDB, addWeaponToDB, getEachWeapon };
