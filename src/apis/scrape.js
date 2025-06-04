@@ -1,191 +1,173 @@
-import puppeteer from "puppeteer";
+import { v4 as uuidv4 } from "uuid";
+import { JSDOM } from "jsdom";
 
-const t90TankGames = [
-  "Call of Duty: Modern Warfare 3",
-  "Call of Duty: Ghosts",
-  "Battlefield 2",
-  "Battlefield 3",
-  "Battlefield 4",
-  "Battlefield: Bad Company 2",
-  "Project Reality: BF2",
-  "Squad",
-  "Armored Warfare",
-  "Wargame: Red Dragon",
-  "Combat Mission: Shock Force – Marines",
-  "War Thunder",
-  "Metro: Last Light",
-  "Metro Exodus",
+function createWeaponObjects(weapons, category) {
+  let count = 0;
+
+  return weapons.map((weapon) => {
+    // Parse HTML using jsdom
+    const dom = new JSDOM(weapon);
+    const doc = dom.window.document;
+    const anchor = doc.querySelector('a[href*="sketchfab.com/3d-models"]');
+
+    const name = anchor?.textContent?.trim() ?? "Unknown";
+
+    return {
+      sNo: count++,
+      category,
+      name,
+      sketchFabUrl: weapon,
+      uniqueCode: uuidv4(),
+    };
+  });
+}
+
+var weaponAccessories = [
+  '<div class="sketchfab-embed-wrapper"> <iframe title="Rifle Scope" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/32f28df4d2774453b64d777fa91d13b2/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/rifle-scope-32f28df4d2774453b64d777fa91d13b2?utm_medium=embed&utm_campaign=share-popup&utm_content=32f28df4d2774453b64d777fa91d13b2" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Rifle Scope </a> by <a href="https://sketchfab.com/PolySquid_Studios?utm_medium=embed&utm_campaign=share-popup&utm_content=32f28df4d2774453b64d777fa91d13b2" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> PolySquid </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=32f28df4d2774453b64d777fa91d13b2" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>',
+  '<div class="sketchfab-embed-wrapper"> <iframe title="Red Dot Sight" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/d6b734f8f4fb41c781a8fa42ff95b11f/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/red-dot-sight-d6b734f8f4fb41c781a8fa42ff95b11f?utm_medium=embed&utm_campaign=share-popup&utm_content=d6b734f8f4fb41c781a8fa42ff95b11f" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Red Dot Sight </a> by <a href="https://sketchfab.com/ImaGeniusMan?utm_medium=embed&utm_campaign=share-popup&utm_content=d6b734f8f4fb41c781a8fa42ff95b11f" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Enzo Amanrich </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=d6b734f8f4fb41c781a8fa42ff95b11f" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>',
+  '<div class="sketchfab-embed-wrapper"> <iframe title="Rifle Laser Sight" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/55d74d7d4f6a4071af856d2ffc2c429a/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/rifle-laser-sight-55d74d7d4f6a4071af856d2ffc2c429a?utm_medium=embed&utm_campaign=share-popup&utm_content=55d74d7d4f6a4071af856d2ffc2c429a" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Rifle Laser Sight </a> by <a href="https://sketchfab.com/trolosqlfod?utm_medium=embed&utm_campaign=share-popup&utm_content=55d74d7d4f6a4071af856d2ffc2c429a" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> trolosqlfod </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=55d74d7d4f6a4071af856d2ffc2c429a" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>',
+  '<div class="sketchfab-embed-wrapper"> <iframe title="Tactical flashlight w/ rail mount" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/8dc65799245f4b24b423b313007231a9/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/tactical-flashlight-w-rail-mount-8dc65799245f4b24b423b313007231a9?utm_medium=embed&utm_campaign=share-popup&utm_content=8dc65799245f4b24b423b313007231a9" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Tactical flashlight w/ rail mount </a> by <a href="https://sketchfab.com/fernandocraft?utm_medium=embed&utm_campaign=share-popup&utm_content=8dc65799245f4b24b423b313007231a9" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> HELL </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=8dc65799245f4b24b423b313007231a9" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>',
+];
+weaponAccessories = [
+  {
+    sNo: 0,
+    category: "weaponAccessories",
+    name: "Rifle Scope",
+    sketchFabUrl:
+      '<div class="sketchfab-embed-wrapper"> <iframe title="Rifle Scope" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/32f28df4d2774453b64d777fa91d13b2/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/rifle-scope-32f28df4d2774453b64d777fa91d13b2?utm_medium=embed&utm_campaign=share-popup&utm_content=32f28df4d2774453b64d777fa91d13b2" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Rifle Scope </a> by <a href="https://sketchfab.com/PolySquid_Studios?utm_medium=embed&utm_campaign=share-popup&utm_content=32f28df4d2774453b64d777fa91d13b2" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> PolySquid </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=32f28df4d2774453b64d777fa91d13b2" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>',
+    uniqueCode: "72091ebc-0955-4835-9f3e-6b1cb195aa3c",
+  },
+  {
+    sNo: 1,
+    category: "weaponAccessories",
+    name: "Red Dot Sight",
+    sketchFabUrl:
+      '<div class="sketchfab-embed-wrapper"> <iframe title="Red Dot Sight" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/d6b734f8f4fb41c781a8fa42ff95b11f/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/red-dot-sight-d6b734f8f4fb41c781a8fa42ff95b11f?utm_medium=embed&utm_campaign=share-popup&utm_content=d6b734f8f4fb41c781a8fa42ff95b11f" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Red Dot Sight </a> by <a href="https://sketchfab.com/ImaGeniusMan?utm_medium=embed&utm_campaign=share-popup&utm_content=d6b734f8f4fb41c781a8fa42ff95b11f" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Enzo Amanrich </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=d6b734f8f4fb41c781a8fa42ff95b11f" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>',
+    uniqueCode: "47d75425-3978-464b-9082-2567232dd153",
+  },
+  {
+    sNo: 2,
+    category: "weaponAccessories",
+    name: "Rifle Laser Sight",
+    sketchFabUrl:
+      '<div class="sketchfab-embed-wrapper"> <iframe title="Rifle Laser Sight" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/55d74d7d4f6a4071af856d2ffc2c429a/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/rifle-laser-sight-55d74d7d4f6a4071af856d2ffc2c429a?utm_medium=embed&utm_campaign=share-popup&utm_content=55d74d7d4f6a4071af856d2ffc2c429a" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Rifle Laser Sight </a> by <a href="https://sketchfab.com/trolosqlfod?utm_medium=embed&utm_campaign=share-popup&utm_content=55d74d7d4f6a4071af856d2ffc2c429a" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> trolosqlfod </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=55d74d7d4f6a4071af856d2ffc2c429a" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>',
+    uniqueCode: "26167da7-9127-4102-b9e3-ff9d72a6ff86",
+  },
+  {
+    sNo: 3,
+    category: "weaponAccessories",
+    name: "Tactical flashlight w/ rail mount",
+    sketchFabUrl:
+      '<div class="sketchfab-embed-wrapper"> <iframe title="Tactical flashlight w/ rail mount" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/8dc65799245f4b24b423b313007231a9/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/tactical-flashlight-w-rail-mount-8dc65799245f4b24b423b313007231a9?utm_medium=embed&utm_campaign=share-popup&utm_content=8dc65799245f4b24b423b313007231a9" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Tactical flashlight w/ rail mount </a> by <a href="https://sketchfab.com/fernandocraft?utm_medium=embed&utm_campaign=share-popup&utm_content=8dc65799245f4b24b423b313007231a9" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> HELL </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=8dc65799245f4b24b423b313007231a9" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>',
+    uniqueCode: "976aaf4c-9a16-4a95-8dc6-5f6f46508978",
+  },
+];
+// var meleWeapons = [
+//   `<div class="sketchfab-embed-wrapper"> <iframe title="Dagger" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/9eb9bf4ab63e4b22bb2c846640a1145d/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/dagger-9eb9bf4ab63e4b22bb2c846640a1145d?utm_medium=embed&utm_campaign=share-popup&utm_content=9eb9bf4ab63e4b22bb2c846640a1145d" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Dagger </a> by <a href="https://sketchfab.com/drunkzealot?utm_medium=embed&utm_campaign=share-popup&utm_content=9eb9bf4ab63e4b22bb2c846640a1145d" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> drunkzealot </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=9eb9bf4ab63e4b22bb2c846640a1145d" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`,
+//   `<div class="sketchfab-embed-wrapper"> <iframe title="Old Axe" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/d0800a9ea4ce48bca8bd1d977989113b/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/old-axe-d0800a9ea4ce48bca8bd1d977989113b?utm_medium=embed&utm_campaign=share-popup&utm_content=d0800a9ea4ce48bca8bd1d977989113b" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Old Axe </a> by <a href="https://sketchfab.com/adjective.george?utm_medium=embed&utm_campaign=share-popup&utm_content=d0800a9ea4ce48bca8bd1d977989113b" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> George Hager </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=d0800a9ea4ce48bca8bd1d977989113b" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`,
+//   '<div class="sketchfab-embed-wrapper"> <iframe title="Mace" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/558c534b79d24a8d8d1bf51cc13e0d67/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/mace-558c534b79d24a8d8d1bf51cc13e0d67?utm_medium=embed&utm_campaign=share-popup&utm_content=558c534b79d24a8d8d1bf51cc13e0d67" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Mace </a> by <a href="https://sketchfab.com/FlukierJupiter?utm_medium=embed&utm_campaign=share-popup&utm_content=558c534b79d24a8d8d1bf51cc13e0d67" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> FlukierJupiter </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=558c534b79d24a8d8d1bf51cc13e0d67" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>',
+//   `'<div class="sketchfab-embed-wrapper"> <iframe title="spear" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/f13ddd24e2fe47aa8aca23487afd893e/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/spear-f13ddd24e2fe47aa8aca23487afd893e?utm_medium=embed&utm_campaign=share-popup&utm_content=f13ddd24e2fe47aa8aca23487afd893e" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> spear </a> by <a href="https://sketchfab.com/kifir?utm_medium=embed&utm_campaign=share-popup&utm_content=f13ddd24e2fe47aa8aca23487afd893e" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> KIFIR </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=f13ddd24e2fe47aa8aca23487afd893e" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`,
+//   `<div class="sketchfab-embed-wrapper"> <iframe title="Claymore" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/a7ad157c51e840428f81f0438686c235/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/claymore-a7ad157c51e840428f81f0438686c235?utm_medium=embed&utm_campaign=share-popup&utm_content=a7ad157c51e840428f81f0438686c235" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Claymore </a> by <a href="https://sketchfab.com/aren.boada?utm_medium=embed&utm_campaign=share-popup&utm_content=a7ad157c51e840428f81f0438686c235" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Aren Boada </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=a7ad157c51e840428f81f0438686c235" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`,
+//   `<div class="sketchfab-embed-wrapper"> <iframe title="Simple Flail" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/157342e5e1a2403ba8d986f67a322838/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/simple-flail-157342e5e1a2403ba8d986f67a322838?utm_medium=embed&utm_campaign=share-popup&utm_content=157342e5e1a2403ba8d986f67a322838" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Simple Flail </a> by <a href="https://sketchfab.com/Blender3D?utm_medium=embed&utm_campaign=share-popup&utm_content=157342e5e1a2403ba8d986f67a322838" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Blender3D </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=157342e5e1a2403ba8d986f67a322838" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`,
+// ];
+const meleWeapons = [
+  {
+    sNo: 0,
+    category: "meleWeapons",
+    name: "Dagger",
+    sketchFabUrl:
+      '<div class="sketchfab-embed-wrapper"> <iframe title="Dagger" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/9eb9bf4ab63e4b22bb2c846640a1145d/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/dagger-9eb9bf4ab63e4b22bb2c846640a1145d?utm_medium=embed&utm_campaign=share-popup&utm_content=9eb9bf4ab63e4b22bb2c846640a1145d" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Dagger </a> by <a href="https://sketchfab.com/drunkzealot?utm_medium=embed&utm_campaign=share-popup&utm_content=9eb9bf4ab63e4b22bb2c846640a1145d" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> drunkzealot </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=9eb9bf4ab63e4b22bb2c846640a1145d" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>',
+    uniqueCode: "636df1da-1639-4732-8ea5-8c4ad57d2c0d",
+  },
+  {
+    sNo: 1,
+    category: "meleWeapons",
+    name: "Old Axe",
+    sketchFabUrl:
+      '<div class="sketchfab-embed-wrapper"> <iframe title="Old Axe" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/d0800a9ea4ce48bca8bd1d977989113b/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/old-axe-d0800a9ea4ce48bca8bd1d977989113b?utm_medium=embed&utm_campaign=share-popup&utm_content=d0800a9ea4ce48bca8bd1d977989113b" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Old Axe </a> by <a href="https://sketchfab.com/adjective.george?utm_medium=embed&utm_campaign=share-popup&utm_content=d0800a9ea4ce48bca8bd1d977989113b" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> George Hager </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=d0800a9ea4ce48bca8bd1d977989113b" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>',
+    uniqueCode: "532e8a37-2a88-4ed9-8108-6e038c650bb1",
+  },
+  {
+    sNo: 2,
+    category: "meleWeapons",
+    name: "Mace",
+    sketchFabUrl:
+      '<div class="sketchfab-embed-wrapper"> <iframe title="Mace" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/558c534b79d24a8d8d1bf51cc13e0d67/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/mace-558c534b79d24a8d8d1bf51cc13e0d67?utm_medium=embed&utm_campaign=share-popup&utm_content=558c534b79d24a8d8d1bf51cc13e0d67" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Mace </a> by <a href="https://sketchfab.com/FlukierJupiter?utm_medium=embed&utm_campaign=share-popup&utm_content=558c534b79d24a8d8d1bf51cc13e0d67" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> FlukierJupiter </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=558c534b79d24a8d8d1bf51cc13e0d67" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>',
+    uniqueCode: "c02e0034-729a-4c18-92a8-d0c46ebf817d",
+  },
+  {
+    sNo: 3,
+    category: "meleWeapons",
+    name: "spear",
+    sketchFabUrl: `'<div class="sketchfab-embed-wrapper"> <iframe title="spear" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/f13ddd24e2fe47aa8aca23487afd893e/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/spear-f13ddd24e2fe47aa8aca23487afd893e?utm_medium=embed&utm_campaign=share-popup&utm_content=f13ddd24e2fe47aa8aca23487afd893e" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> spear </a> by <a href="https://sketchfab.com/kifir?utm_medium=embed&utm_campaign=share-popup&utm_content=f13ddd24e2fe47aa8aca23487afd893e" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> KIFIR </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=f13ddd24e2fe47aa8aca23487afd893e" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`,
+    uniqueCode: "881a51a2-317b-4631-aaba-d2b92c2d5a5e",
+  },
+  {
+    sNo: 4,
+    category: "meleWeapons",
+    name: "Claymore",
+    sketchFabUrl:
+      '<div class="sketchfab-embed-wrapper"> <iframe title="Claymore" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/a7ad157c51e840428f81f0438686c235/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/claymore-a7ad157c51e840428f81f0438686c235?utm_medium=embed&utm_campaign=share-popup&utm_content=a7ad157c51e840428f81f0438686c235" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Claymore </a> by <a href="https://sketchfab.com/aren.boada?utm_medium=embed&utm_campaign=share-popup&utm_content=a7ad157c51e840428f81f0438686c235" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Aren Boada </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=a7ad157c51e840428f81f0438686c235" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>',
+    uniqueCode: "7a5ffa56-c347-4fe3-93ee-04a19035a9bb",
+  },
+  {
+    sNo: 5,
+    category: "meleWeapons",
+    name: "Simple Flail",
+    sketchFabUrl:
+      '<div class="sketchfab-embed-wrapper"> <iframe title="Simple Flail" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/157342e5e1a2403ba8d986f67a322838/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/simple-flail-157342e5e1a2403ba8d986f67a322838?utm_medium=embed&utm_campaign=share-popup&utm_content=157342e5e1a2403ba8d986f67a322838" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Simple Flail </a> by <a href="https://sketchfab.com/Blender3D?utm_medium=embed&utm_campaign=share-popup&utm_content=157342e5e1a2403ba8d986f67a322838" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Blender3D </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=157342e5e1a2403ba8d986f67a322838" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>',
+    uniqueCode: "49a54850-7b02-450f-b6ab-65e34c099513",
+  },
 ];
 
-// Helper function to replace waitForTimeout
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-export const getTheAppearance = async () => {
-  let browser;
-
-  try {
-    const launchConfigs = [
-      {
-        headless: false,
-        executablePath:
-          "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
-        args: ["--no-sandbox", "--disable-setuid-sandbox"],
-      },
-      {
-        headless: false,
-        executablePath:
-          "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
-        args: ["--no-sandbox", "--disable-setuid-sandbox"],
-      },
-      {
-        headless: false,
-        args: [
-          "--no-sandbox",
-          "--disable-setuid-sandbox",
-          "--disable-dev-shm-usage",
-        ],
-      },
-      {
-        headless: true,
-        args: ["--no-sandbox", "--disable-setuid-sandbox"],
-      },
-    ];
-
-    let browserLaunched = false;
-    for (let i = 0; i < launchConfigs.length && !browserLaunched; i++) {
-      try {
-        console.log(`Trying launch config ${i + 1}...`);
-        browser = await puppeteer.launch(launchConfigs[i]);
-        browserLaunched = true;
-        console.log(`✓ Browser launched successfully with config ${i + 1}`);
-      } catch (error) {
-        console.log(`✗ Config ${i + 1} failed:`, error.message);
-        if (i === launchConfigs.length - 1) {
-          throw new Error("All browser launch configurations failed");
-        }
-      }
-    }
-
-    const imageUrls = [];
-
-    for (const game of t90TankGames) {
-      let page;
-
-      try {
-        console.log(`Starting search for: ${game}`);
-        page = await browser.newPage();
-
-        // Set longer timeout and better error handling
-        page.setDefaultTimeout(30000);
-        page.setDefaultNavigationTimeout(30000);
-
-        await page.goto("https://www.google.com/", {
-          waitUntil: "domcontentloaded",
-          timeout: 30000,
-        });
-
-        await delay(2000);
-        await page.waitForSelector("body"); // wait for some basic element first
-
-        const [searchInput] = await page.waitForSelector(`.gLFyf`);
-        await delay(20000);
-
-        if (!searchInput) {
-          throw new Error("Textarea element not found");
-        }
-
-        // You can then interact with searchInput as an ElementHandle:
-        await searchInput.click({ clickCount: 3 });
-
-        const searchQuery = `${game} T-90 tank screenshots`;
-        await searchInput.type(searchQuery, { delay: 100 });
-
-        //     await Promise.all([
-        //       page.waitForNavigation({
-        //         waitUntil: "domcontentloaded",
-        //         timeout: 30000,
-        //       }),
-        //       page.keyboard.press("Enter"),
-        //     ]);
-
-        //     // Wait for results to load - FIXED
-        //     await delay(3000);
-
-        //     // Click on Images tab
-        //     try {
-        //       await page.click('a[href*="tbm=isch"]');
-        //       await delay(2000);
-        //     } catch (e) {
-        //       console.log(`Could not click Images tab for ${game}`);
-        //     }
-
-        //     // Extract image URL
-        //     const imageUrl = await page.evaluate(() => {
-        //       // Try multiple selectors for images
-        //       const selectors = [
-        //         'img[data-src*="http"]',
-        //         'img[src*="googleusercontent"]',
-        //         'img[src*="gstatic"]',
-        //         ".rg_i img",
-        //         ".images_table img",
-        //         'img[src*="http"]',
-        //       ];
-
-        //       for (const selector of selectors) {
-        //         const imgs = document.querySelectorAll(selector);
-        //         for (const img of imgs) {
-        //           const src = img.src || img.dataset.src;
-        //           if (
-        //             src &&
-        //             src.startsWith("http") &&
-        //             !src.includes("logo") &&
-        //             !src.includes("icon")
-        //           ) {
-        //             return src;
-        //           }
-        //         }
-        //       }
-        //       return null;
-        //     });
-
-        //     imageUrls.push({ game, imageUrl });
-        //     console.log(`✓ ${game}: ${imageUrl || "No image found"}`);
-        //   } catch (error) {
-        //     console.error(`✗ Error for ${game}:`, error.message);
-        //     imageUrls.push({ game, imageUrl: null });
-        //   } finally {
-        //     // Safely close the page
-        //     if (page && !page.isClosed()) {
-        //       try {
-        //         await page.close();
-        //       } catch (closeError) {
-        //         console.log(
-        //           `Warning: Could not close page for ${game}:`,
-        //           closeError.message
-        //         );
-        //       }
-        //     }
-        //   }
-
-        //   // Add delay between requests to be respectful - FIXED
-        //   await delay(2000);
-        // }
-
-        // console.log("\n=== Final Results ===");
-        // imageUrls.forEach(({ game, imageUrl }) => {
-        //   console.log(`${game}: ${imageUrl || "NOT FOUND"}`);
-        // });
-
-        // return imageUrls;
-      } catch (error) {
-        console.error("Browser launch error:", error);
-        throw error;
-      }
-    }
-  } catch (error) {
-    console.error("Browser launch error:", error);
-    throw error;
-  }
-};
-
-getTheAppearance();
+// var tnt = [
+//   '<div class="sketchfab-embed-wrapper"> <iframe title="TNT Sack" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/6f36d2f147b64cff9ea9a493bbe6aa76/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/tnt-sack-6f36d2f147b64cff9ea9a493bbe6aa76?utm_medium=embed&utm_campaign=share-popup&utm_content=6f36d2f147b64cff9ea9a493bbe6aa76" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> TNT Sack </a> by <a href="https://sketchfab.com/warkarma?utm_medium=embed&utm_campaign=share-popup&utm_content=6f36d2f147b64cff9ea9a493bbe6aa76" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Warkarma </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=6f36d2f147b64cff9ea9a493bbe6aa76" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>',
+//   '<div class="sketchfab-embed-wrapper"> <iframe title="C4 Explosive" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/d2907e4741a446839f27d7ba3134ac53/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/c4-explosive-d2907e4741a446839f27d7ba3134ac53?utm_medium=embed&utm_campaign=share-popup&utm_content=d2907e4741a446839f27d7ba3134ac53" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> C4 Explosive </a> by <a href="https://sketchfab.com/dsv86?utm_medium=embed&utm_campaign=share-popup&utm_content=d2907e4741a446839f27d7ba3134ac53" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> dsv86 </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=d2907e4741a446839f27d7ba3134ac53" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>',
+//   `<div class="sketchfab-embed-wrapper"> <iframe title="Semtex Grenade" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/0f6cc585240b404f824e7eded91b7735/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/semtex-grenade-0f6cc585240b404f824e7eded91b7735?utm_medium=embed&utm_campaign=share-popup&utm_content=0f6cc585240b404f824e7eded91b7735" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Semtex Grenade </a> by <a href="https://sketchfab.com/DigitalARob?utm_medium=embed&utm_campaign=share-popup&utm_content=0f6cc585240b404f824e7eded91b7735" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> DigitalARob </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=0f6cc585240b404f824e7eded91b7735" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`,
+//   `<div class="sketchfab-embed-wrapper"> <iframe title="Nitroglycerin" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/22ef32af84574f6885a52952df69b827/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/nitroglycerin-22ef32af84574f6885a52952df69b827?utm_medium=embed&utm_campaign=share-popup&utm_content=22ef32af84574f6885a52952df69b827" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Nitroglycerin </a> by <a href="https://sketchfab.com/mw3dart?utm_medium=embed&utm_campaign=share-popup&utm_content=22ef32af84574f6885a52952df69b827" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> MW 3D </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=22ef32af84574f6885a52952df69b827" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`,
+//   `<div class="sketchfab-embed-wrapper"> <iframe title="Dynamite" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/7308cdc679c14e24880b8d05c2f22ffe/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/dynamite-7308cdc679c14e24880b8d05c2f22ffe?utm_medium=embed&utm_campaign=share-popup&utm_content=7308cdc679c14e24880b8d05c2f22ffe" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Dynamite </a> by <a href="https://sketchfab.com/MaX3Dd?utm_medium=embed&utm_campaign=share-popup&utm_content=7308cdc679c14e24880b8d05c2f22ffe" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> MaX3Dd </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=7308cdc679c14e24880b8d05c2f22ffe" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`,
+// ];
+const tnt = [
+  {
+    sNo: 0,
+    category: "tnt",
+    name: "TNT Sack",
+    sketchFabUrl:
+      '<div class="sketchfab-embed-wrapper"> <iframe title="TNT Sack" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/6f36d2f147b64cff9ea9a493bbe6aa76/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/tnt-sack-6f36d2f147b64cff9ea9a493bbe6aa76?utm_medium=embed&utm_campaign=share-popup&utm_content=6f36d2f147b64cff9ea9a493bbe6aa76" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> TNT Sack </a> by <a href="https://sketchfab.com/warkarma?utm_medium=embed&utm_campaign=share-popup&utm_content=6f36d2f147b64cff9ea9a493bbe6aa76" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Warkarma </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=6f36d2f147b64cff9ea9a493bbe6aa76" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>',
+    uniqueCode: "fdfba94d-65be-40e3-aeec-9fb76fd38c85",
+  },
+  {
+    sNo: 1,
+    category: "tnt",
+    name: "C4 Explosive",
+    sketchFabUrl:
+      '<div class="sketchfab-embed-wrapper"> <iframe title="C4 Explosive" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/d2907e4741a446839f27d7ba3134ac53/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/c4-explosive-d2907e4741a446839f27d7ba3134ac53?utm_medium=embed&utm_campaign=share-popup&utm_content=d2907e4741a446839f27d7ba3134ac53" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> C4 Explosive </a> by <a href="https://sketchfab.com/dsv86?utm_medium=embed&utm_campaign=share-popup&utm_content=d2907e4741a446839f27d7ba3134ac53" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> dsv86 </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=d2907e4741a446839f27d7ba3134ac53" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>',
+    uniqueCode: "5f966d1a-9080-4822-b2fb-845f96097b1b",
+  },
+  {
+    sNo: 2,
+    category: "tnt",
+    name: "Semtex Grenade",
+    sketchFabUrl:
+      '<div class="sketchfab-embed-wrapper"> <iframe title="Semtex Grenade" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/0f6cc585240b404f824e7eded91b7735/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/semtex-grenade-0f6cc585240b404f824e7eded91b7735?utm_medium=embed&utm_campaign=share-popup&utm_content=0f6cc585240b404f824e7eded91b7735" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Semtex Grenade </a> by <a href="https://sketchfab.com/DigitalARob?utm_medium=embed&utm_campaign=share-popup&utm_content=0f6cc585240b404f824e7eded91b7735" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> DigitalARob </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=0f6cc585240b404f824e7eded91b7735" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>',
+    uniqueCode: "fe779751-3fa5-400b-8eaa-2c0d86c68e1d",
+  },
+  {
+    sNo: 3,
+    category: "tnt",
+    name: "Nitroglycerin",
+    sketchFabUrl:
+      '<div class="sketchfab-embed-wrapper"> <iframe title="Nitroglycerin" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/22ef32af84574f6885a52952df69b827/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/nitroglycerin-22ef32af84574f6885a52952df69b827?utm_medium=embed&utm_campaign=share-popup&utm_content=22ef32af84574f6885a52952df69b827" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Nitroglycerin </a> by <a href="https://sketchfab.com/mw3dart?utm_medium=embed&utm_campaign=share-popup&utm_content=22ef32af84574f6885a52952df69b827" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> MW 3D </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=22ef32af84574f6885a52952df69b827" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>',
+    uniqueCode: "c19e6176-1df7-4223-bcad-3aea3d03a39a",
+  },
+  {
+    sNo: 4,
+    category: "tnt",
+    name: "Dynamite",
+    sketchFabUrl:
+      '<div class="sketchfab-embed-wrapper"> <iframe title="Dynamite" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/7308cdc679c14e24880b8d05c2f22ffe/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/dynamite-7308cdc679c14e24880b8d05c2f22ffe?utm_medium=embed&utm_campaign=share-popup&utm_content=7308cdc679c14e24880b8d05c2f22ffe" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Dynamite </a> by <a href="https://sketchfab.com/MaX3Dd?utm_medium=embed&utm_campaign=share-popup&utm_content=7308cdc679c14e24880b8d05c2f22ffe" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> MaX3Dd </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=7308cdc679c14e24880b8d05c2f22ffe" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>',
+    uniqueCode: "abdd47f0-3374-443f-82c5-7cda0d73015f",
+  },
+];
+tnt = createWeaponObjects(tnt, "tnt");
+console.log(tnt);

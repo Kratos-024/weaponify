@@ -1,10 +1,14 @@
 import { getDatabase, set, ref } from "firebase/database";
 import app from "../firebase/fireSdk";
 import {
-  tanks,
   assualtRifles,
+  tanks,
   semiAutoMatic,
   sniperRefiles,
+  weaponAccessories,
+  tnt,
+  meleWeapons,
+  historicalWeapon,
 } from "../../public/weapons";
 import { type Weapon } from "../../public/types/weapon";
 
@@ -27,7 +31,16 @@ const addWeapons = (
     console.log(error);
   }
 };
-const arrayWeapon = [sniperRefiles, tanks, semiAutoMatic, assualtRifles];
+const arrayWeapon = [
+  assualtRifles,
+  tanks,
+  semiAutoMatic,
+  sniperRefiles,
+  weaponAccessories,
+  tnt,
+  meleWeapons,
+  historicalWeapon,
+];
 function addArrayOfWeaponsToDB() {
   arrayWeapon.map((weaponObject) => {
     weaponObject.map((item) => {
@@ -40,7 +53,24 @@ function addArrayOfWeaponsToDB() {
   });
 }
 
-const addWeapon = async (weaponData: Weapon) => {
+const addDataWeapon = async (weaponData: Weapon) => {
+  try {
+    const db = getDatabase(app);
+    const name = weaponData[0].name;
+    const id = weaponData[4].uniqueCode;
+    const response = await set(ref(db, `weaponData/${name}/${id}`), {
+      id: id,
+      name: weaponData[0].name,
+      specsTech: weaponData[1].specsTech,
+      appearance: weaponData[2].appearance,
+      history: weaponData[3].history,
+    });
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+const getEachWeapon = async (weaponData: Weapon) => {
   try {
     const db = getDatabase(app);
     const name = weaponData[0].name;
@@ -60,8 +90,9 @@ const addWeapon = async (weaponData: Weapon) => {
 
 const addWeaponToDB = async (weapon: Weapon) => {
   try {
-    const response = await addWeapon(weapon);
+    const response = await addDataWeapon(weapon);
     console.log(response);
   } catch (error) {}
 };
+
 export { addArrayOfWeaponsToDB, addWeaponToDB };
