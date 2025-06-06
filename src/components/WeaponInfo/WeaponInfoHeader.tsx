@@ -109,7 +109,7 @@ export default function WeaponInfoHeader({
                 >
                   {appearances.map((appearance) => {
                     return (
-                      <div className="space-y-2">
+                      <div key={appearance.points+appearance.title} className="space-y-2">
                         <h3 className="text-[28px] font-semibold">
                           {appearance.title}
                         </h3>

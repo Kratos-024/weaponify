@@ -5,7 +5,7 @@ const weaponCategories = [
   { gunName: "Handguns", quantity: 7 },
   { gunName: "Sniper Rifles", quantity: 5 },
   { gunName: "Shotguns", quantity: 4 },
-  { gunName: "Submachine Guns", quantity: 6 },
+  { gunName: "TNT", quantity: 6 },
   { gunName: "Machine Guns", quantity: 3 },
   { gunName: "Tanks", quantity: 4 },
   { gunName: "Explosives & Grenades", quantity: 5 },

@@ -30,6 +30,13 @@ type History = {
   title: string;
   points: string[];
 };
+export type AiGenratedWeaponData = [
+{  name: string},
+{  specsTech: SpecTech[]},
+{  appearance: Appearance[]},
+{  history: History[]},
+{uniqueCode: string,
+sketchFabUrl: string}]
 
 type ThreeDModel = {
   uniqueCode: string;
@@ -43,6 +50,7 @@ export type Weapon = [
   { history: History[] },
   ThreeDModel
 ];
+
 export type ResponseWeaponData = {
   name: string;
   id: string;

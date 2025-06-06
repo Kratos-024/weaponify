@@ -62,14 +62,13 @@ const SketchfabModelViewer = ({ sketchFabUrl }: { sketchFabUrl: string }) => {
             <div>
               <iframe
                 title="T-90"
-                frameBorder="0"
-                allowFullScreen
+                
                 allow="autoplay; fullscreen; xr-spatial-tracking"
                 src={`${sketchFabUrl}`}
                 style={{ width: "100%", height: "480px" }}
               ></iframe>
-            </div>{" "}
-          </div>{" "}
+            </div>
+          </div>
         </div>
       </div>
     </div>

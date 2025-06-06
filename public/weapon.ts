@@ -1,5 +1,5 @@
 import OpenAI from "openai";
-import type { ResponseWeaponData } from "./types/weapon";
+import type { AiGenratedWeaponData, ResponseWeaponData } from "./types/weapon";
 
 const fakeSpecTech = [
   {
@@ -56,7 +56,7 @@ const openai = new OpenAI({
 
 async function GetTheWeaponData(
   sketchFabUrl: string,
-  imgUrls: string[],
+  name: string,
   uniqueCode: string
 ) {
   const completion = await openai.chat.completions.create({
@@ -65,117 +65,121 @@ async function GetTheWeaponData(
       {
         role: "user",
         content: `
-Generate only a valid JavaScript object structure that contains technical specifications, design details, history, and appearance of the HK416 weapon. 
+Generate only a valid JavaScript object structure that contains technical specifications, design details, history, and appearance of the {Weapon name i giving to you}. 
 **Return only code**, no explanation, no markdown, no extra text, no things like \`\`\`json or javascript as text.
 Use structured arrays/objects with fields like: name, specsTech, appearance, history, uniqueCode, and sketchFabUrl.
 
 Dont change the uniqueCode
-i added html in sketchFabUrl dont change that and i added img urls dont change that also:
-const ak47specsAndTech = [
-  {
-    title: "Development and Design",
-    points: [
-      "The AK-47 (Avtomat Kalashnikova 1947) was developed by Mikhail Kalashnikov in the Soviet Union after World War II to provide a reliable and simple automatic weapon for infantry.",
-      "Its design prioritizes ease of manufacturing, durability, and functionality in harsh conditions like mud, sand, and extreme weather.",
-      "Adopted by the Soviet military in 1949, the AK-47 set a new standard for assault rifles worldwide.",
-      "The weapon features a gas-operated, rotating bolt mechanism and is known for its ability to function with minimal maintenance.",
-      "Its design has influenced numerous derivatives, including the AKM, which became even more widespread globally.",
-    ],
-  },
-  {
-    dimensionsAndWeight: {
-      weight: "3.47 kg (without magazine)",
-      length: "870 mm (stock extended)",
-      width: "Not standardized",
-      height: "Not standardized",
-    },
-    armament: {
-      mainGun: "7.62×39mm cartridge",
-      firingModes: "Semi-automatic and fully automatic",
-      magazine: "30-round detachable box magazine",
-    },
-    performance: {
-      rateOfFire: "600 rounds/min",
-      effectiveRange: "350 m (point target), 800 m (area target)",
-      maxRange: "1000 m",
-      muzzleVelocity: "715 m/s",
-      crew: "1 (individual soldier)",
-    },
-  },
-];
+i added html in sketchFabUrl dont change that and i added Name dont change that also:
+ type SpecTech = {
+  title?: string;
+  points?: string[];
+  dimensionsAndWeight?: {
+    weight: string;
+    length: string;
+    width: string;
+    height: string;
+  };
+  armament?: {
+    mainGun?: string;
+    secondary?: string;
+    coaxial?: string;
+    ammunitionCapacity?: string;
+  };
+  performance?: {
+    engine?: string;
+    maxSpeed?: string;
+    range?: string;
+    crew?: string;
+  };
+};
 
-const ak47appearance = [
-  {
-    title: "Appearance in Popular Culture / Media",
-    points: [
-      "The AK-47 is featured in countless war films, action movies, and documentaries due to its historical significance and widespread use.",
-      "It is often symbolized as a weapon of revolution and resistance, appearing on flags, posters, and propaganda worldwide.",
-      "It has become an icon in global media as a symbol of conflict zones and guerrilla warfare.",
-      "The rifle's rugged silhouette is one of the most recognized firearm designs in history.",
-    ],
-  },
-  {
-    title: "Video Games Appearance",
-    points: [
-      ${imgUrls},
-    ],
-  },
-];
+type Appearance = {
+  title: string;
+  points: string[];
+};
 
-const ak47history = [
-  {
-    title: "Introduction",
-    points: [
-      "The AK-47 was introduced in the late 1940s as the Soviet Union sought to replace bolt-action rifles with more efficient automatic firearms.",
-      "It quickly gained prominence due to its simplicity, reliability, and effectiveness in a wide range of combat scenarios.",
-    ],
-  },
-  {
-    title: "Production and Deployment",
-    points: [
-      "Mass production of the AK-47 began in 1949, and it was adopted as the standard issue rifle for Soviet troops.",
-      "Over 100 million units (including variants) have been produced, making it the most widely used assault rifle in the world.",
-      "It has been used by more than 100 countries and numerous non-state actors across decades of global conflict.",
-    ],
-  },
-  {
-    title: "Combat History and Operational Use",
-    points: [
-      "First saw action during the early Cold War conflicts such as the Vietnam War, where it was used by North Vietnamese forces.",
-      "It became a staple weapon in African and Middle Eastern conflicts throughout the 20th and 21st centuries.",
-      "Its ruggedness and ease of use made it ideal for insurgents, militias, and national armies alike.",
-    ],
-  },
-  {
-    title: "Modern Upgrades and Current Status",
-    points: [
-      "Variants like the AKM and AK-103 have replaced the original AK-47 in most military applications.",
-      "Some versions now include accessory rails, improved materials, and enhanced ergonomics for modern warfare.",
-      "Despite newer designs, the AK-47 and its variants remain active in many global conflicts.",
-    ],
-  },
-  {
-    title: "Conclusion",
-    points: [
-      "The AK-47 is more than just a weapon—it's a global icon of armed struggle and resilience.",
-      "Its combination of durability, ease of use, and mass production has ensured its place in military history.",
-      "Whether in the hands of state armies or rebel groups, the AK-47 remains one of the most influential firearms ever made.",
-    ],
-  },
-];
+type History = {
+  title: string;
+  points: string[];
+};
+Give me final array which will be like this
+i want only this output nothing else
+[
+  {  name: ${name}},
+  {  specsTech: SpecTech[]},
+  {  appearance: Appearance[]},
+  {  history: History[]},
+  {uniqueCode: ${uniqueCode},
+  sketchFabUrl: ${sketchFabUrl}}]
+  
 
-const ak47: Weapon = [
-  { name: "AK-47" },
-  { specsTech: ak47specsAndTech },
-  { appearance: ak47appearance },
-  { history: ak47history },
+  for example like if you want to know how much data and how data should be there here is the exampel data 
+  [
   {
-    uniqueCode: ${uniqueCode},
-    sketchFabUrl:
-      ${sketchFabUrl},
+    "name": "AK-74"
   },
-];
-
+  {
+    "specsTech": [
+      {
+        "title": "Kalashnikov-derived",
+        "points": [
+          "Gas-operated",
+          "Bolt-action",
+          "Receives 7.62x39mm round which has been replaced by the 5.45x39mm in modern variants"
+        ],
+        "dimensionsAndWeight": {
+          "weight": "3.12 kg (empty)",
+          "length": "890 mm",
+          "width": "53 mm",
+          "height": "210 mm"
+        },
+        "armament": {
+          "mainGun": "7.62x39mm (originally) / 5.45x39mm (modern)",
+          "secondary": "None",
+          "coaxial": "None",
+          "ammunitionCapacity": "30 rounds"
+        },
+        "performance": {
+          "engine": "Recoil-operated",
+          "maxSpeed": "NA",
+          "range": "NA",
+          "crew": "1"
+        }
+      }
+    ]
+  },
+  {
+    "appearance": [
+      {
+        "title": "Appearance",
+        "points": [
+          "Stainless steel finish with black plastic furniture",
+          "Standard AK-74 features - long, rectangular stock with wooden handle grips",
+          "Magazine capacity: 30 rounds"
+        ]
+      }
+    ]
+  },
+  {
+    "history": [
+      {
+        "title": "Development History",
+        "points": [
+          "Designed by Mikhail Kalashnikov, introduced in 1974",
+          "Replaces AKM in Soviet service, based on the M43 design",
+          "Uses direct impingement gas system with a compensator",
+          "Named after the year of introduction"
+        ]
+      }
+    ]
+  },
+  {
+    "uniqueCode": "978a546f-8a86-4fe9-ba58-c7febf38a663",
+    "sketchFabUrl": "<div class=\"sketchfab-embed-wrapper\"><iframe title=\"AK-74\" frameborder=\"0\" allowfullscreen mozallowfullscreen=\"true\" webkitallowfullscreen=\"true\" allow=\"autoplay; fullscreen; xr-spatial-tracking\" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src=\"https://sketchfab.com/models/44c6581b852a4a03a0cd509be06f0dd8/embed\"></iframe><p style=\"font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;\">\n  <a href=\"https://sketchfab.com/3d-models/ak-74-44c6581b852a4a03a0cd509be06f0dd8?utm_medium=embed&utm_campaign=share-popup&utm_content=44c6581b852a4a03a0cd509be06f0dd8\" target=\"_blank\" rel=\"nofollow\" style=\"font-weight: bold; color: #1CAAD9;\"> AK-74 </a> by <a href=\"https://sketchfab.com/dimalukomo?utm_medium=embed&utm_campaign=share-popup&utm_content=44c6581b852a4a03a0cd509be06f0dd8\" target=\"_blank\" rel=\"nofollow\" style=\"font-weight: bold; color: #1CAAD9;\"> madridista_9248 </a> on <a href=\"https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=44c6581b852a4a03a0cd509be06f0dd8\" target=\"_blank\" rel=\"nofollow\" style=\"font-weight: bold; color: #1CAAD9;\">Sketchfab</a></p></div>"
+  }
+]
+  make sure that the output which will you generate will look like above
 `,
       },
     ],

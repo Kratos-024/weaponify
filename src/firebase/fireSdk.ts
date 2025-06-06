@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-
+import { getFirestore } from "firebase/firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyDCL4l5mtMBS1zXc7Fmx9ghpQLGO_UlvVY",
   authDomain: "weaponify.firebaseapp.com",
@@ -12,5 +12,5 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
-export default app;
+const db = getFirestore(app);
+export { db,app };

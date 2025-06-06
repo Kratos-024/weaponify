@@ -7,7 +7,7 @@ import {
   assualtRifles,
   tanks,
   semiAutoMatic,
-  sniperRefiles,
+  sniperRefiles,meleWeapons
 } from "../../public/weapons";
 export type Tank = {
   sNo: number;
@@ -22,11 +22,12 @@ export const ShopPage = () => {
   const [filterName, setFilterName] = useState<string[]>(["all"]);
   useEffect(() => {
     const weaponGroups: Record<string, Tank[]> = {
-      all: [...assualtRifles, ...tanks, ...semiAutoMatic, ...sniperRefiles],
+      all: [...assualtRifles, ...tanks, ...semiAutoMatic, ...sniperRefiles,...meleWeapons],
       assaultrifles: assualtRifles,
       tanks,
       semiautomatic: semiAutoMatic,
       sniperrifles: sniperRefiles,
+      meleWeapons:meleWeapons
     };
 
     if (filterName[filterName.length - 1] == "all") {
