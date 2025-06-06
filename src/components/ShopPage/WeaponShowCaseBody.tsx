@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 interface SketchfabModel {
   id: string;
-  title: string;
   author: string;
   description: string;
   embedUrl: string;
@@ -27,7 +26,6 @@ function parseSketchfabEmbed(
   const doc = parser.parseFromString(sketchfabUri, "text/html");
 
   const iframe = doc.querySelector("iframe");
-  const title = iframe?.getAttribute("title") || "Untitled";
   const embedSrc = iframe?.getAttribute("src") || "";
 
   const authorLink = doc.querySelectorAll("a")[1];
@@ -39,7 +37,6 @@ function parseSketchfabEmbed(
 
   return {
     id: weaponObject["uniqueCode"],
-    title,
     author,
     description,
     embedUrl: embedSrc.split("?")[0],
@@ -49,7 +46,6 @@ function parseSketchfabEmbed(
 export const WeaponCard = ({ weapon }: { weapon: any }) => {
   const parsedWeapon = parseSketchfabEmbed(weapon) || {
     id: "",
-    title: "",
     author: "",
     description: "",
     embedUrl: "",
@@ -73,14 +69,14 @@ export const WeaponCard = ({ weapon }: { weapon: any }) => {
   return (
     <div className="rounded-t-md flex flex-col w-full h-full pb-9 hover:shadow-[0_10px_30px_10px_rgba(255,77,169,0.3)]">
       <Link
-        to={`/shop/weapon/${parsedWeapon.id}/${parsedWeapon.title}`}
+        to={`/shop/weapon/${parsedWeapon.id}/${weapon.name}`}
         className="flex flex-col h-full"
       >
         <div className="w-full aspect-[4/3] overflow-hidden rounded-xl rounded-b-none bg-gray-100">
           {thumbnail ? (
             <img
               src={thumbnail}
-              alt={parsedWeapon.title}
+              alt={weapon.name}
               className="w-full h-full object-cover"
             />
           ) : (
@@ -93,7 +89,7 @@ export const WeaponCard = ({ weapon }: { weapon: any }) => {
         <div className="flex flex-col items-center gap-3 flex-grow justify-between pt-4">
           <div className="flex flex-col items-center gap-3">
             <p className="font-semibold text-center max-lg:text-[18px] text-[24px] line-clamp-2">
-              {parsedWeapon.title}
+              {weapon.name}
             </p>
 
             <div className="flex">

@@ -2,22 +2,28 @@ type SpecTech = {
   title?: string;
   points?: string[];
   dimensionsAndWeight?: {
-    weight: string;
-    length: string;
-    width: string;
-    height: string;
+    barrelLength?:string
+    weight?: string;
+    length?: string;
+    width?: string;
+    height?: string;
+    gauge?:string;
+    caliber?:string
+
   };
-  armament?: {
+  armament?: {capacity?:string;rateOfFire:string;effectiveRange:string
+;feedSystem:string;    action?:string
     mainGun?: string;
     secondary?: string;
     coaxial?: string;
-    ammunitionCapacity?: string;
+    ammunitionCapacity?: string;compatibleAmmunition?:string
   };
-  performance?: {
+  performance?: {effectiveRange?:string
     engine?: string;
     maxSpeed?: string;
     range?: string;
-    crew?: string;
+    crew?: string;  rateOfFire?:string
+    sights?: string,recoil?:string
   };
 };
 

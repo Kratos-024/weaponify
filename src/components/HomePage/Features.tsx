@@ -2,8 +2,8 @@ import "../../App.css";
 
 export const Features = () => {
   return (
-    <section className="bg-[#17171A] w-full h-screen ">
-      <div className="py-[126px] px-[48px]">
+    <section className="bg-[#17171A] w-full ">
+      <div className="py-[126px] px-[48px] pb-[196px]">
         <div className="grid max-md:grid-cols-1 max-lg:grid-cols-2 lg:grid-cols-4 justify-center items-center  gap-[96px]">
           <div className="flex  gap-4 flex-col items-center ">
             <div className=" bg- rounded-full p-4 shadow-glow-red">

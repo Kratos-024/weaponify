@@ -7,7 +7,12 @@ import {
   assualtRifles,
   tanks,
   semiAutoMatic,
-  sniperRefiles,meleWeapons
+  sniperRefiles,
+  meleeWeapons,
+  weaponAccessories,
+  historicalWeapon,
+  tnt,shotguns,handgun,machinegun,
+  
 } from "../../public/weapons";
 export type Tank = {
   sNo: number;
@@ -22,18 +27,25 @@ export const ShopPage = () => {
   const [filterName, setFilterName] = useState<string[]>(["all"]);
   useEffect(() => {
     const weaponGroups: Record<string, Tank[]> = {
-      all: [...assualtRifles, ...tanks, ...semiAutoMatic, ...sniperRefiles,...meleWeapons],
+      all: [...assualtRifles, ...tanks, ...semiAutoMatic, ...sniperRefiles,...meleeWeapons,...weaponAccessories,
+        ...historicalWeapon,...tnt,...shotguns,...handgun,...machinegun],
       assaultrifles: assualtRifles,
-      tanks,
+      tanks:tanks,
       semiautomatic: semiAutoMatic,
       sniperrifles: sniperRefiles,
-      meleWeapons:meleWeapons
+      meleeweapons:meleeWeapons,
+      weaponaccessories:weaponAccessories,
+      historicalweapons:historicalWeapon,
+      shotguns:shotguns,
+      handguns:handgun,
+      machinegun:machinegun,
+      tnt:tnt,
     };
-
     if (filterName[filterName.length - 1] == "all") {
       setFilterWeapon([weaponGroups["all"]]);
     } else {
       if (filterName.includes("all")) {
+
         setFilterName((prev) => prev.filter((name) => name !== "all"));
         return;
       }

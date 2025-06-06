@@ -6,7 +6,7 @@ import {
   sniperRefiles,
   weaponAccessories,
   tnt,
-  meleWeapons,
+  meleeWeapons,
   historicalWeapon,
 } from "../../public/weapons";
 import {
@@ -42,7 +42,7 @@ const arrayWeapon = [
   sniperRefiles,
   weaponAccessories,
   tnt,
-  meleWeapons,
+  meleeWeapons,
   historicalWeapon,
 ];
 function addArrayOfWeaponsToDB() {
@@ -57,24 +57,7 @@ function addArrayOfWeaponsToDB() {
   });
 }
 
-const addDataWeapon = async (weaponData: AiGenratedWeaponData) => {
-  try {
-    const db = getDatabase(app);
-    const name = weaponData[0]["name"];
-    const id = weaponData[4]["uniqueCode"];
-    const response = await set(ref(db, `weaponData/${name}/${id}`), {
-      sketchFabUrl: weaponData[4]["sketchFabUrl"],
-      id: id,
-      name: name,
-      specsTech: weaponData[1]['specsTech'],
-      appearance: weaponData[2].appearance,
-      history: weaponData[3].history,
-    });
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
-};
+
 const getEachWeapon = async (id: string, name: string) => {
   try {
     const db = getDatabase(app);
@@ -88,6 +71,27 @@ const getEachWeapon = async (id: string, name: string) => {
     }
   } catch (error) {
     console.log(error);
+  }
+};
+const addDataWeapon = async (weaponData: AiGenratedWeaponData) => {
+  try {
+    const db = getDatabase(app);
+    const name = weaponData[0].name;
+    const id = weaponData[4].uniqueCode;
+
+    await set(ref(db, `weaponData/${name}/${id}`), {
+      sketchFabUrl: weaponData[4].sketchFabUrl,
+      id,
+      name,
+      specsTech: weaponData[1].specsTech,
+      appearance: weaponData[2].appearance,
+      history: weaponData[3].history,
+    });
+    console.log(`Weapon data for ${name} saved successfully.`);
+    return true;
+  } catch (error) {
+    console.error("Error saving weapon data:", error);
+    throw error;  // re-throw to let caller handle it
   }
 };
 
@@ -1040,108 +1044,108 @@ const addWeaponToDB = async (weapon: AiGenratedWeaponData) => {
 //   }
 // ];
 
-export const fnScarHData: AiGenratedWeaponData = [
-  {
-    name: "Low-Poly FN SCAR-H"
-  },
-  {
-    specsTech: [
-      {
-        title: "Technical Specifications",
-        points: [
-          "The FN SCAR-H (Heavy) is a battle rifle developed by FN Herstal for the U.S. Special Operations Command (SOCOM).",
-          "Chambered in 7.62×51mm NATO (.308 Winchester) for greater stopping power and range.",
-          "Features a short-stroke gas piston system for improved reliability in harsh conditions.",
-          "Equipped with ambidextrous controls and adjustable buttstock.",
-          "Modular design supports various barrel lengths and attachments.",
-          "Low-poly model includes SF (Special Forces) inspired attachments like suppressors and optics."
-        ],
-        dimensionsAndWeight: {
-          weight: "3.6 – 4.0 kg (7.9 – 8.8 lbs) depending on configuration.",
-          length: "997 mm (39.3 in) with standard barrel.",
-          width: "Varies with attachments.",
-          height: "Depends on optics and stock configuration."
-        },
-        armament: {
-          mainGun: "7.62×51mm NATO automatic rifle.",
-          secondary: "None.",
-          coaxial: "N/A.",
-          ammunitionCapacity: "Standard 20-round detachable box magazine."
-        },
-        performance: {
-          engine: "Gas-operated, rotating bolt.",
-          maxSpeed: "N/A.",
-          range: "Effective range up to 800 meters.",
-          crew: "Operated by a single soldier; ideal for designated marksman roles."
-        }
-      }
-    ]
-  },
-  {
-    appearance: [
-      {
-        title: "Design and Features",
-        points: [
-          "Angular, modern tactical rifle profile with rails on all sides.",
-          "Low-poly model mimics real design with added fictional SF-style enhancements.",
-          "Flat dark earth and matte black colors are common themes.",
-          "Folding and telescoping stock with adjustable cheek rest.",
-          "Minimalistic polygon count for game-optimized performance."
-        ]
-      },
-      {
-        title: "Sights and Optics",
-        points: [
-          "Typically outfitted with reflex or ACOG-style optics in SF configuration.",
-          "Integrated backup iron sights (BUIS).",
-          "Custom optics setup in the low-poly version to reflect Special Forces usage."
-        ]
-      },
-      {
-        title: "Ergonomics and Handling",
-        points: [
-          "Ambidextrous safety, mag release, and charging handle.",
-          "Compact and modular for field adaptability.",
-          "Low recoil and solid weight balance improve user control.",
-          "Configured for versatile roles from CQB to long-range engagements."
-        ]
-      }
-    ]
-  },
-  {
-    history: [
-      {
-        title: "Development and Adoption",
-        points: [
-          "Developed in the mid-2000s by Belgian company FN Herstal.",
-          "Designed as part of the SCAR program for U.S. SOCOM.",
-          "SCAR-H was intended to replace older battle rifles like the M14.",
-          "Highly favored for reliability and adaptability in combat scenarios."
-        ]
-      },
-      {
-        title: "Variants and Use Cases",
-        points: [
-          "Variants include SCAR-H CQC (Close Quarters Combat) and SCAR-H SV (Sniper Variant).",
-          "Deployed by military and special forces globally.",
-          "Used in missions where greater firepower and range are required than 5.56mm rifles offer."
-        ]
-      },
-      {
-        title: "In Games and Media",
-        points: [
-          "Frequently appears in military-themed video games due to its distinct look and high-caliber profile.",
-          "Often depicted with custom optics and suppressors.",
-          "Symbolizes modern battle rifle power and modularity in pop culture."
-        ]
-      }
-    ]
-  },
-  {
-    uniqueCode: "678687c2-ecc0-4ddb-bfeb-86b09cfc2195",
-    sketchFabUrl: `<div class="sketchfab-embed-wrapper"> <iframe title="Low-Poly FN SCAR-H, SF inspired attachments" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/6687ac94f30d4d8abd0fb3df6924c650/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/low-poly-fn-scar-h-sf-inspired-attachments-6687ac94f30d4d8abd0fb3df6924c650?utm_medium=embed&utm_campaign=share-popup&utm_content=6687ac94f30d4d8abd0fb3df6924c650" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Low-Poly FN SCAR-H, SF inspired attachments </a> by <a href="https://sketchfab.com/notcplkerry?utm_medium=embed&utm_campaign=share-popup&utm_content=6687ac94f30d4d8abd0fb3df6924c650" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> notcplkerry </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=6687ac94f30d4d8abd0fb3df6924c650" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`
-  }
-];
+// export const fnScarHData: AiGenratedWeaponData = [
+//   {
+//     name: "Low-Poly FN SCAR-H"
+//   },
+//   {
+//     specsTech: [
+//       {
+//         title: "Technical Specifications",
+//         points: [
+//           "The FN SCAR-H (Heavy) is a battle rifle developed by FN Herstal for the U.S. Special Operations Command (SOCOM).",
+//           "Chambered in 7.62×51mm NATO (.308 Winchester) for greater stopping power and range.",
+//           "Features a short-stroke gas piston system for improved reliability in harsh conditions.",
+//           "Equipped with ambidextrous controls and adjustable buttstock.",
+//           "Modular design supports various barrel lengths and attachments.",
+//           "Low-poly model includes SF (Special Forces) inspired attachments like suppressors and optics."
+//         ],
+//         dimensionsAndWeight: {
+//           weight: "3.6 – 4.0 kg (7.9 – 8.8 lbs) depending on configuration.",
+//           length: "997 mm (39.3 in) with standard barrel.",
+//           width: "Varies with attachments.",
+//           height: "Depends on optics and stock configuration."
+//         },
+//         armament: {
+//           mainGun: "7.62×51mm NATO automatic rifle.",
+//           secondary: "None.",
+//           coaxial: "N/A.",
+//           ammunitionCapacity: "Standard 20-round detachable box magazine."
+//         },
+//         performance: {
+//           engine: "Gas-operated, rotating bolt.",
+//           maxSpeed: "N/A.",
+//           range: "Effective range up to 800 meters.",
+//           crew: "Operated by a single soldier; ideal for designated marksman roles."
+//         }
+//       }
+//     ]
+//   },
+//   {
+//     appearance: [
+//       {
+//         title: "Design and Features",
+//         points: [
+//           "Angular, modern tactical rifle profile with rails on all sides.",
+//           "Low-poly model mimics real design with added fictional SF-style enhancements.",
+//           "Flat dark earth and matte black colors are common themes.",
+//           "Folding and telescoping stock with adjustable cheek rest.",
+//           "Minimalistic polygon count for game-optimized performance."
+//         ]
+//       },
+//       {
+//         title: "Sights and Optics",
+//         points: [
+//           "Typically outfitted with reflex or ACOG-style optics in SF configuration.",
+//           "Integrated backup iron sights (BUIS).",
+//           "Custom optics setup in the low-poly version to reflect Special Forces usage."
+//         ]
+//       },
+//       {
+//         title: "Ergonomics and Handling",
+//         points: [
+//           "Ambidextrous safety, mag release, and charging handle.",
+//           "Compact and modular for field adaptability.",
+//           "Low recoil and solid weight balance improve user control.",
+//           "Configured for versatile roles from CQB to long-range engagements."
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     history: [
+//       {
+//         title: "Development and Adoption",
+//         points: [
+//           "Developed in the mid-2000s by Belgian company FN Herstal.",
+//           "Designed as part of the SCAR program for U.S. SOCOM.",
+//           "SCAR-H was intended to replace older battle rifles like the M14.",
+//           "Highly favored for reliability and adaptability in combat scenarios."
+//         ]
+//       },
+//       {
+//         title: "Variants and Use Cases",
+//         points: [
+//           "Variants include SCAR-H CQC (Close Quarters Combat) and SCAR-H SV (Sniper Variant).",
+//           "Deployed by military and special forces globally.",
+//           "Used in missions where greater firepower and range are required than 5.56mm rifles offer."
+//         ]
+//       },
+//       {
+//         title: "In Games and Media",
+//         points: [
+//           "Frequently appears in military-themed video games due to its distinct look and high-caliber profile.",
+//           "Often depicted with custom optics and suppressors.",
+//           "Symbolizes modern battle rifle power and modularity in pop culture."
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     uniqueCode: "678687c2-ecc0-4ddb-bfeb-86b09cfc2195",
+//     sketchFabUrl: `<div class="sketchfab-embed-wrapper"> <iframe title="Low-Poly FN SCAR-H, SF inspired attachments" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/6687ac94f30d4d8abd0fb3df6924c650/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/low-poly-fn-scar-h-sf-inspired-attachments-6687ac94f30d4d8abd0fb3df6924c650?utm_medium=embed&utm_campaign=share-popup&utm_content=6687ac94f30d4d8abd0fb3df6924c650" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Low-Poly FN SCAR-H, SF inspired attachments </a> by <a href="https://sketchfab.com/notcplkerry?utm_medium=embed&utm_campaign=share-popup&utm_content=6687ac94f30d4d8abd0fb3df6924c650" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> notcplkerry </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=6687ac94f30d4d8abd0fb3df6924c650" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`
+//   }
+// ];
 
 
 // export const m1AbramsData: AiGenratedWeaponData = [
@@ -1453,38 +1457,950 @@ export const fnScarHData: AiGenratedWeaponData = [
 //     sketchFabUrl: `<div class="sketchfab-embed-wrapper"> <iframe title="M60 Patton Tank (3D Scan)" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/a4760d3a61f0425c97353592e6cb3589/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/m60-patton-tank-3d-scan-a4760d3a61f0425c97353592e6cb3589?utm_medium=embed&utm_campaign=share-popup&utm_content=a4760d3a61f0425c97353592e6cb3589" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> M60 Patton Tank (3D Scan) </a> by <a href="https://sketchfab.com/kryik1023?utm_medium=embed&utm_campaign=share-popup&utm_content=a4760d3a61f0425c97353592e6cb3589" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Renafox </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=a4760d3a61f0425c97353592e6cb3589" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`
 //   }
 // ];
-export const t90Data: AiGenratedWeaponData = [
+// export const t90Data: AiGenratedWeaponData = [
+//   {
+//     name: "T-90"
+//   },
+//   {
+//     specsTech: [
+//       {
+//         title: "Technical Specifications",
+//         points: [
+//           "The T-90 is a modern Russian main battle tank developed from the T-72 platform.",
+//           "Armed with a 125 mm 2A46 smoothbore main gun with autoloader.",
+//           "Equipped with Kontakt-5 explosive reactive armor (ERA) and advanced composite armor.",
+//           "Features the Shtora-1 active protection system to counter guided missiles.",
+//           "Digital fire control system and thermal imaging sights for night operations."
+//         ],
+//         dimensionsAndWeight: {
+//           weight: "46.5 tons",
+//           length: "9.63 m (with gun forward)",
+//           width: "3.78 m",
+//           height: "2.22 m"
+//         },
+//         armament: {
+//           mainGun: "125 mm 2A46M smoothbore cannon",
+//           secondary: "1× 12.7 mm NSVT anti-aircraft machine gun",
+//           coaxial: "1× 7.62 mm PKT machine gun",
+//           ammunitionCapacity: "43 rounds (main gun), 300–600 rounds for machine guns"
+//         },
+//         performance: {
+//           engine: "V-92S2 12-cylinder diesel engine, 1000 hp",
+//           maxSpeed: "60 km/h",
+//           range: "550 km (with external tanks)",
+//           crew: "3 (commander, gunner, driver)"
+//         }
+//       }
+//     ]
+//   },
+//   {
+//     appearance: [
+//       {
+//         title: "Design and Features",
+//         points: [
+//           "Low profile turret with rounded frontal armor for reduced radar signature.",
+//           "Infrared dazzlers and laser detection system on front for active defense.",
+//           "Distinctive snorkel equipment allows for deep fording capabilities.",
+//           "Sloped glacis plate and side skirts for added protection.",
+//           "Compact hull and autoloader allow operation with only 3 crew members."
+//         ]
+//       },
+//       {
+//         title: "Sights and Optics",
+//         points: [
+//           "Equipped with thermal imaging and laser rangefinder.",
+//           "Fire control system integrates input from multiple optics.",
+//           "Commander's panoramic sight for target acquisition.",
+//           "Night vision available for both commander and gunner."
+//         ]
+//       },
+//       {
+//         title: "Mobility and Engineering",
+//         points: [
+//           "High power-to-weight ratio allows excellent off-road performance.",
+//           "Tracks designed for rough terrain and snow operations.",
+//           "NBC (nuclear, biological, chemical) protection suite included.",
+//           "Deep fording capability with preparation system for river crossings."
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     history: [
+//       {
+//         title: "Development and Use",
+//         points: [
+//           "Developed in the early 1990s by Uralvagonzavod as a successor to the T-80.",
+//           "Entered service with the Russian Army in 1993.",
+//           "Exported to countries like India (T-90S Bhishma), Algeria, and Vietnam.",
+//           "Variants include T-90A, T-90MS (modernized), and T-90M (Proryv-3)."
+//         ]
+//       },
+//       {
+//         title: "Combat Deployment",
+//         points: [
+//           "Deployed in Chechnya, Syria, and ongoing conflicts including Ukraine.",
+//           "T-90A and T-90M used in active combat with improved survivability.",
+//           "Export versions customized based on end-user requirements.",
+//           "Used in tank biathlon competitions to showcase capabilities."
+//         ]
+//       },
+//       {
+//         title: "Media and Pop Culture",
+//         points: [
+//           "Featured in military simulators and games like ArmA, War Thunder, and Call of Duty.",
+//           "Prominently displayed in Russian military parades.",
+//           "Often used as a symbol of modern Russian armored force."
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     uniqueCode: "c02f536f-17f8-4c7b-ac70-d0b605e4927f",
+//     sketchFabUrl: `<div class="sketchfab-embed-wrapper"> <iframe title="T-90" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/9bb8af8876a6478aa92089eff058d4db/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/t-90-9bb8af8876a6478aa92089eff058d4db?utm_medium=embed&utm_campaign=share-popup&utm_content=9bb8af8876a6478aa92089eff058d4db" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> T-90 </a> by <a href="https://sketchfab.com/alexxx_xarchenko?utm_medium=embed&utm_campaign=share-popup&utm_content=9bb8af8876a6478aa92089eff058d4db" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> alexxx_xarchenko </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=9bb8af8876a6478aa92089eff058d4db" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`
+//   }
+// ];
+
+
+// export const mossberg500ModelData: AiGenratedWeaponData = [
+//   {
+//     name: "Mossberg 500 - Model"
+//   },
+//   {
+//     specsTech: [
+//       {
+//         title: "Technical Specifications",
+//         points: [
+//           "Pump-action shotgun produced by O.F. Mossberg & Sons since 1961.",
+//           "Highly modular design with interchangeable barrels and accessories.",
+//           "Aluminum receiver and dual extractors for reliable cycling.",
+//           "Ambidextrous safety located on top of the receiver.",
+//           "Designed for military, law enforcement, hunting, and home defense use."
+//         ],
+//         dimensionsAndWeight: {
+//           weight: "3.0 – 3.5 kg (varies by model)",
+//           length: "101 – 120 cm",
+//           barrelLength: "47 – 76 cm options available",
+//           gauge: "12, 20, and .410 bore variants available"
+//         },
+//         armament: {
+//           action: "Pump-action",
+//           capacity: "5+1 to 8+1 rounds depending on tube and shell size",
+//           compatibleAmmunition: "2¾ inch, 3 inch shells"
+//         },
+//         performance: {
+//           effectiveRange: "30–50 meters",
+//           rateOfFire: "Manual pump-action; depends on user",
+//           sights: "Bead sight standard; tactical variants may include rails or ghost ring sights",
+//           recoil: "Moderate, varies with ammunition"
+//         }
+//       }
+//     ]
+//   },
+//   {
+//     appearance: [
+//       {
+//         title: "Design and Features",
+//         points: [
+//           "Traditional shotgun layout with synthetic or wooden stocks.",
+//           "Matte blued or parkerized finish for corrosion resistance.",
+//           "Modular platform allows for tactical upgrades and barrel swaps.",
+//           "Common tactical features include heat shields, extended magazine tubes, and Picatinny rails.",
+//           "Often configured for hunting, tactical, or marine applications."
+//         ]
+//       },
+//       {
+//         title: "Usage and Role",
+//         points: [
+//           "Extensively used by military and law enforcement worldwide.",
+//           "Popular in home defense setups due to reliability and simplicity.",
+//           "Hunting models optimized for upland birds, deer, and small game.",
+//           "Frequently used in training and sport shooting."
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     history: [
+//       {
+//         title: "Development and Adoption",
+//         points: [
+//           "Launched in 1961 by Mossberg as a competitor to Remington 870.",
+//           "Favored for its affordable price, reliability, and rugged construction.",
+//           "Adopted by U.S. military in variants like the 500A and 590A1.",
+//           "One of the few pump-action shotguns to pass U.S. military MIL-SPEC 3443E."
+//         ]
+//       },
+//       {
+//         title: "In Pop Culture",
+//         points: [
+//           "Widely featured in video games such as Call of Duty, Battlefield, and Resident Evil.",
+//           "Seen in films and TV shows as a standard pump-action shotgun archetype.",
+//           "Recognized for its distinct silhouette and customizable features."
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     uniqueCode: "a0219ea9-0c2f-44f4-a431-f38a22d3e725",
+//     sketchFabUrl: `<div class="sketchfab-embed-wrapper"> <iframe title="Mossberg 500 - Model" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/ccc8de8945434bfd89caeb63064d8d26/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/mossberg-500-model-ccc8de8945434bfd89caeb63064d8d26?utm_medium=embed&utm_campaign=share-popup&utm_content=ccc8de8945434bfd89caeb63064d8d26" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Mossberg 500 - Model </a> by <a href="https://sketchfab.com/davewatts?utm_medium=embed&utm_campaign=share-popup&utm_content=ccc8de8945434bfd89caeb63064d8d26" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Dave Watts </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=ccc8de8945434bfd89caeb63064d8d26" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`
+//   }
+// ];
+// export const winchesterModel1897Data: AiGenratedWeaponData = [
+//   {
+//     name: "Winchester Model 1897"
+//   },
+//   {
+//     specsTech: [
+//       {
+//         title: "Technical Specifications",
+//         points: [
+//           "Designed by John Browning and produced by Winchester Repeating Arms Company.",
+//           "One of the earliest successful pump-action shotguns.",
+//           "Exposed hammer and external tube magazine design.",
+//           "Notable for its slam-fire capability (firing by holding trigger and pumping).",
+//           "Used extensively in military service, hunting, and sporting applications."
+//         ],
+//         dimensionsAndWeight: {
+//           weight: "Around 3.6 kg",
+//           length: "100 – 130 cm depending on barrel length",
+//           barrelLength: "50 – 76 cm options",
+//           gauge: "12 and 16 gauge variants"
+//         },
+//         armament: {
+//           action: "Pump-action with exposed hammer",
+//           capacity: "5+1 rounds (tube magazine)",
+//           compatibleAmmunition: "12 or 16 gauge shells (2¾ inch)"
+//         },
+//         performance: {
+//           effectiveRange: "30–50 meters",
+//           rateOfFire: "Manual pump-action; fast with slam-fire",
+//           sights: "Bead front sight",
+//           recoil: "Moderate to heavy depending on load"
+//         }
+//       }
+//     ]
+//   },
+//   {
+//     appearance: [
+//       {
+//         title: "Design and Features",
+//         points: [
+//           "Classic exposed hammer design with wooden stock and foregrip.",
+//           "Steel receiver and blued finish typical of pre-WWII firearms.",
+//           "Slam-fire capability was advantageous in trench warfare.",
+//           "Often equipped with bayonet lug and heat shield in military versions.",
+//           "Solid and takedown frame options were produced."
+//         ]
+//       },
+//       {
+//         title: "Usage and Role",
+//         points: [
+//           "Widely used in WWI, WWII, and even Korea in trench warfare roles.",
+//           "Known as the 'Trench Gun' in U.S. military service.",
+//           "Popular among hunters, law enforcement, and sport shooters post-war.",
+//           "Highly collectible due to historic value and rugged design."
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     history: [
+//       {
+//         title: "Development and Adoption",
+//         points: [
+//           "Designed in 1897 by John Browning; produced until 1957.",
+//           "Adopted by U.S. Army during WWI for close combat effectiveness.",
+//           "Military versions included bayonet mounts and heat shields.",
+//           "Over one million units produced by the end of production."
+//         ]
+//       },
+//       {
+//         title: "In Pop Culture",
+//         points: [
+//           "Seen in many historical films and games such as Call of Duty and Battlefield.",
+//           "Recognized for its unique slam-fire capability in gameplay mechanics.",
+//           "Symbol of early 20th-century American firearms innovation."
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     uniqueCode: "07876444-7cfe-4b47-8b59-e6e53ee55e7e",
+//     sketchFabUrl: `<div class="sketchfab-embed-wrapper"> <iframe title="Winchester Model 1897" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/6194ecd23344442fb23f5820f895a0d8/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/winchester-model-1897-6194ecd23344442fb23f5820f895a0d8?utm_medium=embed&utm_campaign=share-popup&utm_content=6194ecd23344442fb23f5820f895a0d8" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Winchester Model 1897 </a> by <a href="https://sketchfab.com/buh-late?utm_medium=embed&utm_campaign=share-popup&utm_content=6194ecd23344442fb23f5820f895a0d8" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> buh </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=6194ecd23344442fb23f5820f895a0d8" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`
+//   }
+// ];
+// export const ithaca37Data: AiGenratedWeaponData = [
+//   {
+//     name: "Ithaca 37"
+//   },
+//   {
+//     specsTech: [
+//       {
+//         title: "Technical Specifications",
+//         points: [
+//           "Developed by Ithaca Gun Company based on John Browning’s design.",
+//           "Bottom-ejecting pump-action shotgun, ideal for both right and left-handed users.",
+//           "Known for reliability, simple design, and smooth action.",
+//           "Used in military, police, and civilian markets since the 1930s."
+//         ],
+//         dimensionsAndWeight: {
+//           weight: "Approx. 3.4 – 3.9 kg",
+//           length: "100 – 120 cm depending on configuration",
+//           barrelLength: "18.5 – 30 inches",
+//           gauge: "12, 16, 20, and 28 gauge variants"
+//         },
+//         armament: {
+//           action: "Pump-action, bottom-ejecting",
+//           capacity: "4+1 to 7+1 rounds (tube magazine)",
+//           compatibleAmmunition: "Standard 2¾ inch shells"
+//         },
+//         performance: {
+//           effectiveRange: "30 – 50 meters",
+//           rateOfFire: "Manually cycled; can be slam-fired in older models",
+//           sights: "Bead or ghost ring front sight depending on model",
+//           recoil: "Moderate"
+//         }
+//       }
+//     ]
+//   },
+//   {
+//     appearance: [
+//       {
+//         title: "Design and Features",
+//         points: [
+//           "Distinctive bottom-loading and bottom-ejecting mechanism.",
+//           "Steel receiver with wooden stock and fore-end (in classic models).",
+//           "Modern variants include synthetic stocks for tactical or hunting roles.",
+//           "Minimal snagging parts makes it ideal for home defense or combat use."
+//         ]
+//       },
+//       {
+//         title: "Usage and Role",
+//         points: [
+//           "Used by U.S. military from WWII through Vietnam era.",
+//           "Popular with law enforcement agencies across the U.S.",
+//           "Favored by sportsmen for hunting birds and small game.",
+//           "Still produced today due to high demand and classic reliability."
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     history: [
+//       {
+//         title: "Development and Adoption",
+//         points: [
+//           "Introduced in 1937 as the successor to the Remington Model 17.",
+//           "Based on a John Browning patent, refined by Ithaca’s engineers.",
+//           "Military 'riot' versions saw combat during major 20th-century conflicts.",
+//           "Still in production with Ithaca Gun Company and other licensed makers."
+//         ]
+//       },
+//       {
+//         title: "In Pop Culture",
+//         points: [
+//           "Appeared in many action and war films, including 'The Matrix' and 'Heat'.",
+//           "Recognizable for its smooth lines and bottom-ejection port.",
+//           "Used in video games like Call of Duty and Resident Evil."
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     uniqueCode: "62a0cf17-8f36-4c20-bab4-8e32dd238700",
+//     sketchFabUrl: `<div class="sketchfab-embed-wrapper"> <iframe title="Ithaca 37" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/6aa11fdd57ee4e2bbd51b9b648c8f71c/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/ithaca-37-6aa11fdd57ee4e2bbd51b9b648c8f71c?utm_medium=embed&utm_campaign=share-popup&utm_content=6aa11fdd57ee4e2bbd51b9b648c8f71c" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Ithaca 37 </a> by <a href="https://sketchfab.com/ulfen?utm_medium=embed&utm_campaign=share-popup&utm_content=6aa11fdd57ee4e2bbd51b9b648c8f71c" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Ulfen </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=6aa11fdd57ee4e2bbd51b9b648c8f71c" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`
+//   }
+// ];
+
+
+
+// export const remington870ShotgunData: AiGenratedWeaponData = [
+//   {
+//     name: "Remington 870 Shotgun"
+//   },
+//   {
+//     specsTech: [
+//       {
+//         title: "Technical Specifications",
+//         points: [
+//           "Pump-action shotgun widely used for hunting, sport shooting, and law enforcement.",
+//           "Introduced by Remington Arms in 1950 and remains in production today.",
+//           "Renowned for its reliability, versatility, and rugged construction.",
+//           "Receiver is milled from a solid billet of steel for strength.",
+//           "Modular platform with various barrel lengths, stocks, and finishes."
+//         ],
+//         dimensionsAndWeight: {
+//           weight: "3.2–3.6 kg (depending on model)",
+//           length: "100–110 cm (varies by barrel length)",
+//           barrelLength: "46–76 cm options available",
+//           gauge: "12-gauge, also available in 16, 20, 28 gauge, and .410 bore"
+//         },
+//         armament: {
+//           action: "Pump-action (manually operated slide)",
+//           capacity: "4+1 to 7+1 rounds (depending on magazine and shell size)",
+//           compatibleAmmunition: "2¾ inch, 3 inch, and 3½ inch shells (12-gauge variant)"
+//         },
+//         performance: {
+//           effectiveRange: "30–50 meters (slug effective range up to 100 m)",
+//           rateOfFire: "Manually operated; depends on user speed",
+//           sights: "Bead sight (standard), some variants include ghost ring or optics rail",
+//           recoil: "Moderate to high depending on shell type"
+//         }
+//       }
+//     ]
+//   },
+//   {
+//     appearance: [
+//       {
+//         title: "Design and Features",
+//         points: [
+//           "Traditional wooden or synthetic stock options.",
+//           "Tubular magazine located beneath the barrel.",
+//           "Robust and simple construction with very few moving parts.",
+//           "Available in various finishes including matte black, polished steel, and camouflage.",
+//           "Optional features include extended magazines, tactical lights, and breacher muzzles."
+//         ]
+//       },
+//       {
+//         title: "Use and Modularity",
+//         points: [
+//           "Highly modular—supports a wide range of aftermarket accessories.",
+//           "Used for home defense, sport, police, and military use.",
+//           "Short-barrel tactical versions popular among SWAT and military units.",
+//           "Hunting variants feature longer barrels and chokes for improved accuracy."
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     history: [
+//       {
+//         title: "Development and Usage",
+//         points: [
+//           "Developed in the late 1940s and launched in 1950 by Remington Arms.",
+//           "Over 11 million units produced, making it one of the best-selling shotguns in history.",
+//           "Used globally in civilian, law enforcement, and military contexts.",
+//           "Still manufactured in multiple variants including 870 Express, Wingmaster, and Tactical."
+//         ]
+//       },
+//       {
+//         title: "Media and Pop Culture",
+//         points: [
+//           "Iconic presence in video games like Call of Duty, Rainbow Six, and Resident Evil.",
+//           "Appears in numerous films and TV shows as a reliable shotgun archetype.",
+//           "Recognized for its distinctive pump-action sound and rugged profile."
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     uniqueCode: "a743af23-67de-44eb-b18d-816c9477c121",
+//     sketchFabUrl: `<div class="sketchfab-embed-wrapper"> <iframe title="Remington 870 Shotgun" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/6db0ad4764d14eee8f063eea3600071b/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/remington-870-shotgun-6db0ad4764d14eee8f063eea3600071b?utm_medium=embed&utm_campaign=share-popup&utm_content=6db0ad4764d14eee8f063eea3600071b" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Remington 870 Shotgun </a> by <a href="https://sketchfab.com/milinam2002?utm_medium=embed&utm_campaign=share-popup&utm_content=6db0ad4764d14eee8f063eea3600071b" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Andrei Milin </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=6db0ad4764d14eee8f063eea3600071b" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`
+//   }
+// ];
+// export const glock19Data: AiGenratedWeaponData = [
+//   {
+//     name: "Glock 19"
+//   },
+//   {
+//     specsTech: [
+//       {
+//         title: "Technical Specifications",
+//         points: [
+//           "Compact semi-automatic pistol manufactured by Glock Ges.m.b.H (Austria).",
+//           "Widely used by military, law enforcement, and civilian shooters.",
+//           "Polymer frame with a short-recoil operated, locked-breech system.",
+//           "Black skin variant is a common tactical finish."
+//         ],
+//         dimensionsAndWeight: {
+//           weight: "Approx. 670 g (unloaded)",
+//           length: "187 mm",
+//           barrelLength: "102 mm",
+//           caliber: "9×19mm Parabellum"
+//         },
+//         armament: {
+//           action: "Short recoil, locked-breech",
+//           capacity: "15+1 rounds (standard), extended mags available",
+//           compatibleAmmunition: "9mm Luger (9×19mm)"
+//         },
+//         performance: {
+//           effectiveRange: "50 meters",
+//           rateOfFire: "Semi-automatic",
+//           sights: "Fixed iron sights or optional tritium night sights",
+//           recoil: "Mild to moderate"
+//         }
+//       }
+//     ]
+//   },
+//   {
+//     appearance: [
+//       {
+//         title: "Design and Features",
+//         points: [
+//           "Black polymer frame and slide finish enhance tactical concealment.",
+//           "Textured grip with finger grooves for improved control.",
+//           "Integrated accessory rail for lights or lasers.",
+//           "Compact size makes it ideal for concealed carry and duty use."
+//         ]
+//       },
+//       {
+//         title: "Usage and Role",
+//         points: [
+//           "Favored by military, law enforcement, and special forces worldwide.",
+//           "Commonly used in civilian markets for personal defense and sport shooting.",
+//           "Easy maintenance and high reliability in harsh conditions.",
+//           "Known for its 'Safe Action' trigger system preventing accidental discharge."
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     history: [
+//       {
+//         title: "Development and Adoption",
+//         points: [
+//           "Introduced in the late 1980s as a compact alternative to Glock 17.",
+//           "Quickly gained popularity due to its balance of size, weight, and firepower.",
+//           "Adopted by various agencies including FBI, NYPD, and many others.",
+//           "Glock's reputation for simplicity and durability contributed to its success."
+//         ]
+//       },
+//       {
+//         title: "In Pop Culture",
+//         points: [
+//           "Frequently seen in action films and TV shows due to real-world usage.",
+//           "Common in video games like Call of Duty, PUBG, and Rainbow Six Siege.",
+//           "Often portrayed as a reliable sidearm for law enforcement or protagonists."
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     uniqueCode: "7692308c-1c6d-4e9b-ac00-c36bb0a19913",
+//     sketchFabUrl: `<div class="sketchfab-embed-wrapper"> <iframe title="Glock 19 / Black Skin" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/5d20a74409424edfb5d15c94700914bf/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/glock-19-black-skin-5d20a74409424edfb5d15c94700914bf?utm_medium=embed&utm_campaign=share-popup&utm_content=5d20a74409424edfb5d15c94700914bf" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Glock 19 / Black Skin </a> by <a href="https://sketchfab.com/Archivz?utm_medium=embed&utm_campaign=share-popup&utm_content=5d20a74409424edfb5d15c94700914bf" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> ArchViz </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=5d20a74409424edfb5d15c94700914bf" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`
+//   }
+// ];
+// export const sigSauerP226Data: AiGenratedWeaponData = [
+//   {
+//     name: "Sig Sauer P226"
+//   },
+//   {
+//     specsTech: [
+//       {
+//         title: "Technical Specifications",
+//         points: [
+//           "Full-sized, service-type pistol designed by SIG Sauer.",
+//           "Widely used by military and law enforcement forces worldwide.",
+//           "Renowned for accuracy, durability, and reliability.",
+//           "Double-action/single-action trigger mechanism with decocking lever."
+//         ],
+//         dimensionsAndWeight: {
+//           weight: "Approx. 964 g (unloaded)",
+//           length: "196 mm",
+//           barrelLength: "112 mm",
+//           caliber: "9×19mm Parabellum (also available in .40 S&W, .357 SIG, .22 LR)"
+//         },
+//         armament: {
+//           action: "Short recoil, locked breech",
+//           capacity: "15+1 rounds (9mm standard magazine)",
+//           compatibleAmmunition: "9mm Luger / .40 S&W / .357 SIG"
+//         },
+//         performance: {
+//           effectiveRange: "Up to 50 meters",
+//           rateOfFire: "Semi-automatic",
+//           sights: "Fixed contrast sights or SIGLITE night sights",
+//           recoil: "Moderate"
+//         }
+//       }
+//     ]
+//   },
+//   {
+//     appearance: [
+//       {
+//         title: "Design and Features",
+//         points: [
+//           "Metal frame with ergonomic grip and balanced weight distribution.",
+//           "External decocker allows safe lowering of the hammer.",
+//           "Picatinny rail for tactical accessories on newer models.",
+//           "Classic and professional black finish commonly used by armed forces."
+//         ]
+//       },
+//       {
+//         title: "Usage and Role",
+//         points: [
+//           "Adopted by U.S. Navy SEALs, British Armed Forces, and other elite units.",
+//           "Popular in law enforcement and security due to reliability.",
+//           "Used in both combat and civilian self-defense contexts.",
+//           "Preferred in competitions for its consistent accuracy."
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     history: [
+//       {
+//         title: "Development and Adoption",
+//         points: [
+//           "Developed in the 1980s as SIG Sauer's entry into the U.S. military trials.",
+//           "Though not selected for the M9 contract, became highly respected worldwide.",
+//           "Served with distinction in multiple global conflicts and tactical operations.",
+//           "Upgraded versions like the P226R and P226 MK25 introduced over time."
+//         ]
+//       },
+//       {
+//         title: "In Pop Culture",
+//         points: [
+//           "Featured in movies like ‘Lethal Weapon’, ‘John Wick’, and ‘Skyfall’.",
+//           "Appears in games like Rainbow Six Siege, Counter-Strike, and Battlefield.",
+//           "Seen as a symbol of elite operatives due to real-world adoption."
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     uniqueCode: "9d88e296-c0b9-468c-8e57-0d49317b9fdd",
+//     sketchFabUrl: `<div class="sketchfab-embed-wrapper"> <iframe title="Sig Sauer P226" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/e3d4f1ab22f342f4a0891743353c114c/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/sig-sauer-p226-e3d4f1ab22f342f4a0891743353c114c?utm_medium=embed&utm_campaign=share-popup&utm_content=e3d4f1ab22f342f4a0891743353c114c" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Sig Sauer P226 </a> by <a href="https://sketchfab.com/Alexcanot?utm_medium=embed&utm_campaign=share-popup&utm_content=e3d4f1ab22f342f4a0891743353c114c" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Alexcanot </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=e3d4f1ab22f342f4a0891743353c114c" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`
+//   }
+// ];
+// export const berettaM9Data: AiGenratedWeaponData = [
+//   {
+//     name: "Beretta M9"
+//   },
+//   {
+//     specsTech: [
+//       {
+//         title: "Technical Specifications",
+//         points: [
+//           "Standard-issue sidearm of the U.S. Armed Forces (until replaced by M17).",
+//           "Double-action/single-action semi-automatic pistol.",
+//           "Known for reliability and high-capacity magazine.",
+//           "Open-slide design improves cycling and reliability."
+//         ],
+//         dimensionsAndWeight: {
+//           weight: "Approx. 944 g (unloaded)",
+//           length: "217 mm",
+//           barrelLength: "125 mm",
+//           caliber: "9×19mm Parabellum"
+//         },
+//         armament: {
+//           action: "Short recoil, locked breech",
+//           capacity: "15+1 rounds",
+//           compatibleAmmunition: "9mm Luger"
+//         },
+//         performance: {
+//           effectiveRange: "Up to 50 meters",
+//           rateOfFire: "Semi-automatic",
+//           sights: "3-dot fixed sights",
+//           recoil: "Moderate"
+//         }
+//       }
+//     ]
+//   },
+//   {
+//     appearance: [
+//       {
+//         title: "Design and Features",
+//         points: [
+//           "Ergonomic grip with ambidextrous safety/decocker.",
+//           "Exposed barrel and slide cuts reduce weight and jamming.",
+//           "Durable matte black finish.",
+//           "Military-grade build quality for harsh environments."
+//         ]
+//       },
+//       {
+//         title: "Usage and Role",
+//         points: [
+//           "Used by U.S. military from 1985 to 2017.",
+//           "Still popular among civilians and police.",
+//           "Suitable for personal defense and tactical operations.",
+//           "Frequently used in firearms training programs."
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     history: [
+//       {
+//         title: "Development and Legacy",
+//         points: [
+//           "Adopted after trials to replace the M1911 pistol.",
+//           "Produced by Beretta USA for decades.",
+//           "Served in Iraq, Afghanistan, and other major conflicts.",
+//           "Replaced by the SIG Sauer M17 in U.S. service, but still widely respected."
+//         ]
+//       },
+//       {
+//         title: "In Pop Culture",
+//         points: [
+//           "Seen in countless movies like ‘Die Hard’, ‘Lethal Weapon’, and ‘The Matrix’.",
+//           "Popular in video games such as Call of Duty, Battlefield, and Resident Evil.",
+//           "Iconic silhouette makes it a recognizable symbol of military handguns."
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     uniqueCode: "4f171a66-8160-4128-acf5-be36764031ee",
+//     sketchFabUrl: `<div class="sketchfab-embed-wrapper"> <iframe title="Low-Poly Beretta M9" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/15c1e7bfe2f84f218d506edea97696da/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/low-poly-beretta-m9-15c1e7bfe2f84f218d506edea97696da?utm_medium=embed&utm_campaign=share-popup&utm_content=15c1e7bfe2f84f218d506edea97696da" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Low-Poly Beretta M9 </a> by <a href="https://sketchfab.com/notcplkerry?utm_medium=embed&utm_campaign=share-popup&utm_content=15c1e7bfe2f84f218d506edea97696da" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> notcplkerry </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=15c1e7bfe2f84f218d506edea97696da" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`
+//   }
+// ];
+// export const dshkData: AiGenratedWeaponData = [
+//   {
+//     name: "DShK"
+//   },
+//   {
+//     specsTech: [
+//       {
+//         title: "Technical Specifications",
+//         points: [
+//           "Soviet heavy machine gun designed in the 1930s by Vasily Degtyaryov.",
+//           "Chambered for 12.7×108mm cartridge.",
+//           "Air-cooled, belt-fed, recoil-operated.",
+//           "Effective for anti-aircraft and ground support roles."
+//         ],
+//         dimensionsAndWeight: {
+//           weight: "Approx. 34 kg (gun only)",
+//           length: "1,450 mm",
+//           barrelLength: "1,000 mm",
+//           caliber: "12.7×108mm"
+//         },
+//         armament: {
+//           action: "Recoil-operated, open bolt",
+//           rateOfFire: "600 rounds per minute",
+//           effectiveRange: "Up to 2,000 meters (ground targets), 1,500 meters (air targets)",
+//           feedSystem: "50-round belt"
+//         }
+//       }
+//     ]
+//   },
+//   {
+//     appearance: [
+//       {
+//         title: "Design and Features",
+//         points: [
+//           "Large barrel with cooling jacket to prevent overheating.",
+//           "Mounted typically on a wheeled mount or vehicle turret.",
+//           "Open bolt design for sustained fire.",
+//           "Heavy and robust build suited for prolonged use."
+//         ]
+//       },
+//       {
+//         title: "Usage and Role",
+//         points: [
+//           "Used extensively by Soviet and post-Soviet forces.",
+//           "Employed for infantry support, anti-aircraft defense, and mounted on vehicles.",
+//           "Widely exported and used in numerous conflicts worldwide.",
+//           "Still in service with many countries due to reliability and power."
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     history: [
+//       {
+//         title: "Development and Deployment",
+//         points: [
+//           "Introduced in 1938, replacing older heavy machine guns in Red Army.",
+//           "Saw extensive use in World War II, Korean War, and beyond.",
+//           "Upgraded variants like DShK-M and NSV were later developed.",
+//           "Considered a classic example of Soviet heavy machine gun design."
+//         ]
+//       },
+//       {
+//         title: "In Popular Culture",
+//         points: [
+//           "Frequently seen in war movies and documentaries about Soviet forces.",
+//           "Appears in many military video games as a heavy support weapon.",
+//           "Symbolizes heavy firepower in ground and anti-aircraft combat."
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     uniqueCode: "b4250096-4236-48ee-86d4-098cc83a36a4",
+//     sketchFabUrl: `<div class="sketchfab-embed-wrapper"> <iframe title="DShK" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/d60ae4a05b054da6af45defd8b498c5d/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/dshk-d60ae4a05b054da6af45defd8b498c5d?utm_medium=embed&utm_campaign=share-popup&utm_content=d60ae4a05b054da6af45defd8b498c5d" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> DShK </a> by <a href="https://sketchfab.com/carbuni?utm_medium=embed&utm_campaign=share-popup&utm_content=d60ae4a05b054da6af45defd8b498c5d" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Carbuni </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=d60ae4a05b054da6af45defd8b498c5d" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`
+//   }
+// ];
+// export const nsvData: AiGenratedWeaponData = [
+//   {
+//     name: "NSV 12.7 \"Utes\""
+//   },
+//   {
+//     specsTech: [
+//       {
+//         title: "Technical Specifications",
+//         points: [
+//           "Soviet heavy machine gun designed in the late 1960s by G.I. Nikitin, Y. V. Sokolov, and V.I. Volkov.",
+//           "Chambered for 12.7×108mm cartridge.",
+//           "Gas-operated, belt-fed, air-cooled.",
+//           "Designed to replace the DShK and improve reliability and rate of fire."
+//         ],
+//         dimensionsAndWeight: {
+//           weight: "Approx. 25 kg (gun only)",
+//           length: "1,460 mm",
+//           barrelLength: "1,070 mm",
+//           caliber: "12.7×108mm"
+//         },
+//         armament: {
+//           action: "Gas-operated, open bolt",
+//           rateOfFire: "700 rounds per minute",
+//           effectiveRange: "Up to 1,500–2,000 meters",
+//           feedSystem: "50-round belt"
+//         }
+//       }
+//     ]
+//   },
+//   {
+//     appearance: [
+//       {
+//         title: "Design and Features",
+//         points: [
+//           "Robust and streamlined for easier maintenance and reliability.",
+//           "Typically mounted on vehicles, tripods, or anti-aircraft mounts.",
+//           "Has a quick-change barrel for sustained fire.",
+//           "More compact and lighter than its predecessor, the DShK."
+//         ]
+//       },
+//       {
+//         title: "Usage and Role",
+//         points: [
+//           "Widely used by Soviet and Russian forces and many allied countries.",
+//           "Used for infantry support, vehicle armament, and anti-aircraft defense.",
+//           "Effective against light armor, personnel, and low-flying aircraft.",
+//           "Still actively used in various conflicts worldwide."
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     history: [
+//       {
+//         title: "Development and Deployment",
+//         points: [
+//           "Developed in the late 1960s and introduced in the 1970s.",
+//           "Adopted as a reliable heavy machine gun for ground and vehicle use.",
+//           "Replaced older heavy machine guns like the DShK in many roles.",
+//           "Has various modernized versions and mounts for diverse applications."
+//         ]
+//       },
+//       {
+//         title: "In Popular Culture",
+//         points: [
+//           "Appears in military documentaries and video games focusing on Cold War and modern warfare.",
+//           "Known for its distinctive sound and heavy hitting power.",
+//           "Symbolizes heavy automatic firepower in modern infantry and vehicle combat."
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     uniqueCode: "4f64a7a1-c7b9-4d42-a929-ba588dda2c7e",
+//     sketchFabUrl: `<div class="sketchfab-embed-wrapper"> <iframe title="low-poly NSV 12,7 &quot;Utes&quot;" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/8c5204a9ed1a43c2b35636aecca5a683/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/low-poly-nsv-127-utes-8c5204a9ed1a43c2b35636aecca5a683?utm_medium=embed&utm_campaign=share-popup&utm_content=8c5204a9ed1a43c2b35636aecca5a683" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> low-poly NSV 12,7 &quot;Utes&quot; </a> by <a href="https://sketchfab.com/DU1701?utm_medium=embed&utm_campaign=share-popup&utm_content=8c5204a9ed1a43c2b35636aecca5a683" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> D_U </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=8c5204a9ed1a43c2b35636aecca5a683" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`
+//   }
+// ];
+// export const kordData: AiGenratedWeaponData = [
+//   {
+//     name: "Kord 12-7mm"
+//   },
+//   {
+//     specsTech: [
+//       {
+//         title: "Technical Specifications",
+//         points: [
+//           "Russian heavy machine gun developed in the 1990s as an improved successor to the NSV.",
+//           "Chambered for 12.7×108mm cartridge.",
+//           "Gas-operated, belt-fed, air-cooled.",
+//           "Designed for vehicle mounting and infantry support roles."
+//         ],
+//         dimensionsAndWeight: {
+//           weight: "Approx. 25 kg (gun only)",
+//           length: "1,680 mm",
+//           barrelLength: "1,050 mm",
+//           caliber: "12.7×108mm"
+//         },
+//         armament: {
+//           action: "Gas-operated, open bolt",
+//           rateOfFire: "600–650 rounds per minute",
+//           effectiveRange: "Up to 2,000 meters",
+//           feedSystem: "50-round belt"
+//         }
+//       }
+//     ]
+//   },
+//   {
+//     appearance: [
+//       {
+//         title: "Design and Features",
+//         points: [
+//           "Modernized design with enhanced reliability and durability.",
+//           "Equipped with a quick-change barrel for sustained fire.",
+//           "Typically mounted on vehicles, tripods, or naval platforms.",
+//           "Distinctive large muzzle brake to reduce recoil."
+//         ]
+//       },
+//       {
+//         title: "Usage and Role",
+//         points: [
+//           "Used by Russian armed forces and exported to several countries.",
+//           "Provides heavy fire support against infantry, light vehicles, and low-flying aircraft.",
+//           "Commonly mounted on armored vehicles and technicals.",
+//           "Replaced older heavy machine guns in many applications."
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     history: [
+//       {
+//         title: "Development and Deployment",
+//         points: [
+//           "Developed in the late 1980s, entering service in the 1990s.",
+//           "Improved upon the NSV by enhancing accuracy and reducing weight.",
+//           "Widely adopted for various combat roles including vehicle armament.",
+//           "Remains in active service and continues to be manufactured."
+//         ]
+//       },
+//       {
+//         title: "In Popular Culture",
+//         points: [
+//           "Seen in modern military documentaries and video games.",
+//           "Represents modern Russian heavy machine gun technology.",
+//           "Known for its high power and versatility."
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     uniqueCode: "c5c7eba8-3c87-493a-9d22-6266d9c19a04",
+//     sketchFabUrl: `<div class="sketchfab-embed-wrapper"> <iframe title="low-poly Kord 12.7" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/20c24336ba1f42fba3af34f53aa7b22d/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/low-poly-kord-127-20c24336ba1f42fba3af34f53aa7b22d?utm_medium=embed&utm_campaign=share-popup&utm_content=20c24336ba1f42fba3af34f53aa7b22d" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> low-poly Kord 12.7 </a> by <a href="https://sketchfab.com/DU1701?utm_medium=embed&utm_campaign=share-popup&utm_content=20c24336ba1f42fba3af34f53aa7b22d" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> D_U </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=20c24336ba1f42fba3af34f53aa7b22d" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`
+//   }
+// ];
+export const nsvData: AiGenratedWeaponData = [
   {
-    name: "T-90"
+    name: "NSV 12-7 Utes"
   },
   {
     specsTech: [
       {
         title: "Technical Specifications",
         points: [
-          "The T-90 is a modern Russian main battle tank developed from the T-72 platform.",
-          "Armed with a 125 mm 2A46 smoothbore main gun with autoloader.",
-          "Equipped with Kontakt-5 explosive reactive armor (ERA) and advanced composite armor.",
-          "Features the Shtora-1 active protection system to counter guided missiles.",
-          "Digital fire control system and thermal imaging sights for night operations."
+          "Soviet heavy machine gun designed in the late 1960s by G.I. Nikitin, Y. V. Sokolov, and V.I. Volkov.",
+          "Chambered for 12.7×108mm cartridge.",
+          "Gas-operated, belt-fed, air-cooled.",
+          "Designed to replace the DShK and improve reliability and rate of fire."
         ],
         dimensionsAndWeight: {
-          weight: "46.5 tons",
-          length: "9.63 m (with gun forward)",
-          width: "3.78 m",
-          height: "2.22 m"
+          weight: "Approx. 25 kg (gun only)",
+          length: "1,460 mm",
+          barrelLength: "1,070 mm",
+          caliber: "12.7×108mm"
         },
         armament: {
-          mainGun: "125 mm 2A46M smoothbore cannon",
-          secondary: "1× 12.7 mm NSVT anti-aircraft machine gun",
-          coaxial: "1× 7.62 mm PKT machine gun",
-          ammunitionCapacity: "43 rounds (main gun), 300–600 rounds for machine guns"
-        },
-        performance: {
-          engine: "V-92S2 12-cylinder diesel engine, 1000 hp",
-          maxSpeed: "60 km/h",
-          range: "550 km (with external tanks)",
-          crew: "3 (commander, gunner, driver)"
+          action: "Gas-operated, open bolt",
+          rateOfFire: "700 rounds per minute",
+          effectiveRange: "Up to 1,500–2,000 meters",
+          feedSystem: "50-round belt"
         }
       }
     ]
@@ -1494,29 +2410,19 @@ export const t90Data: AiGenratedWeaponData = [
       {
         title: "Design and Features",
         points: [
-          "Low profile turret with rounded frontal armor for reduced radar signature.",
-          "Infrared dazzlers and laser detection system on front for active defense.",
-          "Distinctive snorkel equipment allows for deep fording capabilities.",
-          "Sloped glacis plate and side skirts for added protection.",
-          "Compact hull and autoloader allow operation with only 3 crew members."
+          "Robust and streamlined for easier maintenance and reliability.",
+          "Typically mounted on vehicles, tripods, or anti-aircraft mounts.",
+          "Has a quick-change barrel for sustained fire.",
+          "More compact and lighter than its predecessor, the DShK."
         ]
       },
       {
-        title: "Sights and Optics",
+        title: "Usage and Role",
         points: [
-          "Equipped with thermal imaging and laser rangefinder.",
-          "Fire control system integrates input from multiple optics.",
-          "Commander's panoramic sight for target acquisition.",
-          "Night vision available for both commander and gunner."
-        ]
-      },
-      {
-        title: "Mobility and Engineering",
-        points: [
-          "High power-to-weight ratio allows excellent off-road performance.",
-          "Tracks designed for rough terrain and snow operations.",
-          "NBC (nuclear, biological, chemical) protection suite included.",
-          "Deep fording capability with preparation system for river crossings."
+          "Widely used by Soviet and Russian forces and many allied countries.",
+          "Used for infantry support, vehicle armament, and anti-aircraft defense.",
+          "Effective against light armor, personnel, and low-flying aircraft.",
+          "Still actively used in various conflicts worldwide."
         ]
       }
     ]
@@ -1524,40 +2430,31 @@ export const t90Data: AiGenratedWeaponData = [
   {
     history: [
       {
-        title: "Development and Use",
+        title: "Development and Deployment",
         points: [
-          "Developed in the early 1990s by Uralvagonzavod as a successor to the T-80.",
-          "Entered service with the Russian Army in 1993.",
-          "Exported to countries like India (T-90S Bhishma), Algeria, and Vietnam.",
-          "Variants include T-90A, T-90MS (modernized), and T-90M (Proryv-3)."
+          "Developed in the late 1960s and introduced in the 1970s.",
+          "Adopted as a reliable heavy machine gun for ground and vehicle use.",
+          "Replaced older heavy machine guns like the DShK in many roles.",
+          "Has various modernized versions and mounts for diverse applications."
         ]
       },
       {
-        title: "Combat Deployment",
+        title: "In Popular Culture",
         points: [
-          "Deployed in Chechnya, Syria, and ongoing conflicts including Ukraine.",
-          "T-90A and T-90M used in active combat with improved survivability.",
-          "Export versions customized based on end-user requirements.",
-          "Used in tank biathlon competitions to showcase capabilities."
-        ]
-      },
-      {
-        title: "Media and Pop Culture",
-        points: [
-          "Featured in military simulators and games like ArmA, War Thunder, and Call of Duty.",
-          "Prominently displayed in Russian military parades.",
-          "Often used as a symbol of modern Russian armored force."
+          "Appears in military documentaries and video games focusing on Cold War and modern warfare.",
+          "Known for its distinctive sound and heavy hitting power.",
+          "Symbolizes heavy automatic firepower in modern infantry and vehicle combat."
         ]
       }
     ]
   },
   {
-    uniqueCode: "c02f536f-17f8-4c7b-ac70-d0b605e4927f",
-    sketchFabUrl: `<div class="sketchfab-embed-wrapper"> <iframe title="T-90" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/9bb8af8876a6478aa92089eff058d4db/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/t-90-9bb8af8876a6478aa92089eff058d4db?utm_medium=embed&utm_campaign=share-popup&utm_content=9bb8af8876a6478aa92089eff058d4db" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> T-90 </a> by <a href="https://sketchfab.com/alexxx_xarchenko?utm_medium=embed&utm_campaign=share-popup&utm_content=9bb8af8876a6478aa92089eff058d4db" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> alexxx_xarchenko </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=9bb8af8876a6478aa92089eff058d4db" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`
+    uniqueCode: "4f64a7a1-c7b9-4d42-a929-ba588dda2c7e",
+    sketchFabUrl: `<div class="sketchfab-embed-wrapper"> <iframe title="low-poly NSV 12,7 &quot;Utes&quot;" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/8c5204a9ed1a43c2b35636aecca5a683/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/low-poly-nsv-127-utes-8c5204a9ed1a43c2b35636aecca5a683?utm_medium=embed&utm_campaign=share-popup&utm_content=8c5204a9ed1a43c2b35636aecca5a683" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> low-poly NSV 12,7 &quot;Utes&quot; </a> by <a href="https://sketchfab.com/DU1701?utm_medium=embed&utm_campaign=share-popup&utm_content=8c5204a9ed1a43c2b35636aecca5a683" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> D_U </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=8c5204a9ed1a43c2b35636aecca5a683" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`
   }
 ];
 
-addWeaponToDB(t90Data)
+// addWeaponToDB(nsvData)
 
 
 

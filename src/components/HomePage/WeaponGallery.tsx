@@ -26,8 +26,6 @@ const WeaponCard = ({ weapon }) => {
         <iframe
           className="rounded-xl rounded-b-none"
           title={weapon.title}
-          frameBorder="0"
-          
           allow="autoplay; fullscreen; xr-spatial-tracking"
           src={weapon.embedUrl}
           style={{ width: "100%", height: "410px" }}
