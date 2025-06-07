@@ -1,5 +1,5 @@
 import OpenAI from "openai";
-import type {  ResponseWeaponData } from "./types/weapon";
+import type { ResponseWeaponData } from "./types/weapon";
 
 const fakeSpecTech = [
   {
@@ -16,6 +16,12 @@ const fakeSpecTech = [
       secondary: "",
       coaxial: "",
       ammunitionCapacity: "",
+      capacity: "",
+      rateOfFire: "",
+      effectiveRange: "",
+      feedSystem: "",
+      action: "",
+      compatibleAmmunition: "",
     },
     performance: {
       engine: "",
@@ -50,7 +56,8 @@ const fakeWeapon: ResponseWeaponData = {
 
 const openai = new OpenAI({
   baseURL: "https://openrouter.ai/api/v1",
-  apiKey: "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",
+  apiKey:
+    "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",
   dangerouslyAllowBrowser: true,
 });
 
