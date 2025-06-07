@@ -7,10 +7,10 @@ import tseslint from "typescript-eslint";
 
 export default tseslint.config(
   {
-    ignores: ["dist"], // Ignore build folder
+    ignores: ["dist"],
   },
   {
-    files: ["**/*.{ts,tsx}"], // Apply config to TS/TSX files
+    files: ["**/*.{ts,tsx}"],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
