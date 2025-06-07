@@ -117,10 +117,13 @@ export default function WeaponGallery() {
   const visibleWeapons = weapons.slice(safeIndex, safeIndex + cardsPerView);
 
   return (
-    <section className="bg-[#1e1e20] py-24 px-5">
-      <div className="2xl:w-[1400px] max-md:w-[600px] max-lg:w-[900px] max-sm:w-[500px] mx-auto px-4 md:px-16">
-        <div className="mb-12">
-          <h2 className="text-4xl text-white font-bold text-center">
+    <section className="bg-[#1e1e20] py-24 px-5 max-sm:w-[520px]">
+      <div className="2xl:w-[1400px] max-md:w-[600px]  max-lg:w-[900px]  mx-auto px-4 md:px-16">
+        <div className="mb-12 max-sm:w-[480px]">
+          <h2
+            className="text-4xl text-white break-words font-bold text-center max-sm:text-[28px] 
+          overflow-hidden"
+          >
             Legendary Weapons & War Machines
           </h2>
           <p className="text-center text-white mt-2">
@@ -137,9 +140,12 @@ export default function WeaponGallery() {
             }}
             transition={{ duration: 0.9 }}
             viewport={{ once: true, amount: 0.2 }}
-            className="overflow-hidden px-10 w-full"
+            className="overflow-hidden px-10 w-full max-sm:w-[520px]"
           >
-            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3  gap-6 transition-transform duration-500 ease-in-out">
+            <div
+              className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 
+            gap-6 transition-transform duration-500 ease-in-out"
+            >
               {visibleWeapons.map((weapon) => (
                 <div key={weapon.id} className="w-full">
                   <WeaponCard weapon={weapon} />

@@ -2,9 +2,9 @@ import "../../App.css";
 
 export const Features = () => {
   return (
-    <section className="bg-[#17171A] w-full ">
-      <div className="py-[126px] px-[48px] pb-[196px]">
-        <div className="grid max-md:grid-cols-1 max-lg:grid-cols-2 lg:grid-cols-4 justify-center items-center  gap-[96px]">
+    <section className="bg-[#17171A] w-full max-sm:w-[520px]">
+      <div className="pt-[126px] pb-[38px] px-[48px] ">
+        <div className="grid max-md:grid-cols-1 max-lg:grid-cols-2  lg:grid-cols-4 justify-center items-center  gap-[96px]">
           <div className="flex  gap-4 flex-col items-center ">
             <div className=" bg- rounded-full p-4 shadow-glow-red">
               <img
@@ -14,7 +14,7 @@ export const Features = () => {
               />
             </div>
             <h3 className="text-white">Explore in 3D</h3>
-            <p className="max-w-md text-center text-white">
+            <p className="max-w-md text-center text-white ">
               Rotate, zoom, and inspect every detail of high-quality 3D weapon
               models — from pistols to futuristic rifles.
             </p>

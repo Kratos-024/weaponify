@@ -12,8 +12,11 @@ export const TopBar = () => {
     setOptions(!options);
   };
   return (
-    <nav className="bg-[#17171A] ">
-      <div className=" w-full px-[12px] py-[16px] items-center flex justify-between">
+    <nav className="bg-[#17171A] max-sm:w-[520px]">
+      <div
+        className=" w-full  px-[12px] py-[16px]
+       items-center flex justify-between"
+      >
         <div className="flex gap-6 max-sm:hidden  ">
           {" "}
           <CiFacebook className="hover:text-[#ff69b4] text-[28px] text-white cursor-pointer" />
@@ -26,13 +29,6 @@ export const TopBar = () => {
             className="hover:text-[#ff69b4] text-[26px] text-white cursor-pointer"
           />
           <CiSearch className="hover:text-[#ff69b4] text-[26px] text-white cursor-pointer" />
-
-          {/* <div className={` ${options? "flex":" hidden" }`}>
-            {" "}
-            <CiFacebook className="hover:text-[#ff69b4] text-[26px] text-white cursor-pointer" />
-            <FaXTwitter className="hover:text-[#ff69b4] text-[26px] text-white  cursor-pointer" />
-            <FaInstagram className="hover:text-[#ff69b4] text-[26px] text-white cursor-pointer" />
-          </div> */}
         </div>
         <div className="cursor-pointer flex gap-3 items-center">
           {" "}

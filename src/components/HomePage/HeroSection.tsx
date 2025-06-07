@@ -20,7 +20,9 @@ export default function HeroSection() {
   return (
     <section className="w-full relative">
       <div
-        className="relative w-full text-white min-h-[450px] md:min-h-[700px] lg:min-h-[790px] xl:min-h-[980px] 2xl:min-h-screen"
+        className="relative w-full text-white min-h-[450px] max-sm:w-[520px]
+         md:min-h-[700px] lg:min-h-[790px] xl:min-h-[980px] 
+         2xl:min-h-screen"
         style={{
           backgroundImage: `url(${currentImage})`,
           backgroundSize: "cover",
@@ -42,7 +44,7 @@ export default function HeroSection() {
                   duration: 0.7,
                 },
               }}
-              className="text-3xl md:text-4xl font-extrabold text-white text-start"
+              className="text-3xl max-sm:text-[21px] custom-orbitron md:text-4xl font-extrabold text-white text-start"
             >
               Discover Insights from Reviews with AI
             </motion.h2>
@@ -55,7 +57,7 @@ export default function HeroSection() {
                   duration: 0.7,
                 },
               }}
-              className="text-  md:text-lg text-gray-200 mt-4 text-
+              className=" custom-orbitron md:text-lg text-gray-200 mt-4 text-
              max-w-xl "
             >
               Analyze comments, tweets, and course feedback across platforms —

@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap");
 @import "tailwindcss";
 
 @layer base {
@@ -5,6 +6,11 @@
     --shadow-glow-red: 0 0 36px rgba(255, 77, 169, 0.4);
   }
 }
+
+.custom-orbitron {
+  font-family: "Orbitron", sans-serif;
+}
+
 .sketchfab-embed-wrapper {
   position: relative;
   width: 100%;

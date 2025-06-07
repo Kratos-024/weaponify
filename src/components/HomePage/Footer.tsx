@@ -4,7 +4,7 @@ import { FaXTwitter } from "react-icons/fa6";
 
 export const Footer = () => {
   return (
-    <section className="bg-[#17171A] py-[64px]">
+    <section className="bg-[#17171A] py-[64px] max-sm:w-[520px]">
       <div>
         <div className="mb-[64px] text-white text-center text-lg ">
           <h2 className=" mb-3 text-3xl">Subscribe & Get 45% Discount</h2>
