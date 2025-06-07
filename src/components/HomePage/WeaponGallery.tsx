@@ -117,7 +117,7 @@ export default function WeaponGallery() {
   const visibleWeapons = weapons.slice(safeIndex, safeIndex + cardsPerView);
 
   return (
-    <section className="bg-[#1e1e20] py-24 px-5 max-sm:w-[520px]">
+    <section className="bg-[#1e1e20] py-24 px-5 max-sm:w-full">
       <div className="2xl:w-[1400px] max-md:w-[600px]  max-lg:w-[900px]  mx-auto px-4 md:px-16">
         <div className="mb-12 max-sm:w-[480px]">
           <h2
@@ -140,7 +140,7 @@ export default function WeaponGallery() {
             }}
             transition={{ duration: 0.9 }}
             viewport={{ once: true, amount: 0.2 }}
-            className="overflow-hidden px-10 w-full max-sm:w-[520px]"
+            className="overflow-hidden px-10 w-full  max-sm:w-[360px]"
           >
             <div
               className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 
@@ -154,7 +154,7 @@ export default function WeaponGallery() {
             </div>
           </motion.div>
 
-          <div className="flex justify-center mt-8">
+          <div className="flex  justify-center mt-8">
             {Array.from({
               length: Math.max(1, weapons.length - (cardsPerView - 1)),
             }).map((_, index) => (

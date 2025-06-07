@@ -12,7 +12,7 @@ export const TopBar = () => {
     setOptions(!options);
   };
   return (
-    <nav className="bg-[#17171A] max-sm:w-[520px]">
+    <nav className="bg-[#17171A] max-sm:w-full">
       <div
         className=" w-full  px-[12px] py-[16px]
        items-center flex justify-between"

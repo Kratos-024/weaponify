@@ -54,7 +54,7 @@ export const Categories = () => {
   const visibleWeapons = cardData.slice(safeIndex, safeIndex + cardsPerView);
 
   return (
-    <section className="bg-[#17171A] max-sm:w-[520px]">
+    <section className="bg-[#17171A] max-sm:w-full">
       <div className="py-[126px]  px-[48px] pb-[126px] space-y-[64px]">
         <h2 className=" custom-orbitron text-[28px] text-center font-semibold text-white">
           CATEGORIES

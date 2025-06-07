@@ -4,7 +4,7 @@ import { FaXTwitter } from "react-icons/fa6";
 
 export const Footer = () => {
   return (
-    <section className="bg-[#17171A] py-[64px] max-sm:w-[520px]">
+    <section className="bg-[#17171A] py-[64px] max-sm:w-full">
       <div>
         <div className="mb-[64px] text-white text-center text-lg ">
           <h2 className=" mb-3 text-3xl">Subscribe & Get 45% Discount</h2>
@@ -14,7 +14,10 @@ export const Footer = () => {
           </p>
         </div>
 
-        <div className=" mx-auto w-fit flex  bg-white rounded-4xl px-3 py-3">
+        <div
+          className=" mx-auto w-fit flex max-sm:w-[350px]
+         bg-white rounded-4xl px-3 py-3"
+        >
           <input
             placeholder="Enter your email"
             className="px-3 placeholder:text-gray-500 outline-none

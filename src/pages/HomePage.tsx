@@ -8,12 +8,15 @@ import { ShopBy } from "../components/HomePage/ShopBy";
 export const HomePage = () => {
   return (
     <>
-      <Header />
-      <Features />
-      <Categories />
-      <ShopBy />
-      <WeaponGallery />
-      <Footer />
+      <div className=" overflow-x-hidden ">
+        {" "}
+        <Header />
+        <Features />
+        <Categories />
+        <ShopBy />
+        <WeaponGallery />
+        <Footer />
+      </div>
     </>
   );
 };

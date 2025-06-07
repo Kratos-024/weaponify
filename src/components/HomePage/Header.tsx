@@ -4,10 +4,10 @@ import { TopBar } from "./TopBar";
 export const Header = () => {
   return (
     <section className="w-full bg-[#17171A]">
-      <div className="max-w-[1960px]  mx-auto min-w-[480px]">
+      <div className="max-w-[1960px] mx-auto min-w-[480px]">
         <TopBar />
       </div>
-      <div className="">
+      <div className="max-sm:w-full">
         <HeroSection />
       </div>
     </section>

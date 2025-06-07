@@ -20,16 +20,21 @@ export default function HeroSection() {
   return (
     <section className="w-full relative">
       <div
-        className="relative w-full text-white min-h-[450px] max-sm:w-[520px]
-         md:min-h-[700px] lg:min-h-[790px] xl:min-h-[980px] 
-         2xl:min-h-screen"
+        className="relative w-full 
+        min-h-[450px]
+        md:min-h-[700px] lg:min-h-[790px] 
+        xl:min-h-[980px] 2xl:min-h-screen
+        text-white "
         style={{
           backgroundImage: `url(${currentImage})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
-        <div className="hidden md:block max-w-[1960px] mx-auto min-w-[480px] pt-[14px]">
+        <div
+          className="hidden md:block max-w-[1960px]
+         mx-auto min-w-[480px] max-sm:w-full pt-[14px]"
+        >
           <NavBar />
         </div>
 

@@ -2,7 +2,7 @@ import "../../App.css";
 
 export const Features = () => {
   return (
-    <section className="bg-[#17171A] w-full max-sm:w-[520px]">
+    <section className="bg-[#17171A] w-full max-sm:w-full">
       <div className="pt-[126px] pb-[38px] px-[48px] ">
         <div className="grid max-md:grid-cols-1 max-lg:grid-cols-2  lg:grid-cols-4 justify-center items-center  gap-[96px]">
           <div className="flex  gap-4 flex-col items-center ">
