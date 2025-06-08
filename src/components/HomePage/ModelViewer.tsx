@@ -7,17 +7,13 @@ const SketchfabModelViewer = ({ sketchFabUrl }: { sketchFabUrl: string }) => {
     const hideSketchfabUI = () => {
       if (iframeRef.current) {
         const iframe = iframeRef.current;
-        // When iframe loads, we'll try to modify its content
         //@ts-ignore
         iframe.onload = () => {
           try {
-            // Attempt to access the iframe's contentDocument to inject CSS
-
             const iframeDocument =
               //@ts-ignore
               iframe.contentDocument || iframe.contentWindow.document;
 
-            // Create a style element to inject custom CSS
             const styleElement = iframeDocument.createElement("style");
             styleElement.textContent = `
               .logo-container, .footer, .header__title, .header__share, .owner, 
@@ -54,18 +50,23 @@ const SketchfabModelViewer = ({ sketchFabUrl }: { sketchFabUrl: string }) => {
   }, []);
 
   return (
-    <div className="w-full lg:w-[800px] h-full bg-white p-1 text-white">
-      <div className="w-full h-full relative overflow-hidden rounded-lg">
+    <div
+      className="w-full  h-full bg-white p-1
+     text-white"
+    >
+      <div
+        className="w-full h-full relative overflow-hidden
+       rounded-lg"
+      >
         <div className="sketchfab-embed-wrapper w-full h-full">
           <div className="sketchfab-embed-wrapper">
             {" "}
             <div>
               <iframe
                 title="T-90"
-                
                 allow="autoplay; fullscreen; xr-spatial-tracking"
                 src={`${sketchFabUrl}`}
-                style={{ width: "100%", height: "480px" }}
+                style={{ width: "100%", height: "100%" }}
               ></iframe>
             </div>
           </div>

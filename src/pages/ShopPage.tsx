@@ -11,8 +11,10 @@ import {
   meleeWeapons,
   weaponAccessories,
   historicalWeapon,
-  tnt,shotguns,handgun,machinegun,
-  
+  tnt,
+  shotguns,
+  handgun,
+  machinegun,
 } from "../../public/weapons";
 export type Tank = {
   sNo: number;
@@ -27,25 +29,35 @@ export const ShopPage = () => {
   const [filterName, setFilterName] = useState<string[]>(["all"]);
   useEffect(() => {
     const weaponGroups: Record<string, Tank[]> = {
-      all: [...assualtRifles, ...tanks, ...semiAutoMatic, ...sniperRefiles,...meleeWeapons,...weaponAccessories,
-        ...historicalWeapon,...tnt,...shotguns,...handgun,...machinegun],
+      all: [
+        ...assualtRifles,
+        ...tanks,
+        ...semiAutoMatic,
+        ...sniperRefiles,
+        ...meleeWeapons,
+        ...weaponAccessories,
+        ...historicalWeapon,
+        ...tnt,
+        ...shotguns,
+        ...handgun,
+        ...machinegun,
+      ],
       assaultrifles: assualtRifles,
-      tanks:tanks,
+      tanks: tanks,
       semiautomatic: semiAutoMatic,
       sniperrifles: sniperRefiles,
-      meleeweapons:meleeWeapons,
-      weaponaccessories:weaponAccessories,
-      historicalweapons:historicalWeapon,
-      shotguns:shotguns,
-      handguns:handgun,
-      machinegun:machinegun,
-      tnt:tnt,
+      meleeweapons: meleeWeapons,
+      weaponaccessories: weaponAccessories,
+      historicalweapons: historicalWeapon,
+      shotguns: shotguns,
+      handguns: handgun,
+      machinegun: machinegun,
+      tnt: tnt,
     };
     if (filterName[filterName.length - 1] == "all") {
       setFilterWeapon([weaponGroups["all"]]);
     } else {
       if (filterName.includes("all")) {
-
         setFilterName((prev) => prev.filter((name) => name !== "all"));
         return;
       }
@@ -71,7 +83,7 @@ export const ShopPage = () => {
           max-md:px-[18px] max-lg:w-full"
       >
         <WeaponHeader />
-        <div className="flex gap-[48px] px-9 max-lg:justify-center ">
+        <div className="flex gap-[48px] mt-[296px] z-40 px-9 max-lg:justify-center ">
           <div className=" max-lg:hidden">
             <FilterBy filterName={filterName} setFilterName={setFilterName} />
           </div>

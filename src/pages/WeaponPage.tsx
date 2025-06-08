@@ -1,11 +1,12 @@
 import { useParams } from "react-router-dom";
 import { NavBar } from "../components/ShopPage/NavBar";
-import WeaponInfoHeader from "../components/WeaponInfo/WeaponInfoHeader";
 import { useEffect, useState } from "react";
 import { getEachWeapon } from "../apis/app";
 import { fakeWeapon } from "../../public/weapon";
 import type { ResponseWeaponData } from "../../public/types/weapon";
 import "firebase/compat/firestore";
+import { Footer } from "../components/HomePage/Footer";
+import BuySection from "../components/WeaponInfo/BuySection";
 
 export const WeaponPage = () => {
   const weaponId = useParams()["id"] || "";
@@ -59,8 +60,8 @@ export const WeaponPage = () => {
   return (
     <section>
       <NavBar />
-
-      <WeaponInfoHeader weaponData={weaponData} />
+      <BuySection weaponData={weaponData} />
+      <Footer />
     </section>
   );
 };

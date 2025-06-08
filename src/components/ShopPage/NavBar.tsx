@@ -3,6 +3,7 @@ import { LiaGlassWhiskeySolid } from "react-icons/lia";
 import { CiSearch } from "react-icons/ci";
 import { CiShoppingCart } from "react-icons/ci";
 import { IoIosOptions } from "react-icons/io";
+import SlideMenu from "./MenuSection";
 
 export const NavBar = () => {
   return (
@@ -13,18 +14,17 @@ export const NavBar = () => {
        justify-between px-[12px] py-[26px]"
       >
         <div className="  gap-2 max-lg:flex hidden">
-          <IoIosOptions
-            className=" w-[32px] 
-h-[32px] text-white cursor-pointer"
-          />
+          <div className="max-lg:block hidden">
+            <SlideMenu />
+          </div>
           <CiSearch
-            className=" w-[32px] 
-h-[32px] text-white cursor-pointer"
+            className=" w-[32px] h-[32px] max-md:w-[24px] max-md:h-[24px]
+ text-white cursor-pointer"
           />
         </div>
-        <div className="flex items-center max-md:w-full justify-center text-white text-[36px]">
+        <div className="flex w-[196px] max-md:w-[134px] items-center  justify-center text-white text-[36px]">
           <img
-            className=" w-[196px] "
+            className="w-full "
             src="https://gearnix.risingbamboo.com/wp-content/themes/gearnix/dist/images/logo/light.png"
           />
         </div>
@@ -53,13 +53,13 @@ h-[32px] text-white cursor-pointer"
           </ul>
         </div>
         <div className=" gap-4 flex items-center">
-          <LiaGlassWhiskeySolid className="hover:text-[#ff69b4] w-[32px] h-[32px]  text-white cursor-pointer" />
+          <LiaGlassWhiskeySolid className="hover:text-[#ff69b4] max-md:w-[24px] max-md:h-[24px] w-[32px] h-[32px]  text-white cursor-pointer" />
           <CiSearch
-            className="hover:text-[#ff69b4] w-[32px] max-lg:hidden
+            className="hover:text-[#ff69b4] w-[32px] max-lg:hidden max-md:w-[24px] max-md:h-[24px]
 h-[32px] text-white cursor-pointer"
           />
           <CiShoppingCart
-            className="hover:text-[#ff69b4]  w-[32px]
+            className="hover:text-[#ff69b4]  w-[32px] max-md:w-[24px] max-md:h-[24px]
 h-[32px] text-white cursor-pointer"
           />
         </div>

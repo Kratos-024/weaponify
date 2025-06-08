@@ -87,6 +87,7 @@ body.dark-theme .sketchfab-embed-wrapper iframe {
     #4ade80 66.66%,
     #facc15 100%
   );
+
   background-size: 400% 400% !important;
   border-radius: 100%;
   filter: blur(30px);
@@ -98,4 +99,21 @@ body.dark-theme .sketchfab-embed-wrapper iframe {
   transform: translate(-50%, -50%);
   width: 80%;
   z-index: -1;
+}
+.pinkishBg {
+  background-image: linear-gradient(
+    90deg,
+    #d253ff 0%,
+    #ff4da9 51%,
+    #d253ff 100%
+  );
+  background-size: 200% 200%;
+}
+.pinkishBg:hover {
+  background-image: linear-gradient(
+    90deg,
+    #d253ff 0%,
+    #ff4da9 51%,
+    #d253ff 100%
+  );
 }
