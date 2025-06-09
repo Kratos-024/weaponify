@@ -17,10 +17,7 @@ export const NavBar = () => {
           <div className="max-lg:block hidden">
             <SlideMenu />
           </div>
-          <CiSearch
-            className=" w-[32px] h-[32px] max-md:w-[24px] max-md:h-[24px]
- text-white cursor-pointer"
-          />
+          <CiSearch className=" w-[32px] h-[32px] max-md:w-[24px] max-md:h-[24px] text-white cursor-pointer" />
         </div>
         <div className="flex w-[196px] max-md:w-[134px] items-center  justify-center text-white text-[36px]">
           <img

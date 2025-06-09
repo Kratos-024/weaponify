@@ -14,25 +14,72 @@ export const NavBar = () => {
           />
         </div>
         <div>
-          <ul className="flex items-center gap-3">
+          <ul className="flex items-center gap-7">
             <li className=" flex items-center uppercase hover:opacity-90 cursor-pointer">
               <span>Home</span>
               <RiArrowDropDownLine />
             </li>
             <li className=" flex items-center uppercase hover:opacity-90 cursor-pointer">
-              <span>Home</span>
+              <span>Shop</span>
               <RiArrowDropDownLine />
             </li>
-            <li className=" flex items-center uppercase hover:opacity-90 cursor-pointer">
-              <span>Home</span>
+
+            <li
+              className="relative  group flex 
+            items-center uppercase hover:opacity-90 cursor-pointer"
+            >
+              <span>Product</span>
               <RiArrowDropDownLine />
+              <ul
+                className="absolute mt-2 whitespace-nowrap
+                 rounded-xl
+             -translate-x-5 flex-col opacity-0
+              transition-all  duration-500 ease-in-out top-full
+               left-0  group-hover:opacity-100
+                group-hover:translate-y-0 translate-y-7
+                group-hover:block bg-white text-black
+                 shadow-md"
+              >
+                <li className="px-9 py-2 hover:bg-gray-100 rounded-xl ">
+                  Product 1
+                </li>
+                <li className="px-9 py-3 hover:bg-gray-100 rounded-xl ">
+                  Product 2
+                </li>{" "}
+                <li className="px-9 py-3 hover:bg-gray-100 rounded-xl ">
+                  Product 3
+                </li>{" "}
+                <li className="px-9 py-3 hover:bg-gray-100 rounded-xl ">
+                  Product 4
+                </li>
+              </ul>
             </li>
-            <li className=" flex items-center uppercase hover:opacity-90 cursor-pointer">
-              <span>Home</span>
+            <li className="relative  group flex items-center uppercase hover:opacity-90 cursor-pointer">
+              <span>Pages</span>
               <RiArrowDropDownLine />
+              <ul
+                className="absolute mt-2 whitespace-nowrap rounded-xl
+             -translate-x-5 flex-col opacity-0
+              transition-all  duration-500 ease-in-out top-full
+               left-0  group-hover:opacity-100
+                group-hover:translate-y-0 translate-y-7
+                group-hover:block bg-white text-black
+                 shadow-md"
+              >
+                <li className="px-4 py-2 hover:bg-gray-100 rounded-xl ">
+                  Contact us
+                </li>
+                <li className="px-4 py-2 hover:bg-gray-100 rounded-xl ">
+                  My account
+                </li>{" "}
+                <li className="px-4 py-2 hover:bg-gray-100 rounded-xl ">
+                  FAQs
+                </li>
+              </ul>
             </li>
+
             <li className=" flex items-center uppercase hover:opacity-90 cursor-pointer">
-              <span>Home</span>
+              <span>About us</span>
               <RiArrowDropDownLine />
             </li>
           </ul>

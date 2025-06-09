@@ -5,15 +5,17 @@ export const WeaponHeader = () => {
     <section className="py-[48px] mb-[64px] ">
       <div className="mb-[120px]"></div>
       <div className="flex gap-[64px] items-center  justify-center">
-        <div className="w-full z-30  absolute bg-red-100 h-[340px]">
-          {" "}
+        <div className="w-full z-30  absolute h-fit">
           <img
             className=" w-full h-[340px]"
             src="https://gearnix.risingbamboo.com/wp-content/themes/gearnix/dist/images/breadcrumb.jpg"
           />
+          {/* <img
+            className=" w-full -top-[3px] -z-50  absolute h-[564px]"
+            src="./header.png"
+          /> */}
         </div>
         <div className=" flex z-30 gap-9  top-[296px] absolute">
-          {" "}
           <WeaponCircle />
           <WeaponCircle />
           <WeaponCircle />
