@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { IoIosOptions } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
 import {
@@ -9,13 +9,13 @@ import {
   FiHeart,
   FiSearch,
 } from "react-icons/fi";
-const data = [
-  { icon: FiHome, label: "Home", active: true },
-  { icon: FiShoppingCart, label: "Shop" },
-  { icon: FiHeart, label: "Favorites" },
-  { icon: FiSearch, label: "Search" },
-  { icon: FiSettings, label: "Settings" },
-];
+// const data = [
+//   { icon: FiHome, label: "Home", active: true },
+//   { icon: FiShoppingCart, label: "Shop" },
+//   { icon: FiHeart, label: "Favorites" },
+//   { icon: FiSearch, label: "Search" },
+//   { icon: FiSettings, label: "Settings" },
+// ];
 const SlideMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeItem, setActiveItem] = useState("Home");

@@ -2,7 +2,6 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import { LiaGlassWhiskeySolid } from "react-icons/lia";
 import { CiSearch } from "react-icons/ci";
 import { CiShoppingCart } from "react-icons/ci";
-import { IoIosOptions } from "react-icons/io";
 import SlideMenu from "./MenuSection";
 
 export const NavBar = () => {
