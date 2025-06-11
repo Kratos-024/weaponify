@@ -7,16 +7,100 @@ import { HiMiniShare } from "react-icons/hi2";
 import { HiOutlineQuestionMarkCircle } from "react-icons/hi2";
 import { FaShippingFast } from "react-icons/fa";
 import { SiFreenet } from "react-icons/si";
+import { addToWishlist } from "../../apis/app";
+import { useParams } from "react-router-dom";
 
-export const WeaponBuyInfo = () => {
+// function parseSketchfabEmbed(
+//   weaponObject: weaponObjectType,
+//   description = "Auto-generated description"
+// ): SketchfabModel | null {
+//   const sketchfabUri = weaponObject["sketchFabUrl"];
+//   const parser = new DOMParser();
+//   const doc = parser.parseFromString(sketchfabUri, "text/html");
+
+//   const iframe = doc.querySelector("iframe");
+//   const embedSrc = iframe?.getAttribute("src") || "";
+
+//   const authorLink = doc.querySelectorAll("a")[1];
+//   const author = authorLink?.textContent?.trim() || "Unknown";
+
+//   if (!embedSrc) return null;
+
+//   const review = Math.floor(Math.random() * 5) + 1;
+
+//   return {
+//     id: weaponObject["uniqueCode"],
+//     author,
+//     description,
+//     embedUrl: embedSrc.split("?")[0],
+//     review,
+//   };
+// }
+// export const WeaponCard = ({ weapon }: { weapon: any }) => {
+//   const parsedWeapon = parseSketchfabEmbed(weapon) || {
+//     id: "",
+//     author: "",
+//     description: "",
+//     embedUrl: "",
+//     review: 0,
+//   };
+//   const [thumbnail, setThumbnail] = useState("");
+
+// useEffect(() => {
+//   const modelUrl = parsedWeapon.embedUrl;
+
+//   fetch(`https://sketchfab.com/oembed?url=${modelUrl}`)
+//     .then((res) => res.json())
+//     .then((data) => {
+//       setThumbnail(data.thumbnail_url);
+//     })
+//     .catch((err) => {
+//       console.error("Failed to fetch thumbnail", err);
+//     });
+// }, [weapon]);
+export const getSketchfabThumbnail = async (
+  embedUrl: string
+): Promise<string | null> => {
+  try {
+    const match = embedUrl.match(/models\/([a-z0-9]+)\//i);
+    if (!match || !match[1]) {
+      console.error("Invalid Sketchfab embed URL");
+      return null;
+    }
+    const modelId = match[1];
+    const oembedUrl = `https://sketchfab.com/oembed?url=https://sketchfab.com/models/${modelId}`;
+    const response = await fetch(oembedUrl);
+    const data = await response.json();
+
+    return data.thumbnail_url || null;
+  } catch (error) {
+    console.error("Failed to fetch Sketchfab thumbnail:", error);
+    return null;
+  }
+};
+
+export const WeaponBuySection = ({ embedUrl }: { embedUrl: string }) => {
   const [stocks, setStocks] = useState(1);
-
+  const weaponId = useParams()["id"] || "";
   const subtract = () => {
     setStocks((prev) => (prev > 1 ? prev - 1 : prev));
   };
 
   const add = () => {
     setStocks((prev) => prev + 1);
+  };
+  const addToWhilistHandler = async (
+    weaponId: string,
+
+    name: string,
+    inStocks: number
+  ) => {
+    try {
+      const imgSrc = (await getSketchfabThumbnail(embedUrl)) || "";
+      addToWishlist(weaponId, imgSrc, name, inStocks);
+    } catch (error) {
+      console.log("Error has been occured in whislist handler");
+    }
   };
   return (
     <section className="relative">
@@ -73,7 +157,12 @@ export const WeaponBuyInfo = () => {
           >
             Add to Cart
           </button>
-          <div className="bg-[#ececec]  bg-pinkishBg rounded-full p-4 mx-auto">
+          <div
+            onClick={() => {
+              addToWhilistHandler(weaponId, "name", 15);
+            }}
+            className="bg-[#ececec]  bg-pinkishBg rounded-full p-4 mx-auto"
+          >
             <CiStar className=" w-[28px] h-[28px]  hover:text-[#ffffff]" />
           </div>
         </div>

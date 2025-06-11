@@ -6,20 +6,24 @@ import { fakeWeapon } from "../../public/weapon";
 import type { ResponseWeaponData } from "../../public/types/weapon";
 import "firebase/compat/firestore";
 import { Footer } from "../components/HomePage/Footer";
-import BuySection from "../components/WeaponInfo/BuySection";
-
+import SketchfabModelViewer from "../components/HomePage/ModelViewer";
+import { WeaponDescription } from "../components/WeaponInfo/WeaponDescription";
+import { WeaponBuySection } from "../components/WeaponInfo/WeaponBuySection";
+function extractSketchfabUrl(htmlString: string): string | null {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(htmlString, "text/html");
+  const iframe = doc.querySelector("iframe");
+  return iframe?.getAttribute("src") || null;
+}
 export const WeaponPage = () => {
   const weaponId = useParams()["id"] || "";
   const weaponName = useParams()["name"] || "";
   const [weaponData, setWeaponData] = useState<ResponseWeaponData>(fakeWeapon);
   const [loaded, setLoaded] = useState(false);
-
+  const sketchFabUrI = extractSketchfabUrl(weaponData["sketchFabUrl"]) || "";
   useEffect(() => {
     const runThePromise = async () => {
       const value = await getEachWeapon(weaponId, weaponName);
-      console.log(weaponName, weaponId);
-      console.log(value);
-
       if (value) {
         setWeaponData(value);
         setLoaded(true);
@@ -60,7 +64,19 @@ export const WeaponPage = () => {
   return (
     <section>
       <NavBar />
-      <BuySection weaponData={weaponData} />
+      <div className="xl:max-w-[1480px] mx-auto mt-9 px-4 space-y-6 mb-[96px]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+          <div className="w-full order-1">
+            <div className="w-full h-[400px] sm:h-[500px] md:h-[600px] bg-white p-1 rounded-lg shadow-sm border">
+              <SketchfabModelViewer sketchFabUrl={sketchFabUrI} />
+            </div>
+          </div>
+          <div className="w-full order-2">
+            <WeaponBuySection embedUrl={sketchFabUrI} />
+          </div>
+        </div>
+        <WeaponDescription weaponData={weaponData} />
+      </div>
       <Footer />
     </section>
   );

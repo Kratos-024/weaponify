@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
 import { ShopPage } from "./pages/ShopPage";
 import { WeaponPage } from "./pages/WeaponPage";
+import { Whislist } from "./pages/Whislist";
 function App() {
   return (
     <>
@@ -15,6 +16,7 @@ function App() {
             path={`shop/weapon/:id/:name`}
             element={<WeaponPage />}
           ></Route>
+          <Route path={`shop/whislist`} element={<Whislist />}></Route>
         </Routes>
       </BrowserRouter>
     </>

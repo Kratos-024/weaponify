@@ -14,11 +14,12 @@ export const AccountCreation = ({
 
   const userCreateAccountHandler = async () => {
     const response = await userCreateAccount(email, password);
-    console.log(response);
+    if (response.success) {
+      setCreateAccount(!createAccount);
+    }
   };
   const userLoginAccountHandler = async () => {
-    const response = await userLoginAccount(email, password);
-    console.log(response);
+    await userLoginAccount(email, password);
   };
 
   return (
@@ -70,6 +71,7 @@ export const AccountCreation = ({
             <div className="flex flex-col gap-1">
               <label>Email</label>
               <input
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="JohnDoe@example"
                 className="w-full px-3 rounded-lg py-2 outline-none bg-gray-200"
               />
@@ -77,6 +79,9 @@ export const AccountCreation = ({
             <div className="flex flex-col gap-1">
               <label>Password</label>
               <input
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
                 type="password"
                 placeholder="apple123@"
                 className="w-full px-3 rounded-lg py-2 outline-none bg-gray-200"
@@ -85,7 +90,7 @@ export const AccountCreation = ({
             <div>
               <button
                 onClick={userLoginAccountHandler}
-                className="bg-black w-full text-white rounded-lg py-2"
+                className="bg-black w-full cursor-pointer active:opacity-90 text-white rounded-lg py-2"
               >
                 Sign In
               </button>
@@ -112,7 +117,6 @@ export const AccountCreation = ({
               : "opacity-0 translate-y-[20px] pointer-events-none"
           }`}
         >
-          {" "}
           <div onClick={showAccountHandler} className=" cursor-pointer">
             <RxCross2 className=" absolute right-5 w-8 h-8" />{" "}
           </div>
