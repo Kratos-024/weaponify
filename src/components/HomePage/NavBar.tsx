@@ -2,8 +2,18 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import { LiaGlassWhiskeySolid } from "react-icons/lia";
 import { CiSearch } from "react-icons/ci";
 import { CiShoppingCart } from "react-icons/ci";
+import { useState } from "react";
 
 export const NavBar = () => {
+  const [showProduct, setShowProduct] = useState(false);
+  const [ShowPage, setShowPage] = useState(false);
+
+  const showProdut = () => {
+    setShowProduct(!showProduct);
+  };
+  const showPage = () => {
+    setShowPage(!ShowPage);
+  };
   return (
     <nav>
       <div className="flex items-center justify-between px-[12px] py-[16px]">
@@ -25,20 +35,25 @@ export const NavBar = () => {
             </li>
 
             <li
+              onClick={showProdut}
               className="relative  group flex 
             items-center uppercase hover:opacity-90 cursor-pointer"
             >
               <span>Product</span>
               <RiArrowDropDownLine />
               <ul
-                className="absolute mt-2 whitespace-nowrap
-                 rounded-xl
-             -translate-x-5 flex-col opacity-0
-              transition-all  duration-500 ease-in-out top-full
-               left-0  group-hover:opacity-100
-                group-hover:translate-y-0 translate-y-7
-                group-hover:block bg-white text-black
-                 shadow-md"
+                className={`absolute mt-2 whitespace-nowrap
+                   rounded-xl ${
+                     showProduct
+                       ? "opacity-100 translate-y-0"
+                       : "opacity-0 translate-y-2"
+                   }
+            -translate-x-5 flex-col opacity-0
+            transition-all  duration-500 ease-in-out top-full
+            left-0  group-hover:opacity-100
+            md:group-hover:translate-y-0 translate-y-7
+            group-hover:block bg-white text-black
+            shadow-md`}
               >
                 <li className="px-9 py-2 hover:bg-gray-100 rounded-xl ">
                   Product 1
@@ -54,17 +69,25 @@ export const NavBar = () => {
                 </li>
               </ul>
             </li>
-            <li className="relative  group flex items-center uppercase hover:opacity-90 cursor-pointer">
+            <li
+              onClick={showPage}
+              className="relative  group flex items-center uppercase hover:opacity-90 cursor-pointer"
+            >
               <span>Pages</span>
               <RiArrowDropDownLine />
               <ul
-                className="absolute mt-2 whitespace-nowrap rounded-xl
-             -translate-x-5 flex-col opacity-0
-              transition-all  duration-500 ease-in-out top-full
-               left-0  group-hover:opacity-100
-                group-hover:translate-y-0 translate-y-7
-                group-hover:block bg-white text-black
-                 shadow-md"
+                className={`absolute mt-2 whitespace-nowrap
+                  rounded-xl ${
+                    ShowPage
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-2"
+                  }
+                group-hover:opacity-100
+                pointer-events-auto
+              -translate-x-5 flex-col opacity-0
+               transition-all  duration-500 ease-in-out top-full
+                left-0  md:group-hover:translate-y-0 translate-y-7 group-hover:block bg-white text-black
+                  shadow-md`}
               >
                 <li className="px-4 py-2 hover:bg-gray-100 rounded-xl ">
                   Contact us

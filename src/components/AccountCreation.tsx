@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
+import { userCreateAccount, userLoginAccount } from "../apis/app";
 
 export const AccountCreation = ({
   showAccountHandler,
@@ -7,6 +8,19 @@ export const AccountCreation = ({
   showAccountHandler: any;
 }) => {
   const [createAccount, setCreateAccount] = useState(false);
+  const [fullname, setFullname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const userCreateAccountHandler = async () => {
+    const response = await userCreateAccount(email, password);
+    console.log(response);
+  };
+  const userLoginAccountHandler = async () => {
+    const response = await userLoginAccount(email, password);
+    console.log(response);
+  };
+
   return (
     <section className="bg-black/30 fixed inset-0 z-50 backdrop-blur-sm w-full h-screen">
       <div className="group relative flex items-center justify-center h-screen">
@@ -69,7 +83,10 @@ export const AccountCreation = ({
               />
             </div>
             <div>
-              <button className="bg-black w-full text-white rounded-lg py-2">
+              <button
+                onClick={userLoginAccountHandler}
+                className="bg-black w-full text-white rounded-lg py-2"
+              >
                 Sign In
               </button>
             </div>
@@ -135,6 +152,9 @@ export const AccountCreation = ({
             <div className="flex flex-col gap-1">
               <label>Full Name</label>
               <input
+                onChange={(e) => {
+                  setFullname(e.target.value);
+                }}
                 placeholder="John Doe"
                 className="w-full px-3 rounded-lg py-2 outline-none bg-gray-200"
               />
@@ -142,6 +162,9 @@ export const AccountCreation = ({
             <div className="flex flex-col gap-1">
               <label>Email</label>
               <input
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
                 placeholder="JohnDoe@example.com"
                 className="w-full px-3 rounded-lg py-2 outline-none bg-gray-200"
               />
@@ -149,13 +172,19 @@ export const AccountCreation = ({
             <div className="flex flex-col gap-1">
               <label>Password</label>
               <input
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
                 type="password"
                 placeholder="Create a strong password"
                 className="w-full px-3 rounded-lg py-2 outline-none bg-gray-200"
               />
             </div>
             <div>
-              <button className="bg-black w-full text-white rounded-lg py-2">
+              <button
+                onClick={userCreateAccountHandler}
+                className="bg-black w-full cursor-pointer active:opacity-90 text-white rounded-lg py-2"
+              >
                 Create Account
               </button>
             </div>

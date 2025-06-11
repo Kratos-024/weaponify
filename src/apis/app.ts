@@ -9,13 +9,13 @@ import {
   meleeWeapons,
   historicalWeapon,
 } from "../../public/weapons";
-import {
-  type AiGenratedWeaponData,
-
-  
-} from "../../public/types/weapon";
+import { type AiGenratedWeaponData } from "../../public/types/weapon";
 import { app } from "../firebase/fireSdk";
-
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 const addWeapons = (
   weaponUrl: string,
   weaponModel: string,
@@ -57,7 +57,6 @@ function addArrayOfWeaponsToDB() {
   });
 }
 
-
 const getEachWeapon = async (id: string, name: string) => {
   try {
     const db = getDatabase(app);
@@ -91,22 +90,19 @@ const addDataWeapon = async (weaponData: AiGenratedWeaponData) => {
     return true;
   } catch (error) {
     console.error("Error saving weapon data:", error);
-    throw error;  // re-throw to let caller handle it
+    throw error; // re-throw to let caller handle it
   }
 };
 
 const addWeaponToDB = async (weapon: AiGenratedWeaponData) => {
   try {
     const response = await addDataWeapon(weapon);
-    console.log(weapon[0].name)
+    console.log(weapon[0].name);
     console.log(response);
   } catch (error) {
     console.log(error);
   }
 };
-
-
-
 
 // export const hk416Data: AiGenratedWeaponData = [
 //   {
@@ -209,8 +205,6 @@ const addWeaponToDB = async (weapon: AiGenratedWeaponData) => {
 //   }
 // ];
 
-
-
 // export const ak47Data: AiGenratedWeaponData = [
 //   {
 //     name: "AK-47"
@@ -311,7 +305,6 @@ const addWeaponToDB = async (weapon: AiGenratedWeaponData) => {
 //     sketchFabUrl: '<div class="sketchfab-embed-wrapper"> <iframe title="AK-47" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/ZMhWW9znpiBAhxDSomqX2kSSfg/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/ak-47-ZMhWW9znpiBAhxDSomqX2kSSfg?utm_medium=embed&utm_campaign=share-popup&utm_content=ZMhWW9znpiBAhxDSomqX2kSSfg" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> AK-47 </a> by <a href="https://sketchfab.com/millenia3d?utm_medium=embed&utm_campaign=share-popup&utm_content=ZMhWW9znpiBAhxDSomqX2kSSfg" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Azure Midsummer (millenia3d) </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=ZMhWW9znpiBAhxDSomqX2kSSfg" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>'
 //   }
 // ];
-
 
 // export const ak74Data: AiGenratedWeaponData = [
 //   {
@@ -415,7 +408,6 @@ const addWeaponToDB = async (weapon: AiGenratedWeaponData) => {
 //     sketchFabUrl: '<div class="sketchfab-embed-wrapper"> <iframe title="AK-74" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/44c6581b852a4a03a0cd509be06f0dd8/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/ak-74-44c6581b852a4a03a0cd509be06f0dd8?utm_medium=embed&utm_campaign=share-popup&utm_content=44c6581b852a4a03a0cd509be06f0dd8" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> AK-74 </a> by <a href="https://sketchfab.com/dimalukomo?utm_medium=embed&utm_campaign=share-popup&utm_content=44c6581b852a4a03a0cd509be06f0dd8" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> madridista_9248 </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=44c6581b852a4a03a0cd509be06f0dd8" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>'
 //   }
 // ];
-
 
 // export const ak103Data: AiGenratedWeaponData = [
 //   {
@@ -1147,7 +1139,6 @@ const addWeaponToDB = async (weapon: AiGenratedWeaponData) => {
 //   }
 // ];
 
-
 // export const m1AbramsData: AiGenratedWeaponData = [
 //   {
 //     name: "M1 Abrams"
@@ -1561,7 +1552,6 @@ const addWeaponToDB = async (weapon: AiGenratedWeaponData) => {
 //   }
 // ];
 
-
 // export const mossberg500ModelData: AiGenratedWeaponData = [
 //   {
 //     name: "Mossberg 500 - Model"
@@ -1812,8 +1802,6 @@ const addWeaponToDB = async (weapon: AiGenratedWeaponData) => {
 //     sketchFabUrl: `<div class="sketchfab-embed-wrapper"> <iframe title="Ithaca 37" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/6aa11fdd57ee4e2bbd51b9b648c8f71c/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/ithaca-37-6aa11fdd57ee4e2bbd51b9b648c8f71c?utm_medium=embed&utm_campaign=share-popup&utm_content=6aa11fdd57ee4e2bbd51b9b648c8f71c" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Ithaca 37 </a> by <a href="https://sketchfab.com/ulfen?utm_medium=embed&utm_campaign=share-popup&utm_content=6aa11fdd57ee4e2bbd51b9b648c8f71c" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Ulfen </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=6aa11fdd57ee4e2bbd51b9b648c8f71c" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`
 //   }
 // ];
-
-
 
 // export const remington870ShotgunData: AiGenratedWeaponData = [
 //   {
@@ -2376,110 +2364,136 @@ const addWeaponToDB = async (weapon: AiGenratedWeaponData) => {
 //     sketchFabUrl: `<div class="sketchfab-embed-wrapper"> <iframe title="low-poly Kord 12.7" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/20c24336ba1f42fba3af34f53aa7b22d/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/low-poly-kord-127-20c24336ba1f42fba3af34f53aa7b22d?utm_medium=embed&utm_campaign=share-popup&utm_content=20c24336ba1f42fba3af34f53aa7b22d" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> low-poly Kord 12.7 </a> by <a href="https://sketchfab.com/DU1701?utm_medium=embed&utm_campaign=share-popup&utm_content=20c24336ba1f42fba3af34f53aa7b22d" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> D_U </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=20c24336ba1f42fba3af34f53aa7b22d" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`
 //   }
 // ];
-export const nsvData: AiGenratedWeaponData = [
-  {
-    name: "NSV 12-7 Utes"
-  },
-  {
-    specsTech: [
-      {
-        title: "Technical Specifications",
-        points: [
-          "Soviet heavy machine gun designed in the late 1960s by G.I. Nikitin, Y. V. Sokolov, and V.I. Volkov.",
-          "Chambered for 12.7×108mm cartridge.",
-          "Gas-operated, belt-fed, air-cooled.",
-          "Designed to replace the DShK and improve reliability and rate of fire."
-        ],
-        dimensionsAndWeight: {
-          weight: "Approx. 25 kg (gun only)",
-          length: "1,460 mm",
-          barrelLength: "1,070 mm",
-          caliber: "12.7×108mm"
-        },
-        armament: {
-          action: "Gas-operated, open bolt",
-          rateOfFire: "700 rounds per minute",
-          effectiveRange: "Up to 1,500–2,000 meters",
-          feedSystem: "50-round belt"
-        }
-      }
-    ]
-  },
-  {
-    appearance: [
-      {
-        title: "Design and Features",
-        points: [
-          "Robust and streamlined for easier maintenance and reliability.",
-          "Typically mounted on vehicles, tripods, or anti-aircraft mounts.",
-          "Has a quick-change barrel for sustained fire.",
-          "More compact and lighter than its predecessor, the DShK."
-        ]
-      },
-      {
-        title: "Usage and Role",
-        points: [
-          "Widely used by Soviet and Russian forces and many allied countries.",
-          "Used for infantry support, vehicle armament, and anti-aircraft defense.",
-          "Effective against light armor, personnel, and low-flying aircraft.",
-          "Still actively used in various conflicts worldwide."
-        ]
-      }
-    ]
-  },
-  {
-    history: [
-      {
-        title: "Development and Deployment",
-        points: [
-          "Developed in the late 1960s and introduced in the 1970s.",
-          "Adopted as a reliable heavy machine gun for ground and vehicle use.",
-          "Replaced older heavy machine guns like the DShK in many roles.",
-          "Has various modernized versions and mounts for diverse applications."
-        ]
-      },
-      {
-        title: "In Popular Culture",
-        points: [
-          "Appears in military documentaries and video games focusing on Cold War and modern warfare.",
-          "Known for its distinctive sound and heavy hitting power.",
-          "Symbolizes heavy automatic firepower in modern infantry and vehicle combat."
-        ]
-      }
-    ]
-  },
-  {
-    uniqueCode: "4f64a7a1-c7b9-4d42-a929-ba588dda2c7e",
-    sketchFabUrl: `<div class="sketchfab-embed-wrapper"> <iframe title="low-poly NSV 12,7 &quot;Utes&quot;" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/8c5204a9ed1a43c2b35636aecca5a683/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/low-poly-nsv-127-utes-8c5204a9ed1a43c2b35636aecca5a683?utm_medium=embed&utm_campaign=share-popup&utm_content=8c5204a9ed1a43c2b35636aecca5a683" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> low-poly NSV 12,7 &quot;Utes&quot; </a> by <a href="https://sketchfab.com/DU1701?utm_medium=embed&utm_campaign=share-popup&utm_content=8c5204a9ed1a43c2b35636aecca5a683" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> D_U </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=8c5204a9ed1a43c2b35636aecca5a683" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`
-  }
-];
+// export const nsvData: AiGenratedWeaponData = [
+//   {
+//     name: "NSV 12-7 Utes",
+//   },
+//   {
+//     specsTech: [
+//       {
+//         title: "Technical Specifications",
+//         points: [
+//           "Soviet heavy machine gun designed in the late 1960s by G.I. Nikitin, Y. V. Sokolov, and V.I. Volkov.",
+//           "Chambered for 12.7×108mm cartridge.",
+//           "Gas-operated, belt-fed, air-cooled.",
+//           "Designed to replace the DShK and improve reliability and rate of fire.",
+//         ],
+//         dimensionsAndWeight: {
+//           weight: "Approx. 25 kg (gun only)",
+//           length: "1,460 mm",
+//           barrelLength: "1,070 mm",
+//           caliber: "12.7×108mm",
+//         },
+//         armament: {
+//           action: "Gas-operated, open bolt",
+//           rateOfFire: "700 rounds per minute",
+//           effectiveRange: "Up to 1,500–2,000 meters",
+//           feedSystem: "50-round belt",
+//         },
+//       },
+//     ],
+//   },
+//   {
+//     appearance: [
+//       {
+//         title: "Design and Features",
+//         points: [
+//           "Robust and streamlined for easier maintenance and reliability.",
+//           "Typically mounted on vehicles, tripods, or anti-aircraft mounts.",
+//           "Has a quick-change barrel for sustained fire.",
+//           "More compact and lighter than its predecessor, the DShK.",
+//         ],
+//       },
+//       {
+//         title: "Usage and Role",
+//         points: [
+//           "Widely used by Soviet and Russian forces and many allied countries.",
+//           "Used for infantry support, vehicle armament, and anti-aircraft defense.",
+//           "Effective against light armor, personnel, and low-flying aircraft.",
+//           "Still actively used in various conflicts worldwide.",
+//         ],
+//       },
+//     ],
+//   },
+//   {
+//     history: [
+//       {
+//         title: "Development and Deployment",
+//         points: [
+//           "Developed in the late 1960s and introduced in the 1970s.",
+//           "Adopted as a reliable heavy machine gun for ground and vehicle use.",
+//           "Replaced older heavy machine guns like the DShK in many roles.",
+//           "Has various modernized versions and mounts for diverse applications.",
+//         ],
+//       },
+//       {
+//         title: "In Popular Culture",
+//         points: [
+//           "Appears in military documentaries and video games focusing on Cold War and modern warfare.",
+//           "Known for its distinctive sound and heavy hitting power.",
+//           "Symbolizes heavy automatic firepower in modern infantry and vehicle combat.",
+//         ],
+//       },
+//     ],
+//   },
+//   {
+//     uniqueCode: "4f64a7a1-c7b9-4d42-a929-ba588dda2c7e",
+//     sketchFabUrl: `<div class="sketchfab-embed-wrapper"> <iframe title="low-poly NSV 12,7 &quot;Utes&quot;" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/8c5204a9ed1a43c2b35636aecca5a683/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/low-poly-nsv-127-utes-8c5204a9ed1a43c2b35636aecca5a683?utm_medium=embed&utm_campaign=share-popup&utm_content=8c5204a9ed1a43c2b35636aecca5a683" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> low-poly NSV 12,7 &quot;Utes&quot; </a> by <a href="https://sketchfab.com/DU1701?utm_medium=embed&utm_campaign=share-popup&utm_content=8c5204a9ed1a43c2b35636aecca5a683" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> D_U </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=8c5204a9ed1a43c2b35636aecca5a683" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`,
+//   },
+// ];
 
 // addWeaponToDB(nsvData)
 
+// export const userCreateAccount = async (
+//   fullName: string,
+//   email: string,
+//   password: string
+// ) => {
+//   try {
+//     const db = getDatabase(app);
+//     await set(ref(db, "user/createAccount/"), {
+//       fullName,
+//       email,
+//       password,
+//     });
+//     return { success: true };
+//   } catch (error) {
+//     console.error(error);
+//     return { success: false, error };
+//   }
+// };
+export const userCreateAccount = async (email: string, password: string) => {
+  try {
+    const auth = getAuth(app);
+    const response = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    console.log(response);
+    return { success: true };
+  } catch (error) {
+    console.error(error);
+    return { success: false, error };
+  }
+};
+export const userLoginAccount = async (email: string, password: string) => {
+  try {
+    const auth = getAuth(app);
+    const response = await signInWithEmailAndPassword(auth, email, password);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    if (response && response.user) {
+      console.log("Login success:", response.user.email);
+      return { success: true };
+    } else {
+      console.log("Login failed: no user found");
+      return { success: false, error: "No user found" };
+    }
+  } catch (error) {
+    console.error("Login error:", error);
+    return { success: false, error };
+  }
+};
 
 export { addArrayOfWeaponsToDB, addWeaponToDB, getEachWeapon };
+// signlogiInWithEmailAndPassword;
