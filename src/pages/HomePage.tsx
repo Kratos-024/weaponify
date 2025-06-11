@@ -10,7 +10,6 @@ import { AccountCreation } from "../components/AccountCreation";
 export const HomePage = () => {
   const [showAccount, setShowAccount] = useState<boolean>(false);
   const showAccountHandler = () => {
-    console.log(showAccount);
     setShowAccount(!showAccount);
   };
 

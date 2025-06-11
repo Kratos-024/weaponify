@@ -1,4 +1,4 @@
-import { getDatabase, set, ref, get } from "firebase/database";
+import { getDatabase, set, ref, get, push, update } from "firebase/database";
 import {
   assualtRifles,
   tanks,
@@ -17,7 +17,13 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { arrayUnion, doc, getFirestore, updateDoc } from "firebase/firestore";
+import {
+  arrayUnion,
+  doc,
+  getFirestore,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 const addWeapons = (
   weaponUrl: string,
   weaponModel: string,
@@ -135,67 +141,76 @@ export const userLoginAccount = async (email: string, password: string) => {
   }
 };
 
+// export const addToWishlist = async (
+//   weaponId: string,
+//   imgSrc: string,
+//   name: string,
+//   inStock: number
+// ) => {
+//   try {
+//     const db = getFirestore();
+//     const auth = getAuth();
+//     const user = auth.currentUser;
+//     if (!user) {
+//       console.log("No user logged in.");
+//       return { data: null, status: false };
+//     }
+
+//     const userRef = doc(db, "users", user.uid);
+//     const item = {
+//       weaponId,
+//       imgSrc,
+//       name,
+//       inStock,
+//     };
+//     console.log(weaponId, imgSrc, name, inStock);
+//     console.log(typeof inStock); // should be 'number'
+
+//     await setDoc(
+//       userRef,
+//       {
+//         wishlist: arrayUnion(item),
+//       },
+//       { merge: true }
+//     );
+
+//     return { data: item, status: true };
+//   } catch (error) {
+//     console.log("Error occurred in wishlist:", error);
+//     return { data: null, status: false, error };
+//   }
+// };
 export const addToWishlist = async (
   weaponId: string,
   imgSrc: string,
   name: string,
   inStock: number
 ) => {
+  const db = getDatabase(app);
+  const auth = getAuth();
+  const user = auth.currentUser;
+
+  if (!user) return { status: false };
+
   try {
-    const db = getFirestore();
-    const auth = getAuth();
-    const user = auth.currentUser;
+    const newWishlistRef = push(ref(db, `users/${user.uid}/wishlist`));
 
-    if (!user) {
-      console.log("No user logged in.");
-      return { data: null, status: false };
-    }
-
-    const userRef = doc(db, "users", user.uid);
-    const item = {
+    await update(newWishlistRef, {
       weaponId,
       imgSrc,
       name,
       inStock,
-    };
-
-    await updateDoc(userRef, {
-      wishlist: arrayUnion(item),
     });
 
-    return { data: item, status: true };
-  } catch (error) {
-    console.log("Error occurred in wishlist:", error);
-    return { data: null, status: false, error };
-  }
-};
-
-export const checkUser = () => {
-  try {
-    const token = sessionStorage.getItem("accessToken");
-    if (!token) {
-      throw new Error(
-        "Session Storage is expired or not present, Re-Authenticate"
-      );
-    }
-    const auth = getAuth(app);
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log("User is logged in:", user.getIdToken);
-        return { data: "", status: true };
-      } else {
-        console.log("No user logged in.");
-        return { data: "", status: false };
-      }
-    });
-  } catch (error) {
-    console.log("Error has been occured during authentication", error);
-    return { data: "", status: false };
+    return { status: true };
+  } catch (err) {
+    console.error("Realtime DB Error:", err);
+    return { status: false, error: err };
   }
 };
 
 // export const logOutUser = ()=>{
-//   try {
+//   try {ET https://firestore.googleapis.com/google.firestore.v1.Firestore/Write/channel?gsessionid=od4fwoOZXSOi94_i3a-zPW8gH2sGcpAgDsQLO8UWRGM&VER=8&database=projects%2Fweaponify%2Fdatabases%2F(default)&RID=rpc&SID=I9AQoY0zRlPEwYxTNCO8dg&AID=0&CI=0&TYPE=xmlhttp&zx=e5rd8r38j318&t=1 net::ERR_ABORTED 400 (Bad Request)
 //   const auth = getAuth()
 //   await user
 //   } catch (error) {

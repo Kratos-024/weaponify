@@ -75,8 +75,8 @@ export const ShopPage = () => {
 
   return (
     <section>
-      {" "}
       <NavBar />
+
       <div
         className="2xl:w-[1480px] xl:w-[1300px] max-md:w-[680px]
        lg:mx-auto max-xl:w-[1180px] max-lg:px-[44px] 

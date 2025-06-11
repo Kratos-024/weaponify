@@ -5,7 +5,7 @@ import { CiUser } from "react-icons/ci";
 import { IoOptionsSharp } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
 import { useEffect, useState } from "react";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 export const TopBar = ({ showAccountHandler }: { showAccountHandler: any }) => {
   const [options, setOptions] = useState<boolean>(false);
@@ -14,12 +14,24 @@ export const TopBar = ({ showAccountHandler }: { showAccountHandler: any }) => {
   const showOptions = () => {
     setOptions(!options);
   };
+  const auth = getAuth();
+
   useEffect(() => {
-    const auth = getAuth();
-    if (auth.currentUser) {
-      setName(auth.currentUser?.email || "");
-    }
-  });
+    console.log("Auth state changed:");
+
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      console.log("Auth state changed:", user?.email);
+
+      if (user) {
+        setName(user.email || "");
+      } else {
+        setName("");
+      }
+    });
+
+    return () => unsubscribe();
+  }, [auth]);
+
   return (
     <nav className="bg-[#17171A] max-sm:w-full">
       <div
@@ -47,7 +59,7 @@ export const TopBar = ({ showAccountHandler }: { showAccountHandler: any }) => {
               <CiUser className="hover:text-[#ff69b4] text-[26px] text-white" />
             </div>
           )}
-          <h3>{name ? name : "Account"}</h3>
+          <h3>{name.length > 1 ? name : "Account"}</h3>
         </div>
       </div>
     </nav>

@@ -4,29 +4,32 @@ import { CiSearch } from "react-icons/ci";
 import { CiShoppingCart } from "react-icons/ci";
 import { useState } from "react";
 import { FaRegUserCircle } from "react-icons/fa";
-import { getAuth, signOut } from "firebase/auth";
+import { getAuth, signOut, type Auth } from "firebase/auth";
 import { toast } from "react-toastify";
 
+export const logOut = async (auth: Auth) => {
+  try {
+    await signOut(auth);
+    toast.success("LogOut successfully");
+  } catch (error) {
+    console.log("Error has been occured with logout", error);
+    toast.error("LogOut Un-successful");
+  }
+};
 export const NavBar = () => {
   const [showProduct, setShowProduct] = useState(false);
   const [ShowPage, setShowPage] = useState(false);
   const auth = getAuth();
-
+  const logOutHandler = async (auth: Auth) => {
+    await logOut(auth);
+  };
   const showProdut = () => {
     setShowProduct(!showProduct);
   };
   const showPage = () => {
     setShowPage(!ShowPage);
   };
-  const logOut = async () => {
-    try {
-      await signOut(auth);
-      toast.success("LogOut successfully");
-    } catch (error) {
-      console.log("Error has been occured with logout", error);
-      toast.error("LogOut Un-successful");
-    }
-  };
+
   return (
     <nav>
       <div className="flex items-center justify-between px-[12px] py-[16px]">
@@ -155,7 +158,9 @@ h-[32px] text-white cursor-pointer"
                   My Profile
                 </li>
                 <li
-                  onClick={logOut}
+                  onClick={() => {
+                    logOutHandler(auth);
+                  }}
                   className="px-4 py-2 hover:bg-gray-100 rounded-xl "
                 >
                   LogOut

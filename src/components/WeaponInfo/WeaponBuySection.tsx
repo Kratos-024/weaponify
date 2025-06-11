@@ -9,6 +9,7 @@ import { FaShippingFast } from "react-icons/fa";
 import { SiFreenet } from "react-icons/si";
 import { addToWishlist } from "../../apis/app";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 // function parseSketchfabEmbed(
 //   weaponObject: weaponObjectType,
@@ -91,14 +92,18 @@ export const WeaponBuySection = ({ embedUrl }: { embedUrl: string }) => {
   };
   const addToWhilistHandler = async (
     weaponId: string,
-
     name: string,
     inStocks: number
   ) => {
     try {
       const imgSrc = (await getSketchfabThumbnail(embedUrl)) || "";
-      addToWishlist(weaponId, imgSrc, name, inStocks);
+
+      const response = await addToWishlist(weaponId, imgSrc, name, inStocks);
+      if (response.status) {
+        toast.success("Added to whislist");
+      }
     } catch (error) {
+      toast.error("Something went wrong, Please login");
       console.log("Error has been occured in whislist handler");
     }
   };
@@ -161,7 +166,7 @@ export const WeaponBuySection = ({ embedUrl }: { embedUrl: string }) => {
             onClick={() => {
               addToWhilistHandler(weaponId, "name", 15);
             }}
-            className="bg-[#ececec]  bg-pinkishBg rounded-full p-4 mx-auto"
+            className="bg-[#ececec] cursor-pointer bg-pinkishBg rounded-full p-4 mx-auto"
           >
             <CiStar className=" w-[28px] h-[28px]  hover:text-[#ffffff]" />
           </div>
