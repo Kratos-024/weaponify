@@ -193,4 +193,13 @@ export const checkUser = () => {
     return { data: "", status: false };
   }
 };
+
+// export const logOutUser = ()=>{
+//   try {
+//   const auth = getAuth()
+//   await user
+//   } catch (error) {
+
+//   }
+// }
 export { addArrayOfWeaponsToDB, addWeaponToDB, getEachWeapon };

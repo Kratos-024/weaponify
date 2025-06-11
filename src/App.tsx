@@ -1,10 +1,12 @@
 import "./App.css";
-
+import { ToastContainer } from "react-toastify";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
 import { ShopPage } from "./pages/ShopPage";
 import { WeaponPage } from "./pages/WeaponPage";
 import { Whislist } from "./pages/Whislist";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   return (
     <>
@@ -18,6 +20,7 @@ function App() {
           ></Route>
           <Route path={`shop/whislist`} element={<Whislist />}></Route>
         </Routes>
+        <ToastContainer />
       </BrowserRouter>
     </>
   );

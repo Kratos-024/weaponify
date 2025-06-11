@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { userCreateAccount, userLoginAccount } from "../apis/app";
+import { toast } from "react-toastify";
 
 export const AccountCreation = ({
   showAccountHandler,
@@ -15,11 +16,23 @@ export const AccountCreation = ({
   const userCreateAccountHandler = async () => {
     const response = await userCreateAccount(email, password);
     if (response.success) {
+      toast.success(
+        "Account created successfully now login with same crendentials"
+      );
       setCreateAccount(!createAccount);
+    } else {
+      toast.error("Something went wrong please try again");
     }
   };
   const userLoginAccountHandler = async () => {
-    await userLoginAccount(email, password);
+    const response = await userLoginAccount(email, password);
+
+    if (response.success) {
+      toast.success("Logged in");
+      showAccountHandler();
+    } else {
+      toast.error("Something went wrong please try again");
+    }
   };
 
   return (

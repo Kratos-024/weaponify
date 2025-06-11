@@ -3,16 +3,29 @@ import { LiaGlassWhiskeySolid } from "react-icons/lia";
 import { CiSearch } from "react-icons/ci";
 import { CiShoppingCart } from "react-icons/ci";
 import { useState } from "react";
+import { FaRegUserCircle } from "react-icons/fa";
+import { getAuth, signOut } from "firebase/auth";
+import { toast } from "react-toastify";
 
 export const NavBar = () => {
   const [showProduct, setShowProduct] = useState(false);
   const [ShowPage, setShowPage] = useState(false);
+  const auth = getAuth();
 
   const showProdut = () => {
     setShowProduct(!showProduct);
   };
   const showPage = () => {
     setShowPage(!ShowPage);
+  };
+  const logOut = async () => {
+    try {
+      await signOut(auth);
+      toast.success("LogOut successfully");
+    } catch (error) {
+      console.log("Error has been occured with logout", error);
+      toast.error("LogOut Un-successful");
+    }
   };
   return (
     <nav>
@@ -117,6 +130,39 @@ h-[32px] text-white cursor-pointer"
             className="hover:text-[#ff69b4]  w-[32px]
 h-[32px] text-white cursor-pointer"
           />
+          {auth.currentUser && (
+            <div className="relative  group flex items-center uppercase hover:opacity-90 cursor-pointer">
+              {" "}
+              <FaRegUserCircle
+                className="hover:text-[#ff69b4]  w-[32px]
+h-[32px] text-white cursor-pointer"
+              />
+              <ul
+                className={`absolute mt-2 whitespace-nowrap
+                  rounded-xl ${
+                    ShowPage
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-2"
+                  }
+                group-hover:opacity-100
+                pointer-events-auto
+              -translate-x-5 flex-col opacity-0
+               transition-all  duration-500 ease-in-out top-full
+                left-0  md:group-hover:translate-y-0 translate-y-7 group-hover:block bg-white text-black
+                  shadow-md`}
+              >
+                <li className="px-4 py-2 hover:bg-gray-100 rounded-xl ">
+                  My Profile
+                </li>
+                <li
+                  onClick={logOut}
+                  className="px-4 py-2 hover:bg-gray-100 rounded-xl "
+                >
+                  LogOut
+                </li>{" "}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </nav>
