@@ -20,6 +20,7 @@ import {
 import {
   arrayUnion,
   doc,
+  getDoc,
   getFirestore,
   setDoc,
   updateDoc,
@@ -180,32 +181,86 @@ export const userLoginAccount = async (email: string, password: string) => {
 //     return { data: null, status: false, error };
 //   }
 // };
+// export const addToWishlist = async (
+//   weaponId: string,
+//   imgSrc: string,
+//   name: string,
+//   inStock: number
+// ) => {
+//   const db = getDatabase(app);
+//   const auth = getAuth();
+//   const user = auth.currentUser;
+
+//   if (!user) return { status: false };
+
+//   try {
+//     const newWishlistRef = push(ref(db, `users/${user.uid}/wishlist`));
+
+//     await update(newWishlistRef, {
+//       weaponId,
+//       imgSrc,
+//       name,
+//       inStock,
+//     });
+
+//     return { status: true };
+//   } catch (err) {
+//     console.error("Realtime DB Error:", err);
+//     return { status: false, error: err };
+//   }
+// };
+
 export const addToWishlist = async (
   weaponId: string,
   imgSrc: string,
   name: string,
   inStock: number
 ) => {
-  const db = getDatabase(app);
   const auth = getAuth();
+  const db = getFirestore(app);
   const user = auth.currentUser;
-
   if (!user) return { status: false };
 
+  const userRef = doc(db, "users", user.uid);
+
   try {
-    const newWishlistRef = push(ref(db, `users/${user.uid}/wishlist`));
-
-    await update(newWishlistRef, {
-      weaponId,
-      imgSrc,
-      name,
-      inStock,
-    });
-
+    await setDoc(
+      userRef,
+      {
+        wishlist: arrayUnion({
+          weaponId,
+          imgSrc,
+          name,
+          inStock,
+        }),
+      },
+      { merge: true }
+    );
     return { status: true };
   } catch (err) {
-    console.error("Realtime DB Error:", err);
+    console.error("Firestore Error:", err);
     return { status: false, error: err };
+  }
+};
+export const getWishlist = async () => {
+  try {
+    const auth = getAuth();
+    const db = getFirestore(app);
+    const user = auth.currentUser;
+
+    if (!user) return { status: false, message: "User not authenticated" };
+
+    const userRef = doc(db, "users", user.uid);
+    const docSnap = await getDoc(userRef);
+
+    if (docSnap.exists()) {
+      return { status: true, data: docSnap.data() };
+    } else {
+      return { status: false, message: "No wishlist found" };
+    }
+  } catch (error) {
+    console.error("Error occurred while fetching wishlist:", error);
+    return { status: false, error };
   }
 };
 

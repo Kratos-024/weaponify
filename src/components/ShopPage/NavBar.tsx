@@ -8,6 +8,7 @@ import { getAuth, onAuthStateChanged, type Auth } from "firebase/auth";
 import { AccountCreation } from "../AccountCreation";
 import { FaRegUserCircle } from "react-icons/fa";
 import { logOut } from "../HomePage/NavBar";
+import { Link } from "react-router-dom";
 
 export const NavBar = () => {
   const [name, setName] = useState<string>("");
@@ -113,7 +114,10 @@ export const NavBar = () => {
               </div>
             )}
           </div>
-          <LiaGlassWhiskeySolid className="hover:text-[#ff69b4] max-md:w-[24px] max-md:h-[24px] w-[32px] h-[32px]  text-white cursor-pointer" />
+          <Link to={"/shop/whislist"}>
+            {" "}
+            <LiaGlassWhiskeySolid className="hover:text-[#ff69b4] max-md:w-[24px] max-md:h-[24px] w-[32px] h-[32px]  text-white cursor-pointer" />
+          </Link>{" "}
           <CiSearch
             className="hover:text-[#ff69b4] w-[32px] max-lg:hidden max-md:w-[24px] max-md:h-[24px]
 h-[32px] text-white cursor-pointer"

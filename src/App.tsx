@@ -4,8 +4,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
 import { ShopPage } from "./pages/ShopPage";
 import { WeaponPage } from "./pages/WeaponPage";
-import { Whislist } from "./pages/Whislist";
 import "react-toastify/dist/ReactToastify.css";
+import Whislist from "./pages/Whislist";
 
 function App() {
   return (
