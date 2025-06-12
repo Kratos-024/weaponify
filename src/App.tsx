@@ -6,6 +6,9 @@ import { ShopPage } from "./pages/ShopPage";
 import { WeaponPage } from "./pages/WeaponPage";
 import "react-toastify/dist/ReactToastify.css";
 import Whislist from "./pages/Whislist";
+import Contact from "./components/ContactUs";
+import { AboutUs } from "./components/AboutUs";
+import Faqs4 from "./components/FAQs";
 
 function App() {
   return (
@@ -19,7 +22,11 @@ function App() {
             element={<WeaponPage />}
           ></Route>
           <Route path={`shop/whislist`} element={<Whislist />}></Route>
+          <Route path={`shop/contactUs`} element={<Contact />}></Route>
+          <Route path={`shop/AboutUs`} element={<AboutUs />}></Route>
+          <Route path={`shop/FAQs`} element={<Faqs4 />}></Route>
         </Routes>
+
         <ToastContainer />
       </BrowserRouter>
     </>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FilterBy } from "../components/ShopPage/FilterBy";
-import { ShowingHeader } from "../components/ShopPage/ShowingHeader";
+import { SortingHeader } from "../components/ShopPage/ShowingHeader";
 import { WeaponHeader } from "../components/ShopPage/WeaponHeader";
 import { WeaponShowCaseBody } from "../components/ShopPage/WeaponShowCaseBody";
 import {
@@ -76,19 +76,34 @@ export const ShopPage = () => {
   return (
     <section>
       <NavBar />
-
-      <div
-        className="2xl:w-[1480px] xl:w-[1300px] max-md:w-[680px]
-       lg:mx-auto max-xl:w-[1180px] max-lg:px-[44px] 
-          max-md:px-[18px] max-lg:w-full"
-      >
+      <div className="w-full max-xl:hidden ">
         <WeaponHeader />
-        <div className="flex gap-[48px] mt-[296px] z-40 px-9 max-lg:justify-center ">
+      </div>
+      <div
+        className="2xl:w-[1480px] xl:w-[1300px]
+        max-md:w-full w-full mx-auto
+         max-xl:w-[1180px] "
+      >
+        <div
+          className="xl:hidden max-lg:w-full 
+        max-xl:w-[1280px]"
+        >
+          <WeaponHeader />
+        </div>
+
+        <div
+          className="flex gap-[48px] 
+          lg:mt-[296px]
+         z-40 px-2 max-lg:justify-center "
+        >
           <div className=" max-lg:hidden">
             <FilterBy filterName={filterName} setFilterName={setFilterName} />
           </div>
-          <div className="w-full max-lg:w-[980px] ">
-            <ShowingHeader />
+          <div
+            className="w-full max-md:w-full
+           max-lg:w-[980px] "
+          >
+            <SortingHeader />
             <WeaponShowCaseBody weaponData={filterWeapon} />
           </div>
         </div>

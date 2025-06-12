@@ -28,16 +28,12 @@ const SlideMenu = () => {
     setIsOpen(false);
   };
 
-  // Add this handler function
   const handleItemClick = (label: any) => {
     setActiveItem(label);
   };
   return (
-    <div className="relative ">
-      {/* Main Content */}
-      {/* Options Button */}
-      <div className="w-fit">
-        {" "}
+    <div className="relative z-50 ">
+      <div className="w-fit z-50">
         <button
           onClick={toggleMenu}
           className="flex items-center
@@ -50,9 +46,11 @@ const SlideMenu = () => {
         </button>
       </div>
       <div
-        className={`fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm transition-all duration-300 z-40 ${
-          isOpen ? "opacity-100 visible" : "opacity-0 invisible"
-        }`}
+        className={`z-50 fixed inset-0 bg-black
+           bg-opacity-30 backdrop-blur-sm transition-all
+            duration-300  ${
+              isOpen ? "opacity-100 visible" : "opacity-0 invisible"
+            }`}
         onClick={closeMenu}
       />
 

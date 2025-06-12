@@ -39,12 +39,16 @@ export default function CheckboxDropdown() {
 
   return (
     <div
-      className="relative inline-block mr-[18px] text-left"
+      className="relative inline-block mr-[18px] 
+      text-left"
       ref={dropdownRef}
     >
       <button
         onClick={() => setOpen(!open)}
-        className=" bg-white font-semibold ease-in-out cursor-pointer active:opacity-80 flex items-center gap-1 w-fit rounded px-5 py-2 text-left"
+        className=" bg-white font-semibold 
+        ease-in-out cursor-pointer active:opacity-80 
+        flex items-center gap-1 w-fit rounded px-5
+         py-2 text-left"
       >
         <span> Default Sorting </span>
         <RiArrowDropDownLine className="w-[28px] h-[28px]" />
@@ -75,38 +79,26 @@ export default function CheckboxDropdown() {
   );
 }
 
-const ShowingHeader2 = () => {
+export const SortingHeader = () => {
   return (
-    <div
-      className="bg-[#E5E7EB] rounded-lg  max-md:w-full
-     max-lg:w-[720px] 
-    mx-1 px-3 py-2 items-center flex justify-between"
-    >
-      <div className="flex items-center gap-4">
-        {" "}
-        <div>
-          <FaRegSquare />
-        </div>{" "}
-        <div>
-          <FaRegSquare />
-        </div>{" "}
-        <div>
-          <FaRegSquare />
+    <section className="max-md:w-[360px] px-2 md:w-[980px]  ">
+      <div
+        className="bg-[#E5E7EB] rounded-lg 
+  mx-1 px-3 py-2 items-center flex justify-between"
+      >
+        <div className="flex items-center gap-4">
+          <div>
+            <FaRegSquare />
+          </div>{" "}
+          <div>
+            <FaRegSquare />
+          </div>{" "}
+          <div className="max-md:hidden">
+            <FaRegSquare />
+          </div>
         </div>
-      </div>
-      <h3 className="max-md:hidden">Showin all 7 results</h3>
-      <div>
+        <h3 className="max-md:hidden">Showin all 7 results</h3>
         <CheckboxDropdown />
-      </div>
-    </div>
-  );
-};
-
-export const ShowingHeader = () => {
-  return (
-    <section className="w-full">
-      <div>
-        <ShowingHeader2 />
       </div>
     </section>
   );

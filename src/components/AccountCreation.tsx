@@ -20,6 +20,7 @@ export const AccountCreation = ({
         "Account created successfully now login with same crendentials"
       );
       setCreateAccount(!createAccount);
+      window.location.reload();
     } else {
       toast.error("Something went wrong please try again");
     }
@@ -30,6 +31,7 @@ export const AccountCreation = ({
     if (response.success) {
       toast.success("Logged in");
       showAccountHandler();
+      window.location.reload();
     } else {
       toast.error("Something went wrong please try again");
     }
@@ -84,7 +86,7 @@ export const AccountCreation = ({
             <div className="flex flex-col gap-1">
               <label>Email</label>
               <input
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="JohnDoe@example"
                 className="w-full px-3 rounded-lg py-2 outline-none bg-gray-200"
               />
