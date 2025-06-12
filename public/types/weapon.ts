@@ -2,28 +2,35 @@ type SpecTech = {
   title?: string;
   points?: string[];
   dimensionsAndWeight?: {
-    barrelLength?:string
+    barrelLength?: string;
     weight?: string;
     length?: string;
     width?: string;
     height?: string;
-    gauge?:string;
-    caliber?:string
-
+    gauge?: string;
+    caliber?: string;
   };
-  armament?: {capacity?:string;rateOfFire:string;effectiveRange:string
-;feedSystem:string;    action?:string
+  armament?: {
+    capacity?: string;
+    rateOfFire: string;
+    effectiveRange: string;
+    feedSystem: string;
+    action?: string;
     mainGun?: string;
     secondary?: string;
     coaxial?: string;
-    ammunitionCapacity?: string;compatibleAmmunition?:string
+    ammunitionCapacity?: string;
+    compatibleAmmunition?: string;
   };
-  performance?: {effectiveRange?:string
+  performance?: {
+    effectiveRange?: string;
     engine?: string;
     maxSpeed?: string;
     range?: string;
-    crew?: string;  rateOfFire?:string
-    sights?: string,recoil?:string
+    crew?: string;
+    rateOfFire?: string;
+    sights?: string;
+    recoil?: string;
   };
 };
 
@@ -37,12 +44,12 @@ type History = {
   points: string[];
 };
 export type AiGenratedWeaponData = [
-{  name: string},
-{  specsTech: SpecTech[]},
-{  appearance: Appearance[]},
-{  history: History[]},
-{uniqueCode: string,
-sketchFabUrl: string}]
+  { name: string },
+  { specsTech: SpecTech[] },
+  { appearance: Appearance[] },
+  { history: History[] },
+  { uniqueCode: string; sketchFabUrl: string }
+];
 
 type ThreeDModel = {
   uniqueCode: string;
@@ -58,6 +65,8 @@ export type Weapon = [
 ];
 
 export type ResponseWeaponData = {
+  stars: number;
+  noOfPeopleReviewed: number;
   name: string;
   id: string;
   specsTech: SpecTech[];

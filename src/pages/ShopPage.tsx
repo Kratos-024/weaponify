@@ -16,7 +16,10 @@ import {
   handgun,
   machinegun,
 } from "../../public/weapons";
-export type Tank = {
+export type weaponType = {
+  name: string;
+  stars: number;
+  noOfPeopleReviewed: number;
   sNo: number;
   category: string;
   uniqueCode: string;
@@ -25,10 +28,12 @@ export type Tank = {
 import { NavBar } from "../components/ShopPage/NavBar";
 
 export const ShopPage = () => {
-  const [filterWeapon, setFilterWeapon] = useState<Tank[][]>([sniperRefiles]);
+  const [filterWeapon, setFilterWeapon] = useState<weaponType[][]>([
+    sniperRefiles,
+  ]);
   const [filterName, setFilterName] = useState<string[]>(["all"]);
   useEffect(() => {
-    const weaponGroups: Record<string, Tank[]> = {
+    const weaponGroups: Record<string, weaponType[]> = {
       all: [
         ...assualtRifles,
         ...tanks,
@@ -64,7 +69,7 @@ export const ShopPage = () => {
 
       const filtered = filterName
         .filter((name) => weaponGroups[name])
-        .map((name) => weaponGroups[name] as Tank[]);
+        .map((name) => weaponGroups[name] as weaponType[]);
 
       setFilterWeapon(filtered);
     }

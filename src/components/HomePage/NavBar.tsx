@@ -3,10 +3,10 @@ import { LiaGlassWhiskeySolid } from "react-icons/lia";
 import { CiSearch } from "react-icons/ci";
 import { CiShoppingCart } from "react-icons/ci";
 import { useState } from "react";
-import { FaRegUserCircle } from "react-icons/fa";
-import { getAuth, signOut, type Auth } from "firebase/auth";
+import { signOut, type Auth } from "firebase/auth";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { SearchOverlay } from "../SearchComponent";
 
 export const logOut = async (auth: Auth) => {
   try {
@@ -21,10 +21,8 @@ export const logOut = async (auth: Auth) => {
 export const NavBar = () => {
   const [showProduct, setShowProduct] = useState(false);
   const [ShowPage, setShowPage] = useState(false);
-  const auth = getAuth();
-  const logOutHandler = async (auth: Auth) => {
-    await logOut(auth);
-  };
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
   const showProdut = () => {
     setShowProduct(!showProduct);
   };
@@ -35,6 +33,10 @@ export const NavBar = () => {
   return (
     <nav>
       <div className="flex items-center justify-between px-[12px] py-[16px]">
+        <SearchOverlay
+          onClose={() => setIsSearchOpen(false)}
+          isOpen={isSearchOpen}
+        />
         <div className="flex items-center text-white text-[36px]">
           <img
             className=" w-[196px] "
@@ -150,10 +152,16 @@ export const NavBar = () => {
         </div>
         <div className=" gap-4 flex items-center">
           <LiaGlassWhiskeySolid className="hover:text-[#ff69b4] w-[32px] h-[32px]  text-white cursor-pointer" />
-          <CiSearch
-            className="hover:text-[#ff69b4] w-[32px]
+          <div className="max-sm:hidden">
+            <CiSearch
+              onClick={() => {
+                setIsSearchOpen(true);
+                console.log("Opening search overlay");
+              }}
+              className="hover:text-[#ff69b4]  w-[32px] max-lg:hidden max-md:w-[24px] max-md:h-[24px]
 h-[32px] text-white cursor-pointer"
-          />
+            />
+          </div>
           <CiShoppingCart
             className="hover:text-[#ff69b4]  w-[32px]
 h-[32px] text-white cursor-pointer"

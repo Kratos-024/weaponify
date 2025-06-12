@@ -72,7 +72,17 @@ export const WeaponPage = () => {
             </div>
           </div>
           <div className="w-full order-2">
-            <WeaponBuySection embedUrl={sketchFabUrI} />
+            <WeaponBuySection
+              weaponData={{
+                shortDesc:
+                  weaponData.history[0].points[0] +
+                  weaponData.history[0]?.points[1],
+                stars: weaponData.stars,
+                noOfPeopleReviewed: weaponData.noOfPeopleReviewed,
+                name: weaponData.name,
+              }}
+              embedUrl={sketchFabUrI}
+            />
           </div>
         </div>
         <WeaponDescription weaponData={weaponData} />

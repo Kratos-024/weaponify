@@ -9,7 +9,8 @@ import { AccountCreation } from "../AccountCreation";
 import { FaRegUserCircle } from "react-icons/fa";
 import { logOut } from "../HomePage/NavBar";
 import { Link } from "react-router-dom";
-import { auth } from "../../apis/app";
+import { auth, getCartItemCount } from "../../apis/app";
+import { SearchOverlay } from "../SearchComponent";
 export const logOutHandler = async (auth: Auth) => {
   await logOut(auth);
 };
@@ -18,6 +19,8 @@ export const NavBar = () => {
   const [showAccount, setShowAccount] = useState<boolean>(false);
   const [showProduct, setShowProduct] = useState(false);
   const [ShowPage, setShowPage] = useState(false);
+  const [totalQuant, setTotalQuantity] = useState(0);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const showAccountHandler = () => {
     setShowAccount(!showAccount);
@@ -41,7 +44,11 @@ export const NavBar = () => {
         setName("");
       }
     });
-
+    const getCartItemCountHandler = async () => {
+      const response = await getCartItemCount();
+      setTotalQuantity(response.totalQuantity);
+    };
+    getCartItemCountHandler();
     return () => unsubscribe();
   }, [auth]);
 
@@ -52,6 +59,10 @@ export const NavBar = () => {
           <AccountCreation showAccountHandler={showAccountHandler} />
         </div>
       )}
+      <SearchOverlay
+        onClose={() => setIsSearchOpen(false)}
+        isOpen={isSearchOpen}
+      />
       <div className="max-lg:hidden gradient-bg-blur"></div>
       <div
         className="flex items-center 
@@ -91,8 +102,8 @@ export const NavBar = () => {
                 className={`absolute mt-2 whitespace-nowrap
                    rounded-xl ${
                      showProduct
-                       ? "opacity-100 translate-y-0"
-                       : "opacity-0 translate-y-2"
+                       ? "opacity-100  translate-y-0"
+                       : "opacity-0 pointer-events-none translate-y-2"
                    }
             -translate-x-5 flex-col opacity-0
             transition-all  duration-500 ease-in-out top-full
@@ -137,10 +148,10 @@ export const NavBar = () => {
                 className={`absolute mt-2 whitespace-nowrap
                   rounded-xl ${
                     ShowPage
-                      ? "opacity-100 translate-y-0"
-                      : "opacity-0 translate-y-2"
+                      ? "opacity-100  visible translate-y-0"
+                      : "opacity-0  pointer-events-none translate-y-2"
                   }
-                group-hover:opacity-100
+                group-hover:opacity-100 
                 pointer-events-auto
               -translate-x-5 flex-col opacity-0
                transition-all  duration-500 ease-in-out top-full
@@ -205,15 +216,27 @@ export const NavBar = () => {
           <Link to={"/shop/whislist"}>
             <LiaGlassWhiskeySolid className="max-md:hidden hover:text-[#ff69b4] max-md:w-[24px] max-md:h-[24px] w-[32px] h-[32px]  text-white cursor-pointer" />
           </Link>
-          <CiSearch
-            className="hover:text-[#ff69b4]  w-[32px] max-lg:hidden max-md:w-[24px] max-md:h-[24px]
+          <div className="max-sm:hidden">
+            <CiSearch
+              onClick={() => {
+                setIsSearchOpen(true);
+                console.log("Opening search overlay");
+              }}
+              className="hover:text-[#ff69b4]  w-[32px] max-lg:hidden max-md:w-[24px] max-md:h-[24px]
 h-[32px] text-white cursor-pointer"
-          />
-          <CiShoppingCart
-            className="hover:text-[#ff69b4] max-md:hidden
+            />
+          </div>
+
+          <Link to={"/shop/cart"}>
+            <CiShoppingCart
+              className="hover:text-[#ff69b4] relative max-md:hidden
              w-[32px] max-md:w-[24px] max-md:h-[24px]
 h-[32px] text-white cursor-pointer"
-          />
+            />{" "}
+            <div className=" top-[10%] right-6 text-red-600 text-[28px] absolute">
+              {totalQuant}
+            </div>
+          </Link>
         </div>
       </div>
     </nav>

@@ -40,6 +40,8 @@ export const AccountCreation = ({
   return (
     <section className="bg-black/30 fixed inset-0 z-50 backdrop-blur-sm w-full h-screen">
       <div className="group relative flex items-center justify-center h-screen">
+        {/* {"Login Account"} */}
+
         <div
           className={`bg-white w-[420px] rounded-2xl px-3 py-5 transition-all duration-300 ${
             createAccount
@@ -125,6 +127,7 @@ export const AccountCreation = ({
           </div>
         </div>
 
+        {/* {"Create Account"} */}
         <div
           className={`absolute bg-white w-[420px] rounded-2xl px-3 py-5 transition-all duration-300 ${
             createAccount
