@@ -13,7 +13,7 @@ const BrandComponent = ({ img }: { img: string }) => {
 
 export const ShopBy = () => {
   return (
-    <section className="bg-[#17171A] max-md:w-[390px]">
+    <section className="bg-[#17171A] max-md:w-full">
       <div className="py-[126px] px-[48px] pb-[156px]">
         <h2
           className="text-[28px] max-sm:text-[21px] 
@@ -38,9 +38,9 @@ export const ShopBy = () => {
               <BrandComponent img="../Logo/polyhaven_logo.png" />
             </div>
             <div
-              className="grid grid-cols-2
-max-md:w-[196px] gap-y-[28px] gap-x-[148px] max-md:gap-x-[136px]
- max-md:bg-ed-200  justify-items-center "
+              className="grid grid-cols-2 max-md:w-full
+              gap-y-[28px] gap-x-[148px] max-md:gap-x-[136px] 
+              justify-items-center "
             >
               <BrandComponent img="../Logo/3D_Warehouse_logo.png" />
               <BrandComponent img="../Logo/cg_logo.png" />

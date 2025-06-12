@@ -18,7 +18,7 @@ export function Faqs4() {
   return (
     <section className=" ">
       <NavBar />
-      <HeroHeader />
+      <HeroHeader text="FAQs" />
       <div className="container mx-auto my-[148px]">
         <div className="mb-14 text-center ">
           <Typography

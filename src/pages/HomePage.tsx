@@ -15,10 +15,9 @@ export const HomePage = () => {
 
   return (
     <>
-      <div className=" overflow-x-hidden ">
-        {" "}
+      <div className="overflow-x-hidden ">
         {showAccount && (
-          <div className=" ">
+          <div>
             <AccountCreation showAccountHandler={showAccountHandler} />
           </div>
         )}

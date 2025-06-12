@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { FilterBy } from "../components/ShopPage/FilterBy";
-import { SortingHeader } from "../components/ShopPage/ShowingHeader";
-import { WeaponHeader } from "../components/ShopPage/WeaponHeader";
-import { WeaponShowCaseBody } from "../components/ShopPage/WeaponShowCaseBody";
+import { SortingHeader } from "../components/ShopPage/SortingHeader";
+import { ShopHeroSection } from "../components/ShopPage/ShopHeroSection";
+import { WeaponShopBody } from "../components/ShopPage/WeaponShopBody";
 import {
   assualtRifles,
   tanks,
@@ -77,7 +77,7 @@ export const ShopPage = () => {
     <section>
       <NavBar />
       <div className="w-full max-xl:hidden ">
-        <WeaponHeader />
+        <ShopHeroSection />
       </div>
       <div
         className="2xl:w-[1480px] xl:w-[1300px]
@@ -88,7 +88,7 @@ export const ShopPage = () => {
           className="xl:hidden max-lg:w-full 
         max-xl:w-[1280px]"
         >
-          <WeaponHeader />
+          <ShopHeroSection />
         </div>
 
         <div
@@ -104,7 +104,7 @@ export const ShopPage = () => {
            max-lg:w-[980px] "
           >
             <SortingHeader />
-            <WeaponShowCaseBody weaponData={filterWeapon} />
+            <WeaponShopBody weaponData={filterWeapon} />
           </div>
         </div>
       </div>

@@ -4,12 +4,15 @@ import { CiSearch, CiUser } from "react-icons/ci";
 import { CiShoppingCart } from "react-icons/ci";
 import SlideMenu from "./MenuSection";
 import { useEffect, useState } from "react";
-import { getAuth, onAuthStateChanged, type Auth } from "firebase/auth";
+import { onAuthStateChanged, type Auth } from "firebase/auth";
 import { AccountCreation } from "../AccountCreation";
 import { FaRegUserCircle } from "react-icons/fa";
 import { logOut } from "../HomePage/NavBar";
 import { Link } from "react-router-dom";
-
+import { auth } from "../../apis/app";
+export const logOutHandler = async (auth: Auth) => {
+  await logOut(auth);
+};
 export const NavBar = () => {
   const [name, setName] = useState<string>("");
   const [showAccount, setShowAccount] = useState<boolean>(false);
@@ -20,10 +23,6 @@ export const NavBar = () => {
     setShowAccount(!showAccount);
   };
 
-  const auth = getAuth();
-  const logOutHandler = async () => {
-    await logOut(auth);
-  };
   const showProdut = () => {
     setShowProduct(!showProduct);
   };
@@ -194,7 +193,7 @@ export const NavBar = () => {
                     My Profile
                   </li>
                   <li
-                    onClick={logOutHandler}
+                    onClick={() => logOutHandler(auth)}
                     className="px-4 py-2 hover:bg-gray-100 rounded-xl "
                   >
                     LogOut

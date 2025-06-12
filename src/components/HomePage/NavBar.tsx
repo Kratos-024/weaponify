@@ -158,7 +158,7 @@ h-[32px] text-white cursor-pointer"
             className="hover:text-[#ff69b4]  w-[32px]
 h-[32px] text-white cursor-pointer"
           />
-          {auth.currentUser && (
+          {/* {auth.currentUser && (
             <div className="relative  group flex items-center uppercase hover:opacity-90 cursor-pointer">
               {" "}
               <FaRegUserCircle
@@ -189,7 +189,7 @@ h-[32px] text-white cursor-pointer"
                 </li>{" "}
               </ul>
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </nav>

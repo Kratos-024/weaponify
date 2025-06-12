@@ -81,7 +81,7 @@ export default function CheckboxDropdown() {
 
 export const SortingHeader = () => {
   return (
-    <section className="max-md:w-[360px] px-2 md:w-[980px]  ">
+    <section className=" min-md:w-[590px] lg:w-full px-2   ">
       <div
         className="bg-[#E5E7EB] rounded-lg 
   mx-1 px-3 py-2 items-center flex justify-between"

@@ -47,15 +47,15 @@ const WeaponCard = ({ weapon }) => {
 const weapons = [
   {
     id: 1,
-    title: "The T-90, Used in combat",
+    title: " AK-47, Legendary Firearm",
     author: "Admin",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae obcaecati illo optio",
-    embedUrl: `<div class="sketchfab-embed-wrapper"> <iframe title="AK-47" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/ZMhWW9znpiBAhxDSomqX2kSSfg/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/ak-47-ZMhWW9znpiBAhxDSomqX2kSSfg?utm_medium=embed&utm_campaign=share-popup&utm_content=ZMhWW9znpiBAhxDSomqX2kSSfg" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> AK-47 </a> by <a href="https://sketchfab.com/millenia3d?utm_medium=embed&utm_campaign=share-popup&utm_content=ZMhWW9znpiBAhxDSomqX2kSSfg" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Azure Midsummer (millenia3d) </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=ZMhWW9znpiBAhxDSomqX2kSSfg" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>`,
+    embedUrl: `https://sketchfab.com/models/ZMhWW9znpiBAhxDSomqX2kSSfg/embed`,
   },
   {
     id: 2,
-    title: "AK-47, Legendary Firearm",
+    title: "The T-90, Used in combat",
     author: "Admin",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae obcaecati illo optio",
@@ -64,30 +64,29 @@ const weapons = [
   },
   {
     id: 3,
-    title: "M1 Abrams Tank",
+    title: "FAMAS",
     author: "Admin",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae obcaecati illo optio",
-    embedUrl:
-      "https://sketchfab.com/models/9bb8af8876a6478aa92089eff058d4db/embed",
+    embedUrl: `https://sketchfab.com/models/7d35e14ad8874d148ce9cc46e5765a6b/embed`,
   },
   {
     id: 4,
-    title: "M16 Assault Rifle",
+    title: "Sig Sauer P226",
     author: "Admin",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae obcaecati illo optio",
     embedUrl:
-      "https://sketchfab.com/models/9bb8af8876a6478aa92089eff058d4db/embed",
+      "https://sketchfab.com/models/e3d4f1ab22f342f4a0891743353c114c/embed",
   },
   {
     id: 5,
-    title: "RPG-7 Launcher",
+    title: "Winchester Model 1897",
     author: "Admin",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae obcaecati illo optio",
     embedUrl:
-      "https://sketchfab.com/models/9bb8af8876a6478aa92089eff058d4db/embed",
+      "https://sketchfab.com/models/6194ecd23344442fb23f5820f895a0d8/embed",
   },
 ];
 
@@ -117,9 +116,15 @@ export default function WeaponGallery() {
   const visibleWeapons = weapons.slice(safeIndex, safeIndex + cardsPerView);
 
   return (
-    <section className="bg-[#1e1e20] py-24 px-5 max-sm:w-full">
-      <div className="2xl:w-[1400px] max-md:w-[600px]  max-lg:w-[900px]  mx-auto px-4 md:px-16">
-        <div className="mb-12 max-sm:w-[480px]">
+    <section
+      className="bg-[#1e1e20] py-24 px-5 
+    "
+    >
+      <div
+        className=" max-md:w-full md:w-full
+       "
+      >
+        <div className="mb-12">
           <h2
             className="text-4xl text-white break-words font-bold text-center max-sm:text-[28px] 
           overflow-hidden"
@@ -140,7 +145,7 @@ export default function WeaponGallery() {
             }}
             transition={{ duration: 0.9 }}
             viewport={{ once: true, amount: 0.2 }}
-            className="overflow-hidden px-10 w-full  max-sm:w-[360px]"
+            className="overflow-hidden px-10 w-full"
           >
             <div
               className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 

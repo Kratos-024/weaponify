@@ -6,7 +6,7 @@ export const AboutUs = () => {
   return (
     <section className="">
       <NavBar />
-      <HeroHeader />(
+      <HeroHeader text={"About Us"} />
       <div className="bg-white text-gray-800 py-20 px-6 md:px-20">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-5xl font-extrabold text-center mb-10 text-gray-900">
@@ -113,7 +113,7 @@ export const AboutUs = () => {
             </button>
           </div>
         </div>
-      </div>{" "}
+      </div>
       <Footer />
     </section>
   );

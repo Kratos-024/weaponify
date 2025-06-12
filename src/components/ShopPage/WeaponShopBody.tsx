@@ -106,11 +106,7 @@ export const WeaponCard = ({ weapon }: { weapon: any }) => {
   );
 };
 
-export const WeaponShowCaseBody = ({
-  weaponData,
-}: {
-  weaponData: Tank[][];
-}) => {
+export const WeaponShopBody = ({ weaponData }: { weaponData: Tank[][] }) => {
   return (
     <section className="py-[24px] ">
       <div>

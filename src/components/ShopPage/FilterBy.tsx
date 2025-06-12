@@ -115,14 +115,15 @@ export const FilterBy = ({
       <div className="flex items-center gap-2 mb-3 ">
         {" "}
         <IoIosOptions className="w-[21px] h-[21px]" />
-        <p className="text-xl font-bold ">Filter by</p>
+        <p className="text-xl font-bold custom-orbitron ">Filter by</p>
       </div>
       <hr className="mb-4" />
-      <div className="space-y-[64px]">
+      <div className="space-y-[64px] ">
         {" "}
-        <div>
+        <div className="rounded-xl border-[1px] custom-orbitron border-gray-400 py-7 px-9">
           {" "}
-          <h2 className="text-lg font-semibold">Categories</h2>
+          <h2 className="text-lg font-semibold ">Categories</h2>
+          <div className="w-full h-px bg-gray-300 my-4"></div>
           <ul className="space-y-2 mt-2 whitespace-nowrap">
             {weaponCategories.map((cat) => (
               <Category
@@ -135,7 +136,7 @@ export const FilterBy = ({
             ))}
           </ul>
         </div>
-        <div>
+        <div className="rounded-xl border-[1px] custom-orbitron border-gray-400 py-7 px-9">
           <h2 className="text-lg font-semibold">Models</h2>
           <ul className="space-y-2 mt-2">
             {weaponFamilies.map((cat) => (

@@ -1,4 +1,4 @@
-import { getDatabase, set, ref, get, push, update } from "firebase/database";
+import { getDatabase, set, ref, get } from "firebase/database";
 import {
   assualtRifles,
   tanks,
@@ -14,7 +14,6 @@ import { app } from "../firebase/fireSdk";
 import {
   createUserWithEmailAndPassword,
   getAuth,
-  onAuthStateChanged,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import {
@@ -23,7 +22,6 @@ import {
   getDoc,
   getFirestore,
   setDoc,
-  updateDoc,
 } from "firebase/firestore";
 const addWeapons = (
   weaponUrl: string,
@@ -142,74 +140,7 @@ export const userLoginAccount = async (email: string, password: string) => {
   }
 };
 
-// export const addToWishlist = async (
-//   weaponId: string,
-//   imgSrc: string,
-//   name: string,
-//   inStock: number
-// ) => {
-//   try {
-//     const db = getFirestore();
-//     const auth = getAuth();
-//     const user = auth.currentUser;
-//     if (!user) {
-//       console.log("No user logged in.");
-//       return { data: null, status: false };
-//     }
-
-//     const userRef = doc(db, "users", user.uid);
-//     const item = {
-//       weaponId,
-//       imgSrc,
-//       name,
-//       inStock,
-//     };
-//     console.log(weaponId, imgSrc, name, inStock);
-//     console.log(typeof inStock); // should be 'number'
-
-//     await setDoc(
-//       userRef,
-//       {
-//         wishlist: arrayUnion(item),
-//       },
-//       { merge: true }
-//     );
-
-//     return { data: item, status: true };
-//   } catch (error) {
-//     console.log("Error occurred in wishlist:", error);
-//     return { data: null, status: false, error };
-//   }
-// };
-// export const addToWishlist = async (
-//   weaponId: string,
-//   imgSrc: string,
-//   name: string,
-//   inStock: number
-// ) => {
-//   const db = getDatabase(app);
-//   const auth = getAuth();
-//   const user = auth.currentUser;
-
-//   if (!user) return { status: false };
-
-//   try {
-//     const newWishlistRef = push(ref(db, `users/${user.uid}/wishlist`));
-
-//     await update(newWishlistRef, {
-//       weaponId,
-//       imgSrc,
-//       name,
-//       inStock,
-//     });
-
-//     return { status: true };
-//   } catch (err) {
-//     console.error("Realtime DB Error:", err);
-//     return { status: false, error: err };
-//   }
-// };
-
+export const auth = getAuth();
 export const addToWishlist = async (
   weaponId: string,
   imgSrc: string,

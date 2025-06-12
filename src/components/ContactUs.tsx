@@ -4,20 +4,23 @@ import { FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { Footer } from "./HomePage/Footer";
 
-export const HeroHeader = () => {
+export const HeroHeader = ({ text }: { text: string }) => {
   return (
-    <section className="py-[48px] mb-[64px] ">
-      <div className="mb-[120px]"></div>
-      <div className="flex gap-[64px] items-center  justify-center">
-        <div className="w-full z-30  absolute h-fit">
-          <img
-            className=" w-full h-[340px]"
-            src="https://gearnix.risingbamboo.com/wp-content/themes/gearnix/dist/images/breadcrumb.jpg"
-          />
-          {/* <img
-            className=" w-full -top-[3px] -z-50  absolute h-[564px]"
-            src="./header.png"
-          /> */}
+    <section className="w-full mb-16">
+      <div className="relative w-full">
+        <img
+          className="w-full lg:h-[400px]
+             max-md:h-[200px] 
+        md:object-cover md:object-center"
+          src="https://gearnix.risingbamboo.com/wp-content/themes/gearnix/dist/images/breadcrumb.jpg"
+          alt="Header background"
+        />
+
+        {/* Centered text overlay */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <h1 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold drop-shadow-lg">
+            {text}
+          </h1>
         </div>
       </div>
     </section>
@@ -30,7 +33,7 @@ const Contact = () => {
        bg-white dark:bg-dark"
     >
       <NavBar />
-      <HeroHeader />
+      <HeroHeader text="Contact Us" />
       <div className="w-full px-4 mx-auto">
         <h2 className="text-[42px] font-semibold px-[48px]">Contact Us</h2>
         <div className="flex max-lg:items-center justify-center p-8 max-lg:flex-col dark:bg-dark-2 sm:p-12">
