@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { CiStar } from "react-icons/ci";
 import type { weaponType } from "../../pages/ShopPage";
 import { Link } from "react-router-dom";
 

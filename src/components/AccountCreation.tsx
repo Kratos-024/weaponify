@@ -9,7 +9,7 @@ export const AccountCreation = ({
   showAccountHandler: any;
 }) => {
   const [createAccount, setCreateAccount] = useState(false);
-  const [fullname, setFullname] = useState("");
+  const [_, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

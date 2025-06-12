@@ -52,6 +52,8 @@ const fakeWeapon: ResponseWeaponData = {
   appearance: fakeAppearance,
   history: fakeHistory,
   sketchFabUrl: "",
+  stars: 0,
+  noOfPeopleReviewed: 0,
 };
 
 const openai = new OpenAI({
