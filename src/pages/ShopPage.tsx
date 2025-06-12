@@ -13,8 +13,8 @@ import {
   historicalWeapon,
   tnt,
   shotguns,
-  handgun,
   machinegun,
+  handgun,
 } from "../../public/weapons";
 export type weaponType = {
   name: string;
@@ -44,8 +44,8 @@ export const ShopPage = () => {
         ...historicalWeapon,
         ...tnt,
         ...shotguns,
-        ...handgun,
         ...machinegun,
+        ...handgun,
       ],
       assaultrifles: assualtRifles,
       tanks: tanks,
@@ -55,9 +55,9 @@ export const ShopPage = () => {
       weaponaccessories: weaponAccessories,
       historicalweapons: historicalWeapon,
       shotguns: shotguns,
-      handguns: handgun,
       machinegun: machinegun,
       tnt: tnt,
+      handguns: handgun,
     };
     if (filterName[filterName.length - 1] == "all") {
       setFilterWeapon([weaponGroups["all"]]);

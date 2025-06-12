@@ -28,29 +28,7 @@ export const WeaponPage = () => {
         setWeaponData(value);
         setLoaded(true);
       } else {
-        // const data = {
-        //   uniqueCode: weaponId,
-        //   sketchFabUrl:
-        //     '<div class="sketchfab-embed-wrapper"> <iframe title="AK-74" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/44c6581b852a4a03a0cd509be06f0dd8/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/ak-74-44c6581b852a4a03a0cd509be06f0dd8?utm_medium=embed&utm_campaign=share-popup&utm_content=44c6581b852a4a03a0cd509be06f0dd8" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> AK-74 </a> by <a href="https://sketchfab.com/dimalukomo?utm_medium=embed&utm_campaign=share-popup&utm_content=44c6581b852a4a03a0cd509be06f0dd8" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> madridista_9248 </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=44c6581b852a4a03a0cd509be06f0dd8" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>',
-        // };
-        // const generatedData = await GetTheWeaponData(
-        //   data.sketchFabUrl,
-        //   weaponName,
-        //   weaponId
-        // );
-        // console.log(generatedData);
-        // setLoaded(true);
-        // let jsonString = generatedData || "";
-        // if (jsonString.includes("```")) {
-        //   jsonString = jsonString.replace(/```json|```/g, "");
-        // }
-        // try {
-        //   const cleanedData = JSON.parse(jsonString);
-        //   addWeaponToDB(cleanedData);
-        //   setWeaponData(cleanedData);
-        // } catch (err) {
-        //   console.error("Invalid JSON:", err);
-        // }
+        setLoaded(false);
       }
     };
 
@@ -59,35 +37,43 @@ export const WeaponPage = () => {
     }
   }, [loaded]);
 
-  if (!loaded) return <div>Loading...</div>;
-
   return (
     <section>
-      <NavBar />
-      <div className="xl:max-w-[1480px] mx-auto mt-9 px-4 space-y-6 mb-[96px]">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-          <div className="w-full order-1">
-            <div className="w-full h-[400px] sm:h-[500px] md:h-[600px] bg-white p-1 rounded-lg shadow-sm border">
-              <SketchfabModelViewer sketchFabUrl={sketchFabUrI} />
-            </div>
-          </div>
-          <div className="w-full order-2">
-            <WeaponBuySection
-              weaponData={{
-                shortDesc:
-                  weaponData.history[0].points[0] +
-                  weaponData.history[0]?.points[1],
-                stars: weaponData.stars,
-                noOfPeopleReviewed: weaponData.noOfPeopleReviewed,
-                name: weaponData.name,
-              }}
-              embedUrl={sketchFabUrI}
-            />
-          </div>
+      {!loaded && (
+        <div className=" flex items-center justify-center my-auto w-full h-screen">
+          404, !sorry try another modal Need time to add those
         </div>
-        <WeaponDescription weaponData={weaponData} />
-      </div>
-      <Footer />
+      )}
+      {loaded && (
+        <div>
+          {" "}
+          <NavBar />
+          <div className="xl:max-w-[1480px] mx-auto mt-9 px-4 space-y-6 mb-[96px]">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+              <div className="w-full order-1">
+                <div className="w-full h-[400px] sm:h-[500px] md:h-[600px] bg-white p-1 rounded-lg shadow-sm border">
+                  <SketchfabModelViewer sketchFabUrl={sketchFabUrI} />
+                </div>
+              </div>
+              <div className="w-full order-2">
+                <WeaponBuySection
+                  weaponData={{
+                    shortDesc:
+                      weaponData.history[0].points[0] +
+                      weaponData.history[0]?.points[1],
+                    stars: weaponData.stars,
+                    noOfPeopleReviewed: weaponData.noOfPeopleReviewed,
+                    name: weaponData.name,
+                  }}
+                  embedUrl={sketchFabUrI}
+                />
+              </div>
+            </div>
+            <WeaponDescription weaponData={weaponData} />
+          </div>
+          <Footer />
+        </div>
+      )}
     </section>
   );
 };

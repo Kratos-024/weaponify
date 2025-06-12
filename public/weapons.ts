@@ -1560,7 +1560,7 @@ const handgun = [
     sNo: 2,
     category: "handgun",
     name: "Beretta M9",
-    sketchFabUFrl:
+    sketchFabUrl:
       '<div class="sketchfab-embed-wrapper"> <iframe title="Low-Poly Beretta M9" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/15c1e7bfe2f84f218d506edea97696da/embed">dium=embed&utm_campaign=share-popup&utm_content=15c1e7bfe2f84f218d506edea97696da" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> notcplkerry </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=15c1e7bfe2f84f218d506edea97696da" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>',
     uniqueCode: "4f171a66-8160-4128-acf5-be36764031ee",
     stars: 4,
