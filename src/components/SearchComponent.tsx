@@ -1,18 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Search, X } from "lucide-react";
-
-const fakeWeapons = [
-  { id: 1, name: "AK-47", category: "Assault Rifle", price: "$2700" },
-  { id: 2, name: "M4A4", category: "Assault Rifle", price: "$3100" },
-  { id: 3, name: "AWP", category: "Sniper Rifle", price: "$4750" },
-  { id: 4, name: "Glock-18", category: "Pistol", price: "$200" },
-  { id: 5, name: "Desert Eagle", category: "Pistol", price: "$700" },
-  { id: 6, name: "MP9", category: "SMG", price: "$1250" },
-  { id: 7, name: "P90", category: "SMG", price: "$2350" },
-  { id: 8, name: "Nova", category: "Shotgun", price: "$1200" },
-  { id: 9, name: "M249", category: "Machine Gun", price: "$5200" },
-  { id: 10, name: "USP-S", category: "Pistol", price: "$200" },
-];
+import { getWeaponByName } from "../apis/app";
 
 export const SearchOverlay = ({
   isOpen,
@@ -23,7 +11,7 @@ export const SearchOverlay = ({
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<
-    { id: number; name: string; category: string; price: string }[]
+    { id: number; name: string; stars: number; noOfPeopleReviewed: number }[]
   >([]);
   const searchInputRef = useRef(null);
 
@@ -53,22 +41,22 @@ export const SearchOverlay = ({
   }, [isOpen, onClose]);
 
   useEffect(() => {
-    if (searchQuery.trim()) {
-      const filtered = fakeWeapons.filter(
-        (weapon: {
-          id: number;
-          name: string;
-          category: string;
-          price: string;
-        }) =>
-          weapon.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          weapon.category.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-      setSearchResults(filtered);
-    } else {
-      setSearchResults([]);
-    }
-  }, [searchQuery]);
+    if (!isOpen || searchQuery.length <= 1) return;
+
+    const fetchWeapon = async () => {
+      try {
+        const response = await getWeaponByName(searchQuery);
+        if (response && response.status && response.data) {
+          //@ts-ignore
+          setSearchResults(response.data);
+        }
+      } catch (err) {
+        console.error("Error fetching weapon:", err);
+      }
+    };
+
+    fetchWeapon();
+  }, [searchQuery, isOpen]);
 
   const handleSearchSubmit = (query: string) => {
     console.log("Searching for:", query);
@@ -76,9 +64,9 @@ export const SearchOverlay = ({
 
   const handleResultClick = (weapon: {
     id: number;
+    stars: number;
     name: string;
-    category: string;
-    price: string;
+    noOfPeopleReviewed: number;
   }) => {
     console.log("Selected weapon:", weapon);
     onClose();
@@ -126,9 +114,9 @@ export const SearchOverlay = ({
                   {searchResults.map(
                     (weapon: {
                       id: number;
+                      noOfPeopleReviewed: number;
                       name: string;
-                      category: string;
-                      price: string;
+                      stars: number;
                     }) => (
                       <div
                         key={weapon.id}
@@ -139,14 +127,30 @@ export const SearchOverlay = ({
                           <h3 className="font-medium text-gray-900">
                             {weapon.name}
                           </h3>
-                          <p className="text-sm text-gray-500">
-                            {weapon.category}
-                          </p>
+                          <div className="text-sm text-gray-500">
+                            <div className="flex items-center">
+                              {[...Array(weapon.stars)].map((_, i) => (
+                                <svg
+                                  key={i}
+                                  className="w-4 h-4 text-[#ff4da9] ms-1"
+                                  aria-hidden="true"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="currentColor"
+                                  viewBox="0 0 22 20"
+                                >
+                                  <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                                </svg>
+                              ))}
+
+                              <h2 className="ml-2">
+                                {" "}
+                                {weapon.noOfPeopleReviewed}
+                              </h2>
+                            </div>
+                          </div>
                         </div>
                         <div className="text-right">
-                          <p className="font-medium text-gray-900">
-                            {weapon.price}
-                          </p>
+                          <p className="font-medium text-gray-900">$240</p>
                         </div>
                       </div>
                     )

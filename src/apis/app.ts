@@ -462,4 +462,51 @@ export const getCartItemCount = async () => {
   }
 };
 
+export const getWeaponByName = async (query: string) => {
+  try {
+    const db = getDatabase(app);
+    const snapshot = await get(ref(db, "/weaponData"));
+
+    if (!snapshot.exists()) {
+      return { status: false, message: "No data found" };
+    }
+
+    const allWeapons = snapshot.val();
+
+    const matchedEntries = Object.entries(allWeapons)
+      .filter(([key]) => key.toLowerCase().includes(query.toLowerCase()))
+      .map(([weaponName, weaponObj]) => {
+        const inner = weaponObj as Record<string, any>;
+        console.log(inner);
+
+        const idKey = Object.keys(inner)[0];
+        return {
+          name: weaponName,
+          id: idKey,
+          stars: inner[idKey]?.stars,
+          noOfPeopleReviewed: inner[idKey]?.noOfPeopleReviewed,
+        };
+      });
+
+    if (matchedEntries.length > 0) {
+      return {
+        status: true,
+        data: matchedEntries,
+      };
+    } else {
+      return {
+        status: false,
+        message: "No matching weapons found",
+      };
+    }
+  } catch (error) {
+    console.error("Error fetching weapon:", error);
+    return {
+      status: false,
+      message: "Something went wrong",
+      error,
+    };
+  }
+};
+
 export { addArrayOfWeaponsToDB, addWeaponToDB, getEachWeapon };
