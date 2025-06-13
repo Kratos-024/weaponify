@@ -27,10 +27,8 @@ const SketchfabModelViewer = ({ sketchFabUrl }: { sketchFabUrl: string }) => {
               }
             `;
 
-            // Append the style element to the iframe's head
             iframeDocument.head.appendChild(styleElement);
           } catch (error) {
-            // Cross-origin restrictions might prevent this from working
             console.log(
               "Could not modify iframe content due to cross-origin policy"
             );

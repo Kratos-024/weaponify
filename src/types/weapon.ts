@@ -74,3 +74,58 @@ export type ResponseWeaponData = {
   history: History[];
   sketchFabUrl: string;
 };
+
+const fakeSpecTech = [
+  {
+    title: "",
+    points: ["", ""],
+    dimensionsAndWeight: {
+      weight: "",
+      length: "",
+      width: "",
+      height: "",
+    },
+    armament: {
+      mainGun: "",
+      secondary: "",
+      coaxial: "",
+      ammunitionCapacity: "",
+      capacity: "",
+      rateOfFire: "",
+      effectiveRange: "",
+      feedSystem: "",
+      action: "",
+      compatibleAmmunition: "",
+    },
+    performance: {
+      engine: "",
+      maxSpeed: "",
+      range: "",
+      crew: "",
+    },
+  },
+];
+
+const fakeAppearance = [
+  {
+    title: "",
+    points: ["", ""],
+  },
+];
+
+const fakeHistory = [
+  {
+    title: "",
+    points: ["", "", "", ""],
+  },
+];
+export const fakeWeapon: ResponseWeaponData = {
+  name: "",
+  id: "",
+  specsTech: fakeSpecTech,
+  appearance: fakeAppearance,
+  history: fakeHistory,
+  sketchFabUrl: "",
+  stars: 0,
+  noOfPeopleReviewed: 0,
+};

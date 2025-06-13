@@ -35,21 +35,21 @@ export const ShopBy = () => {
         >
           <div className=" space-y-9 max-lg:block hidden">
             <div className=" justify-items-center">
-              <BrandComponent img="../Logo/polyhaven_logo.png" />
+              <BrandComponent img="./images/Logo/polyhaven_logo.png" />
             </div>
             <div
               className="grid grid-cols-2 max-md:w-full
               gap-y-[28px] gap-x-[148px] max-md:gap-x-[136px] 
               justify-items-center "
             >
-              <BrandComponent img="../Logo/3D_Warehouse_logo.png" />
-              <BrandComponent img="../Logo/cg_logo.png" />
-              <BrandComponent img="../Logo/Mixamo_logo.png" />
-              <BrandComponent img="../Logo/cg_logo.png" />
-              <BrandComponent img="../Logo/cg_logo.png" />
-              <BrandComponent img="../Logo/vectary_logo.png" />{" "}
-              <BrandComponent img="../Logo/cg_logo.png" />
-              <BrandComponent img="../Logo/vectary_logo.png" />
+              <BrandComponent img="./image/Logo/3D_Warehouse_logo.png" />
+              <BrandComponent img="./images/Logo/cg_logo.png" />
+              <BrandComponent img="./images/Logo/Mixamo_logo.png" />
+              <BrandComponent img="./images/Logo/cg_logo.png" />
+              <BrandComponent img="./images/Logo/cg_logo.png" />
+              <BrandComponent img="./images/Logo/vectary_logo.png" />{" "}
+              <BrandComponent img="./images/Logo/cg_logo.png" />
+              <BrandComponent img="./images/Logo/vectary_logo.png" />
             </div>
           </div>
           <div
@@ -57,19 +57,19 @@ export const ShopBy = () => {
            max-lg:w-[980px]  grid-cols-4 lg:grid hidden
             justify-items-center"
           >
-            <BrandComponent img="../Logo/3D_Warehouse_logo.png" />
-            <BrandComponent img="../Logo/cg_logo.png" />
-            <BrandComponent img="../Logo/Mixamo_logo.png" />
-            <BrandComponent img="../Logo/polyhaven_logo.png" />
+            <BrandComponent img="./images/Logo/3D_Warehouse_logo.png" />
+            <BrandComponent img="./images/Logo/cg_logo.png" />
+            <BrandComponent img="./images/Logo/Mixamo_logo.png" />
+            <BrandComponent img="./images/Logo/polyhaven_logo.png" />
           </div>
           <div
             className=" lg:grid hidden 
           grid-cols-3 max-xl:w-[910px]  
           justify-items-center items-center mt-4"
           >
-            <BrandComponent img="../Logo/TS_logo.png" />
-            <BrandComponent img="../Logo/vectary_logo.png" />
-            <BrandComponent img="../Logo/Mixamo_logo.png" />
+            <BrandComponent img="./images/Logo/TS_logo.png" />
+            <BrandComponent img="./images/Logo/vectary_logo.png" />
+            <BrandComponent img="./images/Logo/Mixamo_logo.png" />
           </div>
         </motion.div>
       </div>

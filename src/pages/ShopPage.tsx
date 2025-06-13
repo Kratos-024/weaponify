@@ -3,19 +3,10 @@ import { FilterBy } from "../components/ShopPage/FilterBy";
 import { SortingHeader } from "../components/ShopPage/SortingHeader";
 import { ShopHeroSection } from "../components/ShopPage/ShopHeroSection";
 import { WeaponShopBody } from "../components/ShopPage/WeaponShopBody";
-import {
-  assualtRifles,
-  tanks,
-  semiAutoMatic,
-  sniperRefiles,
-  meleeWeapons,
-  weaponAccessories,
-  historicalWeapon,
-  tnt,
-  shotguns,
-  machinegun,
-  handgun,
-} from "../../public/weapons";
+import { NavBar } from "../components/ShopPage/NavBar";
+import { getAllWeapons } from "../apis/app";
+import Loader from "../Loader";
+
 export type weaponType = {
   name: string;
   stars: number;
@@ -25,58 +16,75 @@ export type weaponType = {
   uniqueCode: string;
   sketchFabUrl: string;
 };
-import { NavBar } from "../components/ShopPage/NavBar";
 
 export const ShopPage = () => {
-  const [filterWeapon, setFilterWeapon] = useState<weaponType[][]>([
-    sniperRefiles,
-  ]);
+  const [filterWeapon, setFilterWeapon] = useState<weaponType[][]>([]);
   const [filterName, setFilterName] = useState<string[]>(["all"]);
+  const [weaponsData, setWeaponsData] = useState<weaponType[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    const weaponGroups: Record<string, weaponType[]> = {
-      all: [
-        ...assualtRifles,
-        ...tanks,
-        ...semiAutoMatic,
-        ...sniperRefiles,
-        ...meleeWeapons,
-        ...weaponAccessories,
-        ...historicalWeapon,
-        ...tnt,
-        ...shotguns,
-        ...machinegun,
-        ...handgun,
-      ],
-      assaultrifles: assualtRifles,
-      tanks: tanks,
-      semiautomatic: semiAutoMatic,
-      sniperrifles: sniperRefiles,
-      meleeweapons: meleeWeapons,
-      weaponaccessories: weaponAccessories,
-      historicalweapons: historicalWeapon,
-      shotguns: shotguns,
-      machinegun: machinegun,
-      tnt: tnt,
-      handguns: handgun,
-    };
-    if (filterName[filterName.length - 1] == "all") {
-      setFilterWeapon([weaponGroups["all"]]);
-    } else {
-      if (filterName.includes("all")) {
-        setFilterName((prev) => prev.filter((name) => name !== "all"));
-        return;
+    const getAllWeaponHandler = async () => {
+      try {
+        setIsLoading(true);
+        const response = await getAllWeapons();
+        setWeaponsData(response);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error occurred while fetching weapons", error);
+        setIsLoading(false);
       }
+    };
 
-      const filtered = filterName
-        .filter((name) => weaponGroups[name])
-        .map((name) => weaponGroups[name] as weaponType[]);
+    getAllWeaponHandler();
+  }, []);
 
-      setFilterWeapon(filtered);
-    }
-    if (filterName.length == 0) {
+  useEffect(() => {
+    if (weaponsData.length === 0) return;
+
+    const categorized: Record<string, weaponType[]> = {};
+    weaponsData.forEach((weapon: weaponType) => {
+      const key = weapon.category.toLowerCase().replace(/\s+/g, "");
+      if (!categorized[key]) categorized[key] = [];
+      categorized[key].push(weapon);
+    });
+
+    categorized["all"] = weaponsData;
+
+    console.log("Available categories:", Object.keys(categorized));
+
+    if (filterName.length === 0) {
       setFilterName(["all"]);
+      setFilterWeapon([categorized["all"]]);
+      return;
     }
-  }, [filterName]);
+
+    if (filterName.includes("all")) {
+      setFilterWeapon([categorized["all"]]);
+      return;
+    }
+    const filtered = filterName
+      .filter((name) => {
+        const exists = !!categorized[name];
+        console.log(`Category '${name}' exists:`, exists);
+        return exists;
+      })
+      .map((name) => categorized[name]);
+
+    console.log("Filtered results:", filtered.length, "categories");
+    setFilterWeapon(filtered);
+  }, [weaponsData, filterName]);
+
+  if (isLoading) {
+    return (
+      <section>
+        <NavBar />
+        <div className="flex justify-center items-center min-h-screen">
+          <Loader />{" "}
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section>
@@ -102,7 +110,11 @@ export const ShopPage = () => {
          z-40 px-2 max-lg:justify-center "
         >
           <div className=" max-lg:hidden">
-            <FilterBy filterName={filterName} setFilterName={setFilterName} />
+            <FilterBy
+              filterName={filterName}
+              setFilterName={setFilterName}
+              weaponsData={weaponsData}
+            />
           </div>
           <div
             className="w-full max-md:w-full

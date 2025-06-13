@@ -1,60 +1,4 @@
 import OpenAI from "openai";
-import type { ResponseWeaponData } from "./types/weapon";
-
-const fakeSpecTech = [
-  {
-    title: "",
-    points: ["", ""],
-    dimensionsAndWeight: {
-      weight: "",
-      length: "",
-      width: "",
-      height: "",
-    },
-    armament: {
-      mainGun: "",
-      secondary: "",
-      coaxial: "",
-      ammunitionCapacity: "",
-      capacity: "",
-      rateOfFire: "",
-      effectiveRange: "",
-      feedSystem: "",
-      action: "",
-      compatibleAmmunition: "",
-    },
-    performance: {
-      engine: "",
-      maxSpeed: "",
-      range: "",
-      crew: "",
-    },
-  },
-];
-
-const fakeAppearance = [
-  {
-    title: "",
-    points: ["", ""],
-  },
-];
-
-const fakeHistory = [
-  {
-    title: "",
-    points: ["", "", "", ""],
-  },
-];
-const fakeWeapon: ResponseWeaponData = {
-  name: "",
-  id: "",
-  specsTech: fakeSpecTech,
-  appearance: fakeAppearance,
-  history: fakeHistory,
-  sketchFabUrl: "",
-  stars: 0,
-  noOfPeopleReviewed: 0,
-};
 
 const openai = new OpenAI({
   baseURL: "https://openrouter.ai/api/v1",
@@ -197,4 +141,4 @@ i want only this output nothing else
   return completion.choices[0].message.content;
 }
 
-export { GetTheWeaponData, fakeWeapon };
+export { GetTheWeaponData };

@@ -8,15 +8,16 @@ import { onAuthStateChanged } from "firebase/auth";
 import { logOutHandler } from "../ShopPage/NavBar";
 import { auth } from "../../apis/app";
 import { SearchOverlay } from "../SearchComponent";
+import SlideMenu from "../MenuSection";
 
 export const TopBar = ({ showAccountHandler }: { showAccountHandler: any }) => {
-  const [options, setOptions] = useState<boolean>(false);
+  const [sideMenu, setSideMenu] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
   const [showUserAccount, setShowUserAccount] = useState<boolean>(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  const showOptions = () => {
-    setOptions(!options);
+  const showMenu = () => {
+    setSideMenu(!sideMenu);
   };
 
   const showUserAccountHandler = () => {
@@ -45,7 +46,7 @@ export const TopBar = ({ showAccountHandler }: { showAccountHandler: any }) => {
         onClose={() => setIsSearchOpen(false)}
         isOpen={isSearchOpen}
       />
-
+      {sideMenu && <SlideMenu isOpen={sideMenu} setIsOpen={setSideMenu} />}
       <nav className="bg-[#17171A] max-sm:w-full">
         <div className="w-full px-[12px] py-[16px] items-center flex justify-between">
           <div className="flex gap-6 max-sm:hidden">
@@ -56,7 +57,7 @@ export const TopBar = ({ showAccountHandler }: { showAccountHandler: any }) => {
 
           <div className="max-sm:flex gap-3 hidden">
             <IoOptionsSharp
-              onClick={showOptions}
+              onClick={showMenu}
               className="hover:text-[#ff69b4] text-[26px] text-white cursor-pointer"
             />
             <CiSearch

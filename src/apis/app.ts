@@ -1,15 +1,6 @@
-import { getDatabase, set, ref, get } from "firebase/database";
-import {
-  assualtRifles,
-  tanks,
-  semiAutoMatic,
-  sniperRefiles,
-  weaponAccessories,
-  tnt,
-  meleeWeapons,
-  historicalWeapon,
-} from "../../public/weapons";
-import { type AiGenratedWeaponData } from "../../public/types/weapon";
+import { getDatabase, set, ref, get, child } from "firebase/database";
+
+import { type AiGenratedWeaponData } from "../types/weapon";
 import { app } from "../firebase/fireSdk";
 import {
   createUserWithEmailAndPassword,
@@ -45,28 +36,17 @@ const addWeapons = (
   }
 };
 
-const arrayWeapon = [
-  assualtRifles,
-  tanks,
-  semiAutoMatic,
-  sniperRefiles,
-  weaponAccessories,
-  tnt,
-  meleeWeapons,
-  historicalWeapon,
-];
-
-function addArrayOfWeaponsToDB() {
-  arrayWeapon.map((weaponObject) => {
-    weaponObject.map((item) => {
-      try {
-        addWeapons(item.sketchFabUrl, item.category, item.uniqueCode, item.sNo);
-      } catch (error) {
-        console.log(error);
-      }
-    });
-  });
-}
+// function addArrayOfWeaponsToDB() {
+//   arrayWeapon.map((weaponObject) => {
+//     weaponObject.map((item) => {
+//       try {
+//         addWeapons(item.sketchFabUrl, item.category, item.uniqueCode, item.sNo);
+//       } catch (error) {
+//         console.log(error);
+//       }
+//     });
+//   });
+// }
 
 const getEachWeapon = async (id: string, name: string) => {
   try {
@@ -509,4 +489,49 @@ export const getWeaponByName = async (query: string) => {
   }
 };
 
-export { addArrayOfWeaponsToDB, addWeaponToDB, getEachWeapon };
+export const saveWeaponModel = async (weapon: {
+  sNo: number;
+  category: string;
+  uniqueCode: string;
+  sketchFabUrl: string;
+  name: string;
+  stars: number;
+  noOfPeopleReviewed: number;
+}) => {
+  try {
+    const db = getDatabase(app);
+    const weaponRef = ref(
+      db,
+      `weapons/${weapon.category}/${weapon.uniqueCode}`
+    );
+    await set(weaponRef, weapon);
+    console.log("Weapon saved:", weapon.name);
+  } catch (error) {
+    console.error("Error saving weapon:", error);
+  }
+};
+
+export const getAllWeapons = async () => {
+  try {
+    const db = getDatabase(app);
+    const dbRef = ref(db);
+    const snapshot = await get(child(dbRef, `weapons`));
+
+    const result = [];
+
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      for (const category in data) {
+        for (const modelId in data[category]) {
+          result.push(data[category][modelId]);
+        }
+      }
+    }
+
+    return result;
+  } catch (error) {
+    console.error("Error getting weapons:", error);
+    return [];
+  }
+};
+export { addWeaponToDB, getEachWeapon };

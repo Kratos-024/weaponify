@@ -2,7 +2,7 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import { LiaGlassWhiskeySolid } from "react-icons/lia";
 import { CiSearch, CiUser } from "react-icons/ci";
 import { CiShoppingCart } from "react-icons/ci";
-import SlideMenu from "./MenuSection";
+import SlideMenu from "../MenuSection";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged, type Auth } from "firebase/auth";
 import { AccountCreation } from "../AccountCreation";
@@ -11,6 +11,7 @@ import { logOut } from "../HomePage/NavBar";
 import { Link } from "react-router-dom";
 import { auth, getCartItemCount } from "../../apis/app";
 import { SearchOverlay } from "../SearchComponent";
+import { IoOptionsSharp } from "react-icons/io5";
 export const logOutHandler = async (auth: Auth) => {
   await logOut(auth);
 };
@@ -21,11 +22,15 @@ export const NavBar = () => {
   const [ShowPage, setShowPage] = useState(false);
   const [totalQuant, setTotalQuantity] = useState(0);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [sideMenu, setSideMenu] = useState<boolean>(false);
 
   const showAccountHandler = () => {
     setShowAccount(!showAccount);
   };
 
+  const showMenu = () => {
+    setSideMenu(!sideMenu);
+  };
   const showProdut = () => {
     setShowProduct(!showProduct);
   };
@@ -55,7 +60,7 @@ export const NavBar = () => {
   return (
     <nav className="relative z-10 px-2 bg-[#1C1C1C] max-md:w-full md:w-[1280px] lg:w-[1280px] xl:w-full">
       {showAccount && (
-        <div className=" ">
+        <div>
           <AccountCreation showAccountHandler={showAccountHandler} />
         </div>
       )}
@@ -70,8 +75,16 @@ export const NavBar = () => {
       >
         <div className="  gap-2 max-lg:flex hidden">
           <div className=" max-lg:block hidden">
-            <SlideMenu />
+            {sideMenu && (
+              <SlideMenu isOpen={sideMenu} setIsOpen={setSideMenu} />
+            )}
           </div>
+        </div>
+        <div className="max-sm:flex -ml-[64px] hidden">
+          <IoOptionsSharp
+            onClick={showMenu}
+            className="hover:text-[#ff69b4] text-[26px] text-white cursor-pointer"
+          />{" "}
         </div>
         <div className="flex w-[196px] max-md:w-[134px] items-center  justify-center text-white text-[36px]">
           <img

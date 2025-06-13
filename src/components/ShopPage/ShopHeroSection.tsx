@@ -1,7 +1,7 @@
 export const WeaponCard = () => {
   return (
     <div
-      className="flex relative z-20 flex-col items-center
+      className="flex relative max-md:-z-20 md:z-20 flex-col items-center
      justify-center"
     >
       <div>
@@ -9,7 +9,7 @@ export const WeaponCard = () => {
           className="rounded-full w-[196px]
            h-[196px] max-md:w-[148px]
            max-md:h-[148px]"
-          src="../WeaponCircles/Tanks.avif"
+          src="./images/WeaponCircles/Tanks.avif"
         />
       </div>
       <h2>Tanks</h2>

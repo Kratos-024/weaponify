@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { ResponseWeaponData } from "../../../public/types/weapon";
+import type { ResponseWeaponData } from "../../types/weapon";
 
 export const WeaponDescription = ({
   weaponData,

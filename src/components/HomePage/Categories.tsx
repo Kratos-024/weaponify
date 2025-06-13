@@ -5,10 +5,10 @@ type CardProps = {
   title: string;
 };
 const cardData = [
-  { image: "../tank.png", title: "Tanks" },
-  { image: "../sniper.png", title: "Sniper" },
-  { image: "../dagger.png", title: "Dagger" },
-  { image: "../grenade.png", title: "Grenade" },
+  { image: "./images/image/tank.png", title: "Tanks" },
+  { image: "./images/image/sniper.png", title: "Sniper" },
+  { image: "./images/image/dagger.png", title: "Dagger" },
+  { image: "./images/image/grenade.png", title: "Grenade" },
 ];
 
 const CardComponent = ({ image, title }: CardProps) => {

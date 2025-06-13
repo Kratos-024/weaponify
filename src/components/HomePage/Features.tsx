@@ -10,7 +10,7 @@ export const Features = () => {
               <img
                 className="vibrate"
                 width={48}
-                src="images/3d-svgrepo-com.svg"
+                src="./images/svgs/3d-svgrepo-com.svg"
               />
             </div>
             <h3 className="text-white">Explore in 3D</h3>
@@ -24,7 +24,7 @@ export const Features = () => {
               <img
                 className="vibrate"
                 width={48}
-                src="images/game-controller-svgrepo-com.svg"
+                src="./images/svgs/game-controller-svgrepo-com.svg"
               />
             </div>
             <h3 className="text-white">In-Game Appearances</h3>
@@ -38,7 +38,7 @@ export const Features = () => {
               <img
                 className="vibrate"
                 width={48}
-                src="images/idea-svgrepo-com.svg"
+                src="./images/svgs/idea-svgrepo-com.svg"
               />
             </div>
             <h3 className="text-white">Compare Weapons Side-by-Side</h3>
@@ -52,7 +52,7 @@ export const Features = () => {
               <img
                 className="vibrate"
                 width={48}
-                src="images/history-svgrepo-com.svg"
+                src="./images/svgs/history-svgrepo-com.svg"
               />
             </div>
             <h3 className="text-white">Real-World Origins</h3>

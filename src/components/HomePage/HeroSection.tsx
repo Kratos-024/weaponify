@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { NavBar } from "./NavBar";
 
-const heroImages = ["/cod-bg-gun.jpg", "/cod-bg-gun2.jpg"];
+const heroImages = [
+  "./images/image/cod-bg-gun.jpg",
+  "./images/image/cod-bg-gun2.jpg",
+];
 
 export default function HeroSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [pageLoaded, setPageLoaded] = useState(false); // Delay state
+  const [pageLoaded, setPageLoaded] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -18,7 +21,7 @@ export default function HeroSection() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setPageLoaded(true);
-    }, 500); // Delay before animations start
+    }, 500);
     return () => clearTimeout(timer);
   }, []);
 
