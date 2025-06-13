@@ -18,25 +18,25 @@ import {
 } from "firebase/firestore";
 export const auth = getAuth();
 
-const addWeapons = (
-  weaponUrl: string,
-  weaponModel: string,
-  _id: string,
-  sNo: number
-) => {
-  try {
-    const db = getDatabase(app);
+// const addWeapons = (
+//   weaponUrl: string,
+//   weaponModel: string,
+//   _id: string,
+//   sNo: number
+// ) => {
+//   try {
+//     const db = getDatabase(app);
 
-    set(ref(db, `weaponUrl/${weaponModel}/${_id}`), {
-      urlString: weaponUrl,
-      serialNumber: sNo,
-      category: weaponModel,
-      uniqueId: _id,
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
+//     set(ref(db, `weaponUrl/${weaponModel}/${_id}`), {
+//       urlString: weaponUrl,
+//       serialNumber: sNo,
+//       category: weaponModel,
+//       uniqueId: _id,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 // function addArrayOfWeaponsToDB() {
 //   arrayWeapon.map((weaponObject) => {

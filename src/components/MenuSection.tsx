@@ -12,7 +12,6 @@ import { motion } from "framer-motion";
 import { logOut } from "./HomePage/NavBar";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Link } from "react-router-dom";
-import { AccountCreation } from "./AccountCreation";
 
 const SlideMenu = ({
   isOpen,

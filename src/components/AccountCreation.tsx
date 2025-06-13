@@ -6,12 +6,6 @@ import {
   userLoginAccount,
 } from "../apis/app";
 import { toast } from "react-toastify";
-import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-  signInWithRedirect,
-} from "firebase/auth";
 
 export const AccountCreation = ({
   showAccountHandler,
