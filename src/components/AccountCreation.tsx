@@ -68,7 +68,7 @@ export const AccountCreation = ({
           </div>
           <div className="flex flex-col items-center">
             <div className="flex items-center text-white text-[36px]">
-              <img className=" w-[64px] " src="./images/Logo/hydra.png" />
+              <img className=" w-[64px] " src="/hydra.png" />
               <h1 className=" custom-orbitron text-[29px] text-black font-bold">
                 Weaponify
               </h1>
@@ -82,13 +82,13 @@ export const AccountCreation = ({
                 {" "}
                 <img
                   className="w-[28px] cursor-pointer h-[28px]"
-                  src="./images/svgs/google-icon-logo-svgrepo-com.svg"
+                  src="/google-icon-logo-svgrepo-com.svg"
                 />
               </div>
 
               <img
                 className="w-[28px] cursor-pointer h-[28px]"
-                src="./images//svgs/apple-black-logo-svgrepo-com.svg"
+                src="/apple-black-logo-svgrepo-com.svg"
               />
             </div>
             <div className="flex mt-2 items-center gap-4 text-gray-500">
@@ -152,29 +152,30 @@ export const AccountCreation = ({
             <RxCross2 className=" absolute right-5 w-8 h-8" />{" "}
           </div>
           <div className="flex flex-col items-center">
-            <div className="">
-              <img
-                className="w-[136px]"
-                src="https://gearnix.risingbamboo.com/wp-content/themes/gearnix/dist/images/logo/light.png"
-              />
-              <p>Weaponify</p>
+            <div className="flex items-center text-white text-[36px]">
+              <img className=" w-[64px] " src="./images/Logo/hydra.png" />
+              <h1 className=" custom-orbitron text-[29px] text-black font-bold">
+                Weaponify
+              </h1>
             </div>
             <div className="b text-center">
               <h3 className="font-semibold text-[28px]">Create Account</h3>
               <p className="text-md">Please enter your details to sign up</p>
             </div>
             <div className="flex gap-5 mt-3">
+              <div onClick={signInWithGoogleHandler}>
+                {" "}
+                <img
+                  className="w-[28px] cursor-pointer h-[28px]"
+                  src="./images/svgs/google-icon-logo-svgrepo-com.svg"
+                  alt="Google"
+                />
+              </div>
+
               <img
+                alt="Apple"
                 className="w-[28px] cursor-pointer h-[28px]"
-                src="./svgs/google-icon-logo-svgrepo-com.svg"
-              />
-              <img
-                className="w-[28px] cursor-pointer h-[28px]"
-                src="./svgs/google-icon-logo-svgrepo-com.svg"
-              />
-              <img
-                className="w-[28px] cursor-pointer h-[28px]"
-                src="./svgs/apple-black-logo-svgrepo-com.svg"
+                src="./images/svgs/apple-black-logo-svgrepo-com.svg"
               />
             </div>
             <div className="flex mt-2 items-center gap-4 text-gray-500">

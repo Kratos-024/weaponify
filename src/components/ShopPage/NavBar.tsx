@@ -86,11 +86,11 @@ export const NavBar = () => {
             className="hover:text-[#ff69b4] text-[26px] text-white cursor-pointer"
           />{" "}
         </div>
-        <div className="flex w-[196px] max-md:w-[134px] items-center  justify-center text-white text-[36px]">
-          <img
-            className="w-full"
-            src="https://gearnix.risingbamboo.com/wp-content/themes/gearnix/dist/images/logo/light.png"
-          />
+        <div className="flex items-center text-white text-[36px]">
+          <img className=" w-[48px] " src="/hydra.png" />
+          <h1 className=" custom-orbitron text-[21px] text-white font-bold">
+            Weaponify
+          </h1>
         </div>
         <div className=" max-lg:hidden">
           <ul className="flex items-center gap-7">
