@@ -7,7 +7,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 .history
-
+.env
 dist
 dist-ssr
 *.local

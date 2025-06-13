@@ -1,16 +1,17 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+
 const firebaseConfig = {
-  apiKey: "AIzaSyDCL4l5mtMBS1zXc7Fmx9ghpQLGO_UlvVY",
-  authDomain: "weaponify.firebaseapp.com",
-  projectId: "weaponify",
-  storageBucket: "weaponify.firebasestorage.app",
-  messagingSenderId: "352013865135",
-  appId: "1:352013865135:web:f0dde7f8ce576bc485045a",
-  measurementId: "G-LF2Q6HMC2E",
-  databaseURL: "https://weaponify-default-rtdb.firebaseio.com/",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
+  databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-export { db,app };
+export { db, app };

@@ -133,7 +133,7 @@ export const signInWithGoogle = async () => {
     const auth = getAuth();
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
-
+    console.log(user);
     const db = getFirestore();
     const userRef = doc(db, "users", user.uid);
 
