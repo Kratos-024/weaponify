@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { NavBar } from "./NavBar";
+import { Link } from "react-router-dom";
 
 const heroImages = [
   "./images/image/cod-bg-gun.jpg",
@@ -60,7 +61,7 @@ export default function HeroSection() {
                 }}
                 className="text-3xl max-sm:text-[21px] custom-orbitron md:text-4xl font-extrabold text-white text-start"
               >
-                Discover Insights from Reviews with AI
+                Explore Military Tech Like Never Before{" "}
               </motion.h2>
 
               <motion.h3
@@ -72,9 +73,9 @@ export default function HeroSection() {
                 }}
                 className="custom-orbitron md:text-lg text-gray-200 mt-4 max-w-xl"
               >
-                Analyze comments, tweets, and course feedback across platforms —
-                all in one place. Let our custom AI models simplify your
-                decisions.
+                Discover detailed 3D models and insights on assault rifles,
+                tanks, snipers, and more — all in one place. Weaponify brings
+                you realistic visuals
               </motion.h3>
 
               <motion.div
@@ -90,9 +91,11 @@ export default function HeroSection() {
                 }}
                 className="mt-8 flex justify-center"
               >
-                <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors">
-                  Get Started
-                </button>
+                <Link to={"/shop"}>
+                  <button className="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-3 px-4 rounded-lg hover:from-pink-600 hover:to-purple-700 transition-all duration-200 font-medium">
+                    Get Started
+                  </button>
+                </Link>
               </motion.div>
             </div>
           </div>

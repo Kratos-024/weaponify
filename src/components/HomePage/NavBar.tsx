@@ -38,10 +38,10 @@ export const NavBar = () => {
           isOpen={isSearchOpen}
         />
         <div className="flex items-center text-white text-[36px]">
-          <img
-            className=" w-[196px] "
-            src="https://gearnix.risingbamboo.com/wp-content/themes/gearnix/dist/images/logo/light.png"
-          />
+          <img className=" w-[96px] " src="./images/Logo/hydra.png" />
+          <h1 className=" custom-orbitron text-[29px] text-white font-bold">
+            Weaponify
+          </h1>
         </div>
         <div>
           <ul className="flex items-center gap-7">

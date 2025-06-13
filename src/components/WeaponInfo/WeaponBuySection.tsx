@@ -92,8 +92,19 @@ export const WeaponBuySection = ({
     quantity: number
   ) => {
     try {
-      await addToCart(weaponId, thumbnail, name, price, inStock, quantity);
-      toast.success("SuccessFully added to cart");
+      const response = await addToCart(
+        weaponId,
+        thumbnail,
+        name,
+        price,
+        inStock,
+        quantity
+      );
+      if (response.status) {
+        toast.success("SuccessFully added to cart");
+      } else {
+        throw new Error("Please login");
+      }
     } catch (error) {
       toast.error("Please Login to add to cart");
     }
@@ -187,8 +198,23 @@ export const WeaponBuySection = ({
             <span>Share</span>
           </div>
         </div>
-        <div className="w-full text-center flex justify-center items-center h-[96px] bg-[#ececec] rounded-2xl">
-          Accepting UPI only
+        <div>
+          <h4 className="font-medium text-gray-900 mb-3">We Accept</h4>
+          <div className="flex items-center space-x-2 text-sm text-gray-600">
+            <span className="bg-blue-600 text-white px-2 py-1 rounded">
+              PayPal
+            </span>
+            <span className="bg-purple-600 text-white px-2 py-1 rounded">
+              Stripe
+            </span>
+            <span className="bg-blue-800 text-white px-2 py-1 rounded">
+              Pay
+            </span>
+            <span className="bg-gray-800 text-white px-2 py-1 rounded">G</span>
+          </div>
+          <p className="text-xs text-gray-500 mt-2">
+            Get 5 discount coins at the next step
+          </p>
         </div>
         <div className="flex justify-center text-[18px] flex-col gap-3">
           <div className="flex gap-3 items-center">

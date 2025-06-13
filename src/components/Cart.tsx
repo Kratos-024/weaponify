@@ -38,7 +38,6 @@ const ShoppingCartApp = () => {
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-  //   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   useEffect(() => {
     const getFromCartHandler = async () => {
       try {
@@ -65,7 +64,7 @@ const ShoppingCartApp = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-[#000000] text-white text-center text-sm py-2">
-        Free Delivery Orders Over $100+ Don't Miss Out!
+        Buy 3 modals and get 1 free
       </div>
 
       <NavBar />
@@ -77,12 +76,10 @@ const ShoppingCartApp = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Cart Items */}
           <div className="lg:col-span-2">
             <h2 className="text-3xl font-bold text-gray-900 mb-2">Cart</h2>
             <p className="text-gray-600 mb-8">Home / Cart</p>
 
-            {/* Cart Table Header */}
             <div className="bg-white rounded-lg shadow-sm overflow-hidden">
               <div className="grid grid-cols-5 gap-4 p-4 bg-gray-50 text-sm font-medium text-gray-700">
                 <div className="col-span-2">Product Details</div>
@@ -91,7 +88,6 @@ const ShoppingCartApp = () => {
                 <div className="text-center">Total</div>
               </div>
 
-              {/* Cart Items */}
               {cartItems.map((item) => (
                 <div
                   key={item.weaponId}
@@ -144,7 +140,6 @@ const ShoppingCartApp = () => {
             </div>
           </div>
 
-          {/* Order Summary */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-lg shadow-sm p-6 sticky top-8">
               <h3 className="text-xl font-bold text-gray-900 mb-6">Total</h3>
@@ -159,8 +154,12 @@ const ShoppingCartApp = () => {
                   <span className="text-gray-600">Delivery</span>
                   <div className="text-right">
                     <select className="border border-gray-300 rounded-md px-3 py-1 text-sm">
-                      <option>Standard Delivery (Free)</option>
-                      <option>Express Delivery ($5.99)</option>
+                      <option>
+                        Standard Delivery (Email within 24 hrs - Free)
+                      </option>
+                      <option>
+                        Express Delivery (Instant Download - $5.99)
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -173,7 +172,7 @@ const ShoppingCartApp = () => {
                 </div>
               </div>
 
-              <button className="w-full bg-red-600 text-white py-3 rounded-lg font-medium hover:bg-red-700 transition-colors mb-6">
+              <button className="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-3 px-4 rounded-lg hover:from-pink-600 hover:to-purple-700 transition-all duration-200 font-medium">
                 Check Out
               </button>
 

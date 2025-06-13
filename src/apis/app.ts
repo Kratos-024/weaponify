@@ -5,7 +5,9 @@ import { app } from "../firebase/fireSdk";
 import {
   createUserWithEmailAndPassword,
   getAuth,
+  GoogleAuthProvider,
   signInWithEmailAndPassword,
+  signInWithPopup,
 } from "firebase/auth";
 import {
   arrayUnion,
@@ -125,6 +127,30 @@ export const userLoginAccount = async (email: string, password: string) => {
   }
 };
 
+export const signInWithGoogle = async () => {
+  try {
+    const provider = new GoogleAuthProvider();
+    const auth = getAuth();
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+
+    const db = getFirestore();
+    const userRef = doc(db, "users", user.uid);
+
+    await setDoc(userRef, {
+      name: user.displayName,
+      email: user.email,
+      createdAt: new Date().toISOString(),
+      photoURL: user.photoURL,
+      provider: "google",
+    });
+    return { success: true, user };
+  } catch (error: any) {
+    console.error("Google sign-in error:", error.code, error.message);
+    return { success: false, error };
+  }
+};
+
 export const addToWishlist = async (
   weaponId: string,
   imgSrc: string,
@@ -188,15 +214,15 @@ export const addToCart = async (
   inStock: number,
   quantity: number = 1
 ) => {
-  const auth = getAuth();
-  const db = getFirestore(app);
-  const user = auth.currentUser;
-
-  if (!user) return { status: false, message: "User not authenticated" };
-
-  const userRef = doc(db, "users", user.uid);
-
   try {
+    const auth = getAuth();
+    const db = getFirestore(app);
+    const user = auth.currentUser;
+    if (!user?.email)
+      return { status: false, message: "User not authenticated" };
+
+    const userRef = doc(db, "users", user.uid);
+
     const docSnap = await getDoc(userRef);
     let existingCart = [];
 

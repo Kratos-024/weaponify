@@ -1,7 +1,17 @@
 import { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
-import { userCreateAccount, userLoginAccount } from "../apis/app";
+import {
+  signInWithGoogle,
+  userCreateAccount,
+  userLoginAccount,
+} from "../apis/app";
 import { toast } from "react-toastify";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithRedirect,
+} from "firebase/auth";
 
 export const AccountCreation = ({
   showAccountHandler,
@@ -37,6 +47,16 @@ export const AccountCreation = ({
     }
   };
 
+  const signInWithGoogleHandler = async () => {
+    const provider = await signInWithGoogle();
+    if (provider.success) {
+      toast.success("Logged in");
+      showAccountHandler();
+      window.location.reload();
+    } else {
+      toast.error("Something went wrong please try again");
+    }
+  };
   return (
     <section className="bg-black/30 fixed inset-0 z-50 backdrop-blur-sm w-full h-screen">
       <div className="group relative flex items-center justify-center h-screen">
@@ -53,29 +73,28 @@ export const AccountCreation = ({
             <RxCross2 className=" absolute right-5 w-8 h-8" />{" "}
           </div>
           <div className="flex flex-col items-center">
-            <div className="">
-              <img
-                className="w-[136px]"
-                src="https://gearnix.risingbamboo.com/wp-content/themes/gearnix/dist/images/logo/light.png"
-              />
-              <p>Weaponify</p>
+            <div className="flex items-center text-white text-[36px]">
+              <img className=" w-[64px] " src="./images/Logo/hydra.png" />
+              <h1 className=" custom-orbitron text-[29px] text-black font-bold">
+                Weaponify
+              </h1>
             </div>
             <div className="b text-center">
               <h3 className="font-semibold text-[28px]">Welcome Back</h3>
               <p className="text-md">Please enter your email to sign in</p>
             </div>
             <div className="flex gap-5 mt-3">
+              <div onClick={signInWithGoogleHandler}>
+                {" "}
+                <img
+                  className="w-[28px] cursor-pointer h-[28px]"
+                  src="./images/svgs/google-icon-logo-svgrepo-com.svg"
+                />
+              </div>
+
               <img
                 className="w-[28px] cursor-pointer h-[28px]"
-                src="./svgs/google-icon-logo-svgrepo-com.svg"
-              />
-              <img
-                className="w-[28px] cursor-pointer h-[28px]"
-                src="./svgs/google-icon-logo-svgrepo-com.svg"
-              />
-              <img
-                className="w-[28px] cursor-pointer h-[28px]"
-                src="./svgs/apple-black-logo-svgrepo-com.svg"
+                src="./images//svgs/apple-black-logo-svgrepo-com.svg"
               />
             </div>
             <div className="flex mt-2 items-center gap-4 text-gray-500">

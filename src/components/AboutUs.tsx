@@ -20,24 +20,28 @@ export const AboutUs = () => {
             <span className="font-semibold text-black">3D models</span> of tanks
             and other weapon systems.
           </p>
-
           <div className="grid md:grid-cols-2 gap-12 mb-16">
             <div>
-              <h3 className="text-2xl font-bold mb-4"> What We Do</h3>
+              <h3 className="text-2xl font-bold mb-4">What We Do</h3>
               <p className="leading-loose">
-                We bring together historical and technical information on
-                ground-based military equipment. Our goal is to let users
-                interact with weapon systems through{" "}
-                <strong>real-time 3D models</strong>, understand their
-                development, and explore their use in warfare.
+                Weaponify showcases a powerful collection of weapons with{" "}
+                <strong>high-quality 3D models</strong> — from rifles and tanks
+                to heavy artillery. We make it easy to explore their structure,
+                features, and history in an interactive and engaging way. We
+                also{" "}
+                <span className="font-semibold text-pink-600">
+                  sell 3D models at reasonable prices
+                </span>{" "}
+                for creators and developers.
               </p>
             </div>
             <div>
-              <h3 className="text-2xl font-bold mb-4"> Our Mission</h3>
+              <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
               <p className="leading-loose">
-                To educate and inspire defense enthusiasts, students, creators,
-                and professionals through detailed, visually rich, and reliable
-                tools for exploring battlefield machines and strategies.
+                To build a central hub for weapon enthusiasts, developers, and
+                creators by providing accurate data, immersive 3D experiences,
+                and a platform to learn, compare, and be inspired by the world
+                of modern and historical weaponry.
               </p>
             </div>
           </div>
@@ -48,7 +52,7 @@ export const AboutUs = () => {
                 <img
                   className="vibrate"
                   width={48}
-                  src="../images/3d-svgrepo-com.svg"
+                  src="../images/svgs/3d-svgrepo-com.svg"
                 />
               </div>
               <h3 className="text-white">Explore in 3D</h3>
@@ -62,7 +66,7 @@ export const AboutUs = () => {
                 <img
                   className="vibrate"
                   width={48}
-                  src="../images/game-controller-svgrepo-com.svg"
+                  src="../images/svgs/game-controller-svgrepo-com.svg"
                 />
               </div>
               <h3 className="text-white">In-Game Appearances</h3>
@@ -76,7 +80,7 @@ export const AboutUs = () => {
                 <img
                   className="vibrate"
                   width={48}
-                  src="../images/idea-svgrepo-com.svg"
+                  src="../images/svgs/idea-svgrepo-com.svg"
                 />
               </div>
               <h3 className="text-white">Compare Weapons Side-by-Side</h3>
@@ -90,7 +94,7 @@ export const AboutUs = () => {
                 <img
                   className="vibrate"
                   width={48}
-                  src="../images/history-svgrepo-com.svg"
+                  src="../images/svgs/history-svgrepo-com.svg"
                 />
               </div>
               <h3 className="text-white">Real-World Origins</h3>
